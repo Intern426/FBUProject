@@ -40,7 +40,7 @@ An app that helps you manage your health by letting you see the results of your 
 * Option for "Kids Mode" that features a lighter palatte and maybe small animal stickers/characters to make it more appealing/relaxing for kids
 * Expand it to Dentist and Eye appointments that would have their own seperate page (like for Dentist, it could remind you that your next dentist appointment will involve an X-ray scan)
 * Add a feature that would help you find a hospital
-* 
+
 
 ### 2. Screen Archetypes
 
@@ -84,19 +84,7 @@ An app that helps you manage your health by letting you see the results of your 
 
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+![](https://i.imgur.com/wtnjchM.jpg)
 
-### [BONUS] Digital Wireframes & Mockups
 
-### [BONUS] Interactive Prototype
 
-## Schema 
-[This section will be completed in Unit 9]
-### Models
-User
-
-### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
