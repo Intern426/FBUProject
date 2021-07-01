@@ -1,7 +1,7 @@
 Original App Design Project - README Template
 ===
 
-# Health Stop App
+# Health Stop
 
 ## Table of Contents
 1. [Overview](#Overview)
