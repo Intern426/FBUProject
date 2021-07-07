@@ -1,7 +1,7 @@
 Original App Design Project - README Template
 ===
 
-# Health Stop
+# Prescription Helper
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -11,16 +11,19 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-An app that helps you manage your health by letting you see the results of your doctor visits (medications prescribed, lab results, physical results) 
+An app that helps you manage your prescriptions by allowing you to see a list of prescriptions offered by the GoodRX API, lets you favorite/save the ones you're interested in and can help you locate nearby pharmacies. 
 
 ### App Evaluation
 - **Category:** Health
-- **Mobile:** Can show you the location of your pharmacy pickup you sent it too and it also has a reminder feature that lets you know when your next appointment is
-- **Story:** Make it easier for the user to keep track of their health and get their appointments/information all in one location
-- **Market:** People who have to juggle around all of doctor appointments will probably need it on a more daily basis - currently, I plan on making it just for one individual but it would probably be useful to add a dependents feature for parents who have multiple kids and want to see that data as well
-- **Habit:** Depending on their health, it could be weekly
-- **Scope:** Figuring out how to get the location, work out the calendar/notifications for appointments
-
+- **Mobile:** Can show you the location of nearby pharmacies you and it also has a reminder feature that lets you know when to take your next medication
+- **Story:** Make it easier for the user to keep track of their prescription information/reminders in one app
+- **Market:** People who want more information on their prescriptions and find pharmacies
+- **Habit:** Depending on their health, heavy interaction will probably only happen monthly but if they decide to use the reminders, then they'll use the app daily just to remember to take their medication
+- **Scope:** 
+    * Getting the location of Pharmacies - one generic way could be utilizing a Map API like Google and just having the user insert their location than return nearby pharacies that way. 
+        * While I'm not sure if there's a way to get this information currently (asides from having to actually call), it would be nice to implement a feature that tells you if the medication is actually in stock
+    * Reminders and Alarms will be setup on your phone 
+    * Integrating multiple Drug APIs... initialy I find the GoodRX because I thought it would be useful for the user to get prescriptions and find a reasonable cost -- however, GoodRX doesn't supply any information about the drug (beyond name, manufacturer, price and pharmacy) so I'm hoping to utilize another API like RxNorm API to retreive information about the ingredients in the drug and other information that the user might be interested in
 
 ## Product Spec
 
@@ -29,62 +32,62 @@ An app that helps you manage your health by letting you see the results of your 
 **Required Must-have Stories**
 
 * User can log in to their account or sign up to create one
-* User can view their doctor visits and medications
-* User can get information on their medication (pharmacy pickup, side effects, recommended dosage/instruction)
-* User can set reminders for their next doctor appointment and get notifications
+* User can view a personal list of the prescriptions they liked/need 
+* User can get more information on their medication (side effects, recommended dosage/instruction, price)
+* User can get daily reminders for when you should take your prescription - so if you want to do it at 6:00 PM daily, it'll alert you at the time and provide some information about the prescription you should be taking
 
 **Optional Nice-to-have Stories**
-
+* Add an "Emergency Feature" that would help you find the nearest hospital and provide phone number information --> information about hospital gathered using Community Health API
 * User can write a note about issues/questions they may have for the doctor
-* User can get their lab results
-* Option for "Kids Mode" that features a lighter palatte and maybe small animal stickers/characters to make it more appealing/relaxing for kids
-* Expand it to Dentist and Eye appointments that would have their own seperate page (like for Dentist, it could remind you that your next dentist appointment will involve an X-ray scan)
-* Add a feature that would help you find a hospital
+* Option for Dark Mode and "Kids Mode" that features a lighter palatte and maybe small animal stickers/characters to make it more appealing/relaxing for kids
 
 
 ### 2. Screen Archetypes
 
 * Login Screen
    * User can log in to their account or sign up to create one
+ 
 * Registration Screen
     * Users can create an account
 
 * Reminders Screen
-    *  User can set reminders for their next doctor appointment and get notifications
-* Physical Checkup 
-    * User can get information about their physical checkup: eye test, weight, height
+    *  User can set reminders for when they have to take their prescription
 
-* Medication Information
-    *  User can get information on their medication (pharmacy pickup, side effects, recommended dosage/instruction)
+* Prescription List Screen
+    * User can see all the medications/prescription listed in the GoodRX database
 
+* Details Screen
+    *  User can get detailed information on their medication (pharmacy, side effects, recommended dosage/instruction, price)
 
-
-* OPTIONAL: Lab Results
-    * Users can get information about lab results
+* Locator Screen
+    * User can find nearby pharmacies
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
-* Physical Checkups
-* Lab Results
+* Prescription List
+* Profile/Personal Prescription List
 * Reminders
-* Medications
+* Details List
 
 **Flow Navigation** (Screen to Screen)
 * Login Screen
-   * Physical Checkup
+   * Prescription List
 * Registration Screen
-    * Physical Checkup
-* Physical Checkup 
-    * Go to Medication Info
-    * Go to Physical Checkup
+    * Prescription List
+* Prescription List
+    * Go to Details Info
+    * Go to Personal Prescription List
+    * Go to Reminders Screen
+* Details Info
+    *  Back to Whole Prescription List/Personal Prescription List (whichever screen you were previously on before selecting the reminders tab)
+    *  Go to Locator Screen (.... might have this on the starter screen instead actually)
 * Reminders Screen
-    *  Back to Physical Checkup/Medical Checkup (whichever screen you were previously on before selecting the reminders tab)
+    * Go back to Profile
 
 
 ## Wireframes
-![](https://i.imgur.com/wtnjchM.jpg)
-
+![](https://i.imgur.com/ikpBnhi.png)
 
 
