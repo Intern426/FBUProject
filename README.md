@@ -33,14 +33,16 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 
 * User can log in to their account or sign up to create one
 * User can view a personal list of the prescriptions they liked/need 
-* User can get more information on their medication (side effects, recommended dosage/instruction, price)
+
 * User can get daily reminders for when you should take your prescription - so if you want to do it at 6:00 PM daily, it'll alert you at the time and provide some information about the prescription you should be taking
 
 **Optional Nice-to-have Stories**
 * Add an "Emergency Feature" that would help you find the nearest hospital and provide phone number information --> information about hospital gathered using Community Health API
 * User can write a note about issues/questions they may have for the doctor
 * Option for Dark Mode and "Kids Mode" that features a lighter palatte and maybe small animal stickers/characters to make it more appealing/relaxing for kids
-
+* User can get more information on their medication (side effects, recommended dosage/instruction, price)
+* Delivery Schedule 
+* Recommendation Feature Based on Price/Availability, Maybe evne recommend based on health issue (i.e. headache, diahrrea)
 
 ### 2. Screen Archetypes
 
@@ -91,3 +93,45 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 ![](https://i.imgur.com/ikpBnhi.png)
 
 
+## Schema
+
+**Models** 
+
+*Prescription*
+
+| Property | Type | Descripton |
+| -------- | -------- | -------- |
+| name     | String     | name of the prescription (required)     |
+| ndc      | String (Number?)  | Unique code for a prescription (written out like a phone number) (required)
+| dosage | Number | number containing the quantity of the prescription |
+| price | Number | price of the prescription 
+| price_pharamcy | String | name of the pharmacy that holds the prescription at the specified price |
+| active_ingredient| String | main ingredient in the drug
+| warning| String | a string that discusses the side effects as a result of the main ingredient**| 
+| inactive_ingredients | Array of Strings? | stores the other inactive ingredients that make up the prescription (optional)|
+
+** Written in paragraph format - information offered by the openFDA API, a drug API that doesn't require authentication
+
+
+*User*
+
+| Property | Type | Descripton |
+| -------- | -------- | -------- |
+| objectID | String     | unique ID for the user (default field)    |
+| address      | String  | Contains user's home location for possible implementation of delivery and to help with the searching of pharmacies|
+| array_ndc | Array of Strings | Holds the NDC codes for prescriptions the user liked/favorited to facilitate the gathering of information across APIs|
+
+**Networking**
+
+List of network requests by screen
+
+* Profile Screen
+    * (Read/GET) Query all favorited prescriptions by user
+
+* Prescription Screen
+    * (Create/POST) Update user - add another prescription to favorited list
+    * (Delete) Delete favorited prescription
+    * (Read/GET) Collect data on drugs
+
+* Pharamcy Map Screen
+    * (Read/GET) Find location of pharamacy based of home address (or whatever location you put down in profile) or ask for current location
