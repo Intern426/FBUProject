@@ -32,17 +32,17 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 **Required Must-have Stories**
 
 * User can log in to their account or sign up to create one
+* User can see list of prescriptions, and their prices/pharamcies (using the GoodRX API)
 * User can view a personal list of the prescriptions they liked/need 
-
 * User can get daily reminders for when you should take your prescription - so if you want to do it at 6:00 PM daily, it'll alert you at the time and provide some information about the prescription you should be taking
+* Recommendation Feature Based on Price/Availability, Maybe evne recommend based on health issue (i.e. headache, diahrrea)
+* Delivery Schedule 
 
 **Optional Nice-to-have Stories**
+*  User can get more information on their medication (side effects, recommended dosage/instruction, price)
 * Add an "Emergency Feature" that would help you find the nearest hospital and provide phone number information --> information about hospital gathered using Community Health API
 * User can write a note about issues/questions they may have for the doctor
 * Option for Dark Mode and "Kids Mode" that features a lighter palatte and maybe small animal stickers/characters to make it more appealing/relaxing for kids
-* User can get more information on their medication (side effects, recommended dosage/instruction, price)
-* Delivery Schedule 
-* Recommendation Feature Based on Price/Availability, Maybe evne recommend based on health issue (i.e. headache, diahrrea)
 
 ### 2. Screen Archetypes
 
@@ -90,6 +90,7 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 
 
 ## Wireframes
+Digital Wireframe: https://ninjamock.com/s/GST5TJx
 ![](https://i.imgur.com/ikpBnhi.png)
 
 
