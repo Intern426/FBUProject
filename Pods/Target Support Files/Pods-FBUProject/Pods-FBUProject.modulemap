@@ -1,0 +1,6 @@
+framework module Pods_FBUProject {
+  umbrella header "Pods-FBUProject-umbrella.h"
+
+  export *
+  module * { export * }
+}
