@@ -6,8 +6,10 @@
 //
 
 #import "PrescriptionsViewController.h"
+#import "PrescriptionCell.h"
 
-@interface PrescriptionsViewController ()
+@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -15,6 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     // Do any additional setup after loading the view.
 }
 
@@ -27,5 +31,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell" forIndexPath:indexPath];
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
 
 @end

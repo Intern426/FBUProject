@@ -14,6 +14,8 @@
 		DEFAFA58269CD7BD00BEC4BF /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA57269CD7BD00BEC4BF /* ProfileViewController.m */; };
 		DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA5A269CDA1600BEC4BF /* LoginViewController.m */; };
 		DEFAFA5D269CDB4900BEC4BF /* Key.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEFAFA5C269CDB4900BEC4BF /* Key.plist */; };
+		DEFAFA62269CE42600BEC4BF /* PrescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA61269CE42600BEC4BF /* PrescriptionCell.m */; };
+		DEFAFA65269CF30000BEC4BF /* Prescription.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA64269CF30000BEC4BF /* Prescription.m */; };
 		DEFE0957269C9E6D00EAF59E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0956269C9E6D00EAF59E /* AppDelegate.m */; };
 		DEFE095A269C9E6D00EAF59E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0959269C9E6D00EAF59E /* SceneDelegate.m */; };
 		DEFE0960269C9E6D00EAF59E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEFE095E269C9E6D00EAF59E /* Main.storyboard */; };
@@ -58,6 +60,10 @@
 		DEFAFA59269CDA1600BEC4BF /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		DEFAFA5A269CDA1600BEC4BF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		DEFAFA5C269CDB4900BEC4BF /* Key.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Key.plist; sourceTree = "<group>"; };
+		DEFAFA60269CE42600BEC4BF /* PrescriptionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrescriptionCell.h; sourceTree = "<group>"; };
+		DEFAFA61269CE42600BEC4BF /* PrescriptionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrescriptionCell.m; sourceTree = "<group>"; };
+		DEFAFA63269CF30000BEC4BF /* Prescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prescription.h; sourceTree = "<group>"; };
+		DEFAFA64269CF30000BEC4BF /* Prescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Prescription.m; sourceTree = "<group>"; };
 		DEFE0952269C9E6D00EAF59E /* FBUProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBUProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEFE0955269C9E6D00EAF59E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DEFE0956269C9E6D00EAF59E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -140,6 +146,24 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		DEFAFA5E269CE40300BEC4BF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DEFAFA60269CE42600BEC4BF /* PrescriptionCell.h */,
+				DEFAFA61269CE42600BEC4BF /* PrescriptionCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DEFAFA5F269CE40F00BEC4BF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DEFAFA63269CF30000BEC4BF /* Prescription.h */,
+				DEFAFA64269CF30000BEC4BF /* Prescription.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		DEFE0949269C9E6D00EAF59E = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +189,8 @@
 		DEFE0954269C9E6D00EAF59E /* FBUProject */ = {
 			isa = PBXGroup;
 			children = (
+				DEFAFA5F269CE40F00BEC4BF /* Models */,
+				DEFAFA5E269CE40300BEC4BF /* Views */,
 				DEFAFA52269CD78F00BEC4BF /* View Controllers */,
 				DEFE0955269C9E6D00EAF59E /* AppDelegate.h */,
 				DEFE0956269C9E6D00EAF59E /* AppDelegate.m */,
@@ -436,8 +462,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEFAFA62269CE42600BEC4BF /* PrescriptionCell.m in Sources */,
 				DEFAFA55269CD7A900BEC4BF /* PrescriptionsViewController.m in Sources */,
 				DEFE0957269C9E6D00EAF59E /* AppDelegate.m in Sources */,
+				DEFAFA65269CF30000BEC4BF /* Prescription.m in Sources */,
 				DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */,
 				DEFE0968269C9E6E00EAF59E /* main.m in Sources */,
 				DEFE095A269C9E6D00EAF59E /* SceneDelegate.m in Sources */,

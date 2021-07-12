@@ -21,8 +21,8 @@
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
     
     ParseClientConfiguration *config = [ParseClientConfiguration  configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-        configuration.applicationId = [dict objectForKey:@"app_id"]; // <- UPDATE
-        configuration.clientKey = [dict objectForKey:@"client_key"]; // <- UPDATE
+        configuration.applicationId = [dict objectForKey:@"app_id"];
+        configuration.clientKey = [dict objectForKey:@"client_key"];
         configuration.server = @"https://parseapi.back4app.com";
     }];
     
