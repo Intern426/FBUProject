@@ -103,11 +103,11 @@
                                     </scopeButtonTitles>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrescriptionCell" rowHeight="209" id="Kts-iY-hom" customClass="PrescriptionCell">
-                                        <rect key="frame" x="0.0" y="75.5" width="414" height="209"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrescriptionCell" rowHeight="270" id="Kts-iY-hom" customClass="PrescriptionCell">
+                                        <rect key="frame" x="0.0" y="75.5" width="414" height="270"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kts-iY-hom" id="26Y-Db-tRU">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbG-KY-s5h">
@@ -116,14 +116,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NDC: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btF-KO-lTq">
-                                                    <rect key="frame" x="20" y="49" width="283" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dosage:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrI-Md-jNj">
-                                                    <rect key="frame" x="20" y="95" width="63" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrI-Md-jNj">
+                                                    <rect key="frame" x="20" y="56" width="70" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -134,12 +128,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJe-ve-qMU">
-                                                    <rect key="frame" x="329" y="176" width="22" height="22"/>
-                                                    <state key="normal" image="star" catalog="system"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pharmacy:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEY-0k-wd0">
-                                                    <rect key="frame" x="44" y="165" width="239" height="21"/>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pharmacy:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEY-0k-wd0">
+                                                    <rect key="frame" x="43" y="206" width="81" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -151,41 +141,64 @@
                                                         <segue destination="rXB-2Y-GGU" kind="show" id="mPr-XC-RT6"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Form:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cl5-Ub-jiS">
+                                                    <rect key="frame" x="20" y="94" width="44.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAb-W3-IlH">
+                                                    <rect key="frame" x="75" y="129" width="82" height="30"/>
+                                                    <state key="normal" title="Select Price">
+                                                        <color key="titleColor" systemColor="placeholderTextColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didChangePriceSelection:" destination="Kts-iY-hom" eventType="valueChanged" id="js3-gz-cBH"/>
+                                                        <action selector="didTapPriceSelection:" destination="Kts-iY-hom" eventType="primaryActionTriggered" id="YmE-Iy-fkU"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJe-ve-qMU">
+                                                    <rect key="frame" x="328" y="206" width="22" height="22"/>
+                                                    <state key="normal" image="star" catalog="system"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="DAb-W3-IlH" firstAttribute="top" secondItem="Cl5-Ub-jiS" secondAttribute="bottom" constant="14" id="0b1-6d-f8v"/>
                                                 <constraint firstItem="hcU-U8-WBw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sbG-KY-s5h" secondAttribute="trailing" constant="8" symbolic="YES" id="3NL-U0-S5A"/>
+                                                <constraint firstItem="ZEY-0k-wd0" firstAttribute="top" secondItem="DAb-W3-IlH" secondAttribute="bottom" constant="47" id="4aW-Vh-JzQ"/>
                                                 <constraint firstItem="sbG-KY-s5h" firstAttribute="top" secondItem="26Y-Db-tRU" secondAttribute="top" constant="11" id="9bG-bR-FH7"/>
+                                                <constraint firstItem="mwy-l8-vZW" firstAttribute="leading" secondItem="sbG-KY-s5h" secondAttribute="leading" id="Abr-Qf-iag"/>
+                                                <constraint firstItem="Cl5-Ub-jiS" firstAttribute="leading" secondItem="sbG-KY-s5h" secondAttribute="leading" id="B85-OJ-5QY"/>
+                                                <constraint firstItem="WrI-Md-jNj" firstAttribute="top" secondItem="sbG-KY-s5h" secondAttribute="bottom" constant="24" id="Em0-4j-m5f"/>
                                                 <constraint firstItem="mwy-l8-vZW" firstAttribute="leading" secondItem="26Y-Db-tRU" secondAttribute="leading" constant="20" id="Foy-Un-VmG"/>
+                                                <constraint firstItem="mwy-l8-vZW" firstAttribute="top" secondItem="Cl5-Ub-jiS" secondAttribute="bottom" constant="18" id="GN4-cP-kDh"/>
                                                 <constraint firstItem="hcU-U8-WBw" firstAttribute="top" secondItem="26Y-Db-tRU" secondAttribute="top" constant="11" id="Gfx-DD-0Xh"/>
-                                                <constraint firstItem="bJe-ve-qMU" firstAttribute="top" secondItem="hcU-U8-WBw" secondAttribute="bottom" constant="143" id="Gmn-Km-6Dq"/>
-                                                <constraint firstItem="WrI-Md-jNj" firstAttribute="top" secondItem="btF-KO-lTq" secondAttribute="bottom" constant="25" id="Gxn-pW-ePr"/>
+                                                <constraint firstItem="bJe-ve-qMU" firstAttribute="top" secondItem="hcU-U8-WBw" secondAttribute="bottom" constant="173" id="Gmn-Km-6Dq"/>
                                                 <constraint firstItem="WrI-Md-jNj" firstAttribute="leading" secondItem="26Y-Db-tRU" secondAttribute="leading" constant="20" id="Nn4-qd-tLw"/>
-                                                <constraint firstItem="ZEY-0k-wd0" firstAttribute="leading" secondItem="26Y-Db-tRU" secondAttribute="leading" constant="44" id="NtH-v6-NKD"/>
-                                                <constraint firstAttribute="trailing" secondItem="bJe-ve-qMU" secondAttribute="trailing" constant="63" id="Pmc-2J-eVy"/>
-                                                <constraint firstAttribute="trailing" secondItem="btF-KO-lTq" secondAttribute="trailing" constant="111" id="Wjn-ve-3ib"/>
+                                                <constraint firstItem="ZEY-0k-wd0" firstAttribute="leading" secondItem="26Y-Db-tRU" secondAttribute="leading" constant="43" id="NtH-v6-NKD"/>
+                                                <constraint firstAttribute="trailing" secondItem="bJe-ve-qMU" secondAttribute="trailing" constant="64" id="Pmc-2J-eVy"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mwy-l8-vZW" secondAttribute="trailing" constant="20" symbolic="YES" id="YRg-kT-BDE"/>
-                                                <constraint firstItem="btF-KO-lTq" firstAttribute="leading" secondItem="26Y-Db-tRU" secondAttribute="leading" constant="20" id="Yl0-tz-3qK"/>
                                                 <constraint firstItem="sbG-KY-s5h" firstAttribute="leading" secondItem="26Y-Db-tRU" secondAttribute="leading" constant="20" id="aBn-3X-57r"/>
-                                                <constraint firstAttribute="bottom" secondItem="bJe-ve-qMU" secondAttribute="bottom" constant="11" id="g5Z-VG-1By"/>
-                                                <constraint firstItem="ZEY-0k-wd0" firstAttribute="top" secondItem="mwy-l8-vZW" secondAttribute="bottom" constant="11" id="gAE-cO-sZx"/>
+                                                <constraint firstItem="Cl5-Ub-jiS" firstAttribute="top" secondItem="WrI-Md-jNj" secondAttribute="bottom" constant="17" id="fNw-vl-c53"/>
+                                                <constraint firstAttribute="bottom" secondItem="bJe-ve-qMU" secondAttribute="bottom" constant="42" id="g5Z-VG-1By"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WrI-Md-jNj" secondAttribute="trailing" constant="30" id="gOC-gK-Bfd"/>
                                                 <constraint firstAttribute="trailing" secondItem="hcU-U8-WBw" secondAttribute="trailing" constant="64" id="hMF-Qf-yyo"/>
-                                                <constraint firstItem="btF-KO-lTq" firstAttribute="leading" secondItem="sbG-KY-s5h" secondAttribute="leading" id="iPn-qC-oKr"/>
                                                 <constraint firstItem="bJe-ve-qMU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZEY-0k-wd0" secondAttribute="trailing" constant="46" id="njC-HA-Qaz"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZEY-0k-wd0" secondAttribute="bottom" constant="23" id="pq6-q7-W7g"/>
                                                 <constraint firstItem="mwy-l8-vZW" firstAttribute="leading" secondItem="sbG-KY-s5h" secondAttribute="leading" id="s8U-0h-BMq"/>
-                                                <constraint firstItem="btF-KO-lTq" firstAttribute="top" secondItem="sbG-KY-s5h" secondAttribute="bottom" constant="17" id="tuj-Nq-ORj"/>
-                                                <constraint firstItem="mwy-l8-vZW" firstAttribute="top" secondItem="WrI-Md-jNj" secondAttribute="bottom" constant="17" id="upg-V2-olH"/>
+                                                <constraint firstItem="WrI-Md-jNj" firstAttribute="leading" secondItem="sbG-KY-s5h" secondAttribute="leading" id="tVF-0b-5fd"/>
+                                                <constraint firstAttribute="trailing" secondItem="DAb-W3-IlH" secondAttribute="trailing" constant="257" id="uwW-gt-8PX"/>
+                                                <constraint firstItem="DAb-W3-IlH" firstAttribute="leading" secondItem="mwy-l8-vZW" secondAttribute="trailing" constant="11.5" id="xhj-C0-eZQ"/>
                                                 <constraint firstItem="WrI-Md-jNj" firstAttribute="leading" secondItem="sbG-KY-s5h" secondAttribute="leading" id="xqc-08-amP"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="dosageLabel" destination="WrI-Md-jNj" id="d0b-52-Qba"/>
+                                            <outlet property="drugTypeLabel" destination="Cl5-Ub-jiS" id="asJ-uE-n9j"/>
                                             <outlet property="likeButton" destination="bJe-ve-qMU" id="bTt-cl-cXm"/>
                                             <outlet property="nameLabel" destination="sbG-KY-s5h" id="qUC-PJ-scH"/>
-                                            <outlet property="ndcLabel" destination="btF-KO-lTq" id="tiy-OY-4K2"/>
                                             <outlet property="pharmacyLabel" destination="ZEY-0k-wd0" id="dZf-Lr-ROE"/>
-                                            <outlet property="priceLabel" destination="mwy-l8-vZW" id="ygr-Kn-HEk"/>
+                                            <outlet property="pricesButton" destination="DAb-W3-IlH" id="c9F-Yk-Evr"/>
+                                            <outlet property="quantityLabel" destination="WrI-Md-jNj" id="6iX-Iq-2Oa"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -194,7 +207,9 @@
                         <viewLayoutGuide key="safeArea" id="vrO-f6-jvR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="3a0-qo-sNt"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="YYr-w3-KR9" id="dRH-Im-vcv"/>
                     </connections>
@@ -374,6 +389,9 @@
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="person.crop.square" catalog="system" width="128" height="114"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

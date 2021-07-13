@@ -8,6 +8,7 @@
 #import "PrescriptionsViewController.h"
 #import "PrescriptionCell.h"
 
+
 @interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -20,6 +21,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     // Do any additional setup after loading the view.
+    
 }
 
 /*
@@ -34,6 +36,7 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell" forIndexPath:indexPath];
+    
     return cell;
 }
 
