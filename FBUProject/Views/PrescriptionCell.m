@@ -7,25 +7,31 @@
 
 #import "PrescriptionCell.h"
 #import "LoremIpsum/LoremIpsum.h"
+#import "Parse/Parse.h"
 
 @implementation PrescriptionCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [self.likeButton setImage:[UIImage systemImageNamed:@"star.fill"] forState:UIControlStateSelected];
+    [self.likeButton setImage:[UIImage systemImageNamed:@"star"] forState:UIControlStateNormal];
     [self setupPrescription];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
 
 -(void)setupPrescription{
-   // _prescription = prescription;
+
+    // _prescription = prescription;
     self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", LoremIpsum.firstName];
+    self.prescription = [[Prescription alloc] init];
+    self.prescription.genericName = self.nameLabel.text;
     self.quantityLabel.text = [NSString stringWithFormat:@"Quantity: %@", LoremIpsum.word];;
     self.pharmacyLabel.text = [NSString stringWithFormat:@"Pharmacy: %@", LoremIpsum.word];
     
@@ -56,29 +62,38 @@
     return menu;
     
 }
-- (IBAction)changedValue:(id)sender {
-    if(![self.pricesButton.titleLabel.text isEqual:
-         @"Select Price"]) {
-        self.pharmacyLabel.hidden = NO;
-        self.pharmacyLabel.text = @"Pharmacy: Walgreens";
+
+- (IBAction)didTapFavorite:(id)sender {
+    PFUser *currentUser = [PFUser currentUser];
+    if (!currentUser[@"savedDrugs"]) {
+        currentUser[@"savedDrugs"] = [[NSMutableArray alloc] init];
+    }
+    if (self.likeButton.isSelected) {
+        [currentUser[@"savedDrugs"] removeObject:self.prescription.genericName];
+        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The PFUser has been saved.
+                NSLog(@"Drug was removed");
+            } else {
+                // There was a problem, check error.description
+                NSLog(@"boo.....%@", error.localizedDescription);
+            }
+        }];
+        self.likeButton.selected = NO;
+    } else {
+        [currentUser[@"savedDrugs"] addObject:self.prescription.genericName];
+        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The PFUser has been saved.
+                NSLog(@"Drug was favorited");
+            } else {
+                // There was a problem, check error.description
+                NSLog(@"boo.....%@", error.localizedDescription);
+            }
+        }];
+        self.likeButton.selected = YES;
     }
 }
 
-- (IBAction)didTapPriceSelection:(id)sender {
-    if(![self.pricesButton.titleLabel.text isEqual:
-         @"Select Price"]) {
-        self.pharmacyLabel.hidden = NO;
-        self.pharmacyLabel.text = @"Pharmacy: Walgreens";
-    }
-}
-
-
-- (IBAction)didChangePriceSelection:(id)sender {
-    if(![self.pricesButton.titleLabel.text isEqual:
-         @"Select Price"]) {
-        self.pharmacyLabel.hidden = NO;
-        self.pharmacyLabel.text = @"Pharmacy: Walgreens";
-    }
-}
 
 @end

@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Prescription : NSObject
 
 // Required information
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *brandName;
+@property (nonatomic, strong) NSString *genericName;
 @property (nonatomic) double dosageAmount;
 @property (nonatomic, strong) NSString *dosageForm; // i.e. tablet
 @property (nonatomic) double price;
