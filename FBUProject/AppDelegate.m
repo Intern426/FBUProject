@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
+@import UserNotifications;
 
 @interface AppDelegate ()
 
@@ -16,7 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Get path to access keys
+    // Configure with Parse Database
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Key" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
     

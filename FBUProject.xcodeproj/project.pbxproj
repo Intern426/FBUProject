@@ -10,6 +10,10 @@
 		202B5AEDE570DE48CCE26066 /* Pods_FBUProject_FBUProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD6DE211F30CEC0DA7B4D8A /* Pods_FBUProject_FBUProjectUITests.framework */; };
 		AC83A820BAFB578E60CEAAF6 /* Pods_FBUProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52073665FB9FB534B73C2C89 /* Pods_FBUProjectTests.framework */; };
 		C7662F188BA509AD33C02595 /* Pods_FBUProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B8AEAEA75278B4558BBFBF /* Pods_FBUProject.framework */; };
+		DE6009D2269F766300CE21EA /* ReminderNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */; };
+		DE6009D5269F778000CE21EA /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D4269F778000CE21EA /* Reminder.m */; };
+		DE6009D8269F7B3900CE21EA /* ReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D7269F7B3900CE21EA /* ReminderCell.m */; };
+		DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */; };
 		DEFAFA55269CD7A900BEC4BF /* PrescriptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA54269CD7A900BEC4BF /* PrescriptionsViewController.m */; };
 		DEFAFA58269CD7BD00BEC4BF /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA57269CD7BD00BEC4BF /* ProfileViewController.m */; };
 		DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA5A269CDA1600BEC4BF /* LoginViewController.m */; };
@@ -53,6 +57,14 @@
 		98B8AEAEA75278B4558BBFBF /* Pods_FBUProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FBUProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DCEC82A85363DA5A9E0D9F /* Pods-FBUProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-FBUProjectTests/Pods-FBUProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C42742C4C834375D0A7DB798 /* Pods-FBUProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUProject.debug.xcconfig"; path = "Target Support Files/Pods-FBUProject/Pods-FBUProject.debug.xcconfig"; sourceTree = "<group>"; };
+		DE6009D0269F766200CE21EA /* ReminderNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderNotificationManager.h; sourceTree = "<group>"; };
+		DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderNotificationManager.m; sourceTree = "<group>"; };
+		DE6009D3269F778000CE21EA /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
+		DE6009D4269F778000CE21EA /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
+		DE6009D6269F7B3900CE21EA /* ReminderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderCell.h; sourceTree = "<group>"; };
+		DE6009D7269F7B3900CE21EA /* ReminderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderCell.m; sourceTree = "<group>"; };
+		DECCBF97269F4DEC00C20B68 /* RemindersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindersViewController.h; sourceTree = "<group>"; };
+		DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindersViewController.m; sourceTree = "<group>"; };
 		DEFAFA53269CD7A900BEC4BF /* PrescriptionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrescriptionsViewController.h; sourceTree = "<group>"; };
 		DEFAFA54269CD7A900BEC4BF /* PrescriptionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrescriptionsViewController.m; sourceTree = "<group>"; };
 		DEFAFA56269CD7BD00BEC4BF /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -142,6 +154,8 @@
 				DEFAFA57269CD7BD00BEC4BF /* ProfileViewController.m */,
 				DEFAFA59269CDA1600BEC4BF /* LoginViewController.h */,
 				DEFAFA5A269CDA1600BEC4BF /* LoginViewController.m */,
+				DECCBF97269F4DEC00C20B68 /* RemindersViewController.h */,
+				DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -151,6 +165,8 @@
 			children = (
 				DEFAFA60269CE42600BEC4BF /* PrescriptionCell.h */,
 				DEFAFA61269CE42600BEC4BF /* PrescriptionCell.m */,
+				DE6009D6269F7B3900CE21EA /* ReminderCell.h */,
+				DE6009D7269F7B3900CE21EA /* ReminderCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -160,6 +176,8 @@
 			children = (
 				DEFAFA63269CF30000BEC4BF /* Prescription.h */,
 				DEFAFA64269CF30000BEC4BF /* Prescription.m */,
+				DE6009D3269F778000CE21EA /* Reminder.h */,
+				DE6009D4269F778000CE21EA /* Reminder.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -196,6 +214,8 @@
 				DEFE0956269C9E6D00EAF59E /* AppDelegate.m */,
 				DEFE0958269C9E6D00EAF59E /* SceneDelegate.h */,
 				DEFE0959269C9E6D00EAF59E /* SceneDelegate.m */,
+				DE6009D0269F766200CE21EA /* ReminderNotificationManager.h */,
+				DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */,
 				DEFE095E269C9E6D00EAF59E /* Main.storyboard */,
 				DEFE0961269C9E6E00EAF59E /* Assets.xcassets */,
 				DEFE0963269C9E6E00EAF59E /* LaunchScreen.storyboard */,
@@ -462,14 +482,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE6009D5269F778000CE21EA /* Reminder.m in Sources */,
 				DEFAFA62269CE42600BEC4BF /* PrescriptionCell.m in Sources */,
 				DEFAFA55269CD7A900BEC4BF /* PrescriptionsViewController.m in Sources */,
 				DEFE0957269C9E6D00EAF59E /* AppDelegate.m in Sources */,
+				DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */,
+				DE6009D2269F766300CE21EA /* ReminderNotificationManager.m in Sources */,
 				DEFAFA65269CF30000BEC4BF /* Prescription.m in Sources */,
 				DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */,
 				DEFE0968269C9E6E00EAF59E /* main.m in Sources */,
 				DEFE095A269C9E6D00EAF59E /* SceneDelegate.m in Sources */,
 				DEFAFA58269CD7BD00BEC4BF /* ProfileViewController.m in Sources */,
+				DE6009D8269F7B3900CE21EA /* ReminderCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

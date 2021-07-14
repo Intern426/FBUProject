@@ -25,7 +25,6 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     
-    
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
@@ -41,6 +40,7 @@
 
 - (IBAction)didTapSignUp:(id)sender {
     //TODO: Create another view controller to let them sign up -- main reason is to have them enter an address/location to use for the pharmacy search later
+    
     // initialize a user object
     PFUser *newUser = [PFUser user];
     
