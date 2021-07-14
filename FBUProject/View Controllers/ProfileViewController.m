@@ -26,6 +26,7 @@
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser[@"savedDrugs"]) {
         self.prescriptions = currentUser[@"savedDrugs"];
+        self.emptyLabel.hidden = YES;
         [self.tableView reloadData];
     } else {
         self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];

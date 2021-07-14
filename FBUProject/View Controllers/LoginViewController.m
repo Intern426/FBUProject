@@ -11,6 +11,7 @@
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @end
 
 @implementation LoginViewController
@@ -28,6 +29,7 @@
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
+            self.errorLabel.hidden = NO;
         } else {
             NSLog(@"User logged in successfully");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
