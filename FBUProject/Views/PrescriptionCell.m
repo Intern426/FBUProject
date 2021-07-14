@@ -52,7 +52,8 @@
             [self.pricesButton setTitle:price forState:UIControlStateNormal];
             [self.pricesButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
             self.pharmacyLabel.hidden = NO;
-            self.pharmacyLabel.text = @"Pharmacy: Walgreens";
+            self.searchButton.hidden = NO;
+            self.pharmacyLabel.text = @"Pharmacy: CVS";
         }];
         [priceOptions addObject:testAction];
     }

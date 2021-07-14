@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *pharmacyLabel;
 @property (weak, nonatomic) IBOutlet UIButton *pricesButton;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 
 
 @property (strong, nonatomic) Prescription *prescription;
