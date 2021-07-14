@@ -53,7 +53,7 @@
             [self.pricesButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
             self.pharmacyLabel.hidden = NO;
             self.searchButton.hidden = NO;
-            self.pharmacyLabel.text = @"Pharmacy: CVS";
+            self.pharmacyLabel.text = @"Pharmacy: Walgreens";
         }];
         [priceOptions addObject:testAction];
     }
@@ -95,6 +95,10 @@
         self.likeButton.selected = YES;
     }
 }
+
+- (IBAction)didTapSearch:(id)sender {
+}
+
 
 
 @end

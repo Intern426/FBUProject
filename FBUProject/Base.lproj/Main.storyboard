@@ -266,6 +266,10 @@
                                                     <state key="normal" title="Search" image="magnifyingglass" catalog="system">
                                                         <color key="titleColor" systemColor="opaqueSeparatorColor"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didTapSearch:" destination="Kts-iY-hom" eventType="touchUpInside" id="Q6k-IM-xKP"/>
+                                                        <segue destination="Bff-8b-hjE" kind="show" id="Rqk-2s-ABe"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -420,6 +424,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yUw-H8-arR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-471" y="2207"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="lBv-9M-Bdu">
+            <objects>
+                <viewController id="EOz-CR-BKx" customClass="MapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ds8-LU-ken">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lqk-JC-7cn">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="k0i-zC-vgh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="lqk-JC-7cn" secondAttribute="bottom" id="6T4-B1-Hao"/>
+                            <constraint firstItem="lqk-JC-7cn" firstAttribute="top" secondItem="ds8-LU-ken" secondAttribute="top" id="QEV-qb-8Vs"/>
+                            <constraint firstItem="lqk-JC-7cn" firstAttribute="trailing" secondItem="k0i-zC-vgh" secondAttribute="trailing" id="wAg-pp-SOT"/>
+                            <constraint firstItem="lqk-JC-7cn" firstAttribute="leading" secondItem="k0i-zC-vgh" secondAttribute="leading" id="yuh-tr-NQz"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="60W-5J-MLA"/>
+                    <connections>
+                        <outlet property="mapView" destination="lqk-JC-7cn" id="c7w-Dt-6xw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xxI-MC-d7p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1748" y="2205"/>
         </scene>
         <!--Hello!-->
         <scene sceneID="tMN-pw-grs">
@@ -645,6 +679,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FAh-Rw-HQp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2253.6231884057975" y="705.80357142857144"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dSd-X6-Gbg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Bff-8b-hjE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="xw7-Jl-iaQ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sAM-Ku-cNL">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="EOz-CR-BKx" kind="relationship" relationship="rootViewController" id="kMF-L5-zvD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fb8-u3-Vz9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="933" y="2205"/>
         </scene>
     </scenes>
     <resources>
