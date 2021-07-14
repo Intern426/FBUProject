@@ -22,6 +22,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser.username];
+    
     // Do any additional setup after loading the view.
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser[@"savedDrugs"]) {

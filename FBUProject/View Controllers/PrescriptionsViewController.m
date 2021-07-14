@@ -7,7 +7,9 @@
 
 #import "PrescriptionsViewController.h"
 #import "PrescriptionCell.h"
-
+#import "LoginViewController.h"
+#import "SceneDelegate.h"
+#import "Parse/Parse.h"
 
 @interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -21,8 +23,22 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     // Do any additional setup after loading the view.
-    
 }
+
+- (IBAction)didTapLogout:(id)sender {
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+        } else {
+            SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil]; // Access Main.storyboard
+            LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"]; // Call forth the login view controller
+            
+            sceneDelegate.window.rootViewController = loginViewController;
+        }
+    }];
+}
+
 
 /*
 #pragma mark - Navigation

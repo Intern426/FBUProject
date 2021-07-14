@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Login View Controller-->
+        <!--Login Screen-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" title="Login Screen" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -217,7 +217,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="3a0-qo-sNt">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Zpm-Ww-cBw"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Zpm-Ww-cBw">
+                            <connections>
+                                <action selector="didTapLogout:" destination="8Ti-Hi-WuD" id="HiI-S7-Qvb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -465,7 +469,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="FAI-kb-Mwd">
             <objects>
-                <tabBarController id="07Y-ga-7FO" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabViewController" id="07Y-ga-7FO" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="3gm-dS-3YF"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="d1s-2F-PiM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
