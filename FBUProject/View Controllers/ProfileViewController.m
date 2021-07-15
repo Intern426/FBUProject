@@ -25,6 +25,10 @@
     self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser.username];
     
     // Do any additional setup after loading the view.
+    [self loadFavorites];
+}
+
+-(void) loadFavorites{
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser[@"savedDrugs"]) {
         self.prescriptions = currentUser[@"savedDrugs"];
@@ -35,6 +39,12 @@
         self.emptyLabel.hidden = NO;
     }
 }
+
+- (void)viewDidAppear:(BOOL)animated{
+   // [super viewDidAppear:YES];
+    [self loadFavorites];
+}
+
 
 /*
 #pragma mark - Navigation

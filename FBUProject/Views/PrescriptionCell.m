@@ -8,8 +8,9 @@
 #import "PrescriptionCell.h"
 #import "LoremIpsum/LoremIpsum.h"
 #import "Parse/Parse.h"
+#import "ProfileViewController.h"
 
-@implementation PrescriptionCell
+@implementation PrescriptionCell 
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -37,6 +38,14 @@
     
     self.pricesButton.menu = [self createMenu];
     self.pricesButton.showsMenuAsPrimaryAction = YES;
+    
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser[@"savedDrugs"]) {
+        NSArray *array = currentUser[@"savedDrugs"];
+        if ([array containsObject:self.nameLabel.text]) {
+            self.likeButton.selected = YES;
+        }
+    }
     
 }
 
@@ -70,7 +79,7 @@
         currentUser[@"savedDrugs"] = [[NSMutableArray alloc] init];
     }
     if (self.likeButton.isSelected) {
-        [currentUser[@"savedDrugs"] removeObject:self.prescription.genericName];
+        [currentUser removeObject:self.prescription.genericName forKey:@"savedDrugs"];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 // The PFUser has been saved.
@@ -82,7 +91,7 @@
         }];
         self.likeButton.selected = NO;
     } else {
-        [currentUser[@"savedDrugs"] addObject:self.prescription.genericName];
+        [currentUser addObject:self.prescription.genericName forKey:@"savedDrugs"];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 // The PFUser has been saved.
