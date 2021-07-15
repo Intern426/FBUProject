@@ -28,7 +28,6 @@
 
 
 -(void)setupPrescription{
-
     // _prescription = prescription;
     self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", LoremIpsum.firstName];
     self.prescription = [[Prescription alloc] init];
@@ -46,7 +45,6 @@
             self.likeButton.selected = YES;
         }
     }
-    
 }
 
 -(UIMenu*) createMenu{
@@ -67,10 +65,8 @@
         [priceOptions addObject:testAction];
     }
     
-    
     UIMenu *menu = [UIMenu menuWithChildren:priceOptions];
     return menu;
-    
 }
 
 - (IBAction)didTapFavorite:(id)sender {
@@ -107,7 +103,5 @@
 
 - (IBAction)didTapSearch:(id)sender {
 }
-
-
 
 @end

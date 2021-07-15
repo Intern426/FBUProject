@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
+@property (strong, nonatomic) PFUser *currentUser;
+@property (strong, nonatomic) NSString *prescriptionName;
 @end
 
 @implementation ProfileViewController
@@ -25,26 +27,25 @@
     self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser.username];
     
     // Do any additional setup after loading the view.
+    self.currentUser = [PFUser currentUser];
     [self loadFavorites];
 }
 
 -(void) loadFavorites{
-    PFUser *currentUser = [PFUser currentUser];
-    if (currentUser[@"savedDrugs"]) {
-        self.prescriptions = currentUser[@"savedDrugs"];
+    self.prescriptions = self.currentUser[@"savedDrugs"];
+    if (self.prescriptions != nil && self.prescriptions.count != 0) {
         self.emptyLabel.hidden = YES;
-        [self.tableView reloadData];
     } else {
-        self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
+        self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // Make sure no lines show up
         self.emptyLabel.hidden = NO;
     }
+    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-   // [super viewDidAppear:YES];
+    // When switching tabs, will update favorites as needed
     [self loadFavorites];
 }
-
 
 /*
 #pragma mark - Navigation
@@ -60,15 +61,27 @@
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     NSString *string = self.prescriptions[indexPath.row];
     cell.nameLabel.text = string;
+    cell.prescription.genericName = cell.nameLabel.text;
+    self.prescriptionName = cell.prescription.genericName;
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.prescriptions.count;
 }
-
 - (IBAction)didTapDeleteFavorite:(id)sender {
-    
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser removeObject:self.prescriptionName forKey:@"savedDrugs"];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // The PFUser has been saved.
+            NSLog(@"Drug was removed");
+            [self loadFavorites];
+        } else {
+            // There was a problem, check error.description
+            NSLog(@"boo.....%@", error.localizedDescription);
+        }
+    }];
 }
 
 @end

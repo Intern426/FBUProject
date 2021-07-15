@@ -9,16 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ProfileViewControllerDelegate <NSObject>
-
--(void) updateFavorites;
-
-@end
-
-
 @interface ProfileViewController : UIViewController
-
-@property (nonatomic, weak) id<ProfileViewControllerDelegate> delegate;
 
 @end
 

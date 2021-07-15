@@ -456,7 +456,7 @@
             </objects>
             <point key="canvasLocation" x="1748" y="2205"/>
         </scene>
-        <!--Hello!-->
+        <!--Personal Prescriptions-->
         <scene sceneID="tMN-pw-grs">
             <objects>
                 <viewController id="HwB-D7-gXW" customClass="ProfileViewController" sceneMemberID="viewController">
@@ -485,8 +485,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qy-5k-58N">
-                                                    <rect key="frame" x="20" y="11" width="284" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qy-5k-58N">
+                                                    <rect key="frame" x="20" y="11" width="54" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -526,14 +526,14 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5b-z3-ADL">
-                                                    <rect key="frame" x="333" y="11" width="20" height="22"/>
+                                                    <rect key="frame" x="319" y="206" width="20" height="22"/>
                                                     <state key="normal" image="trash" catalog="system"/>
                                                     <connections>
-                                                        <action selector="didTapDeleteFavorite:" destination="HwB-D7-gXW" eventType="touchUpInside" id="M0I-mh-GeD"/>
+                                                        <action selector="didTapDeleteFavorite:" destination="HwB-D7-gXW" eventType="touchUpInside" id="fVN-iM-mn4"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66w-iH-Eej">
-                                                    <rect key="frame" x="333" y="205" width="20" height="22"/>
+                                                    <rect key="frame" x="319" y="11" width="20" height="22"/>
                                                     <state key="normal" image="info.circle" catalog="system"/>
                                                 </button>
                                             </subviews>
@@ -541,34 +541,35 @@
                                                 <constraint firstAttribute="trailing" secondItem="wvq-PB-m1k" secondAttribute="trailing" constant="299" id="06j-kg-o3y"/>
                                                 <constraint firstItem="Oim-cK-BFa" firstAttribute="leading" secondItem="4Qy-5k-58N" secondAttribute="leading" id="0MD-gM-uxq"/>
                                                 <constraint firstItem="Pqk-Mh-rFv" firstAttribute="top" secondItem="AqY-oM-EL1" secondAttribute="bottom" constant="47" id="2UA-Vv-97E"/>
-                                                <constraint firstAttribute="trailing" secondItem="h5b-z3-ADL" secondAttribute="trailing" constant="61" id="2WK-s6-G6l"/>
                                                 <constraint firstItem="4Qy-5k-58N" firstAttribute="top" secondItem="t3z-mG-NxL" secondAttribute="top" constant="11" id="6MJ-mB-gst"/>
                                                 <constraint firstItem="Oim-cK-BFa" firstAttribute="top" secondItem="wvq-PB-m1k" secondAttribute="bottom" constant="18" id="9N9-L8-8jd"/>
                                                 <constraint firstItem="AqY-oM-EL1" firstAttribute="leading" secondItem="Oim-cK-BFa" secondAttribute="trailing" constant="11.5" id="AHo-fv-qS1"/>
                                                 <constraint firstItem="3Xl-0k-txF" firstAttribute="leading" secondItem="4Qy-5k-58N" secondAttribute="leading" id="CRd-ZX-qCr"/>
+                                                <constraint firstItem="h5b-z3-ADL" firstAttribute="leading" secondItem="Pqk-Mh-rFv" secondAttribute="trailing" constant="195" id="Cg3-85-Erc"/>
                                                 <constraint firstItem="3Xl-0k-txF" firstAttribute="top" secondItem="4Qy-5k-58N" secondAttribute="bottom" constant="24" id="DaU-JQ-gKO"/>
                                                 <constraint firstItem="3Xl-0k-txF" firstAttribute="leading" secondItem="4Qy-5k-58N" secondAttribute="leading" id="Edc-YK-4Zk"/>
-                                                <constraint firstItem="h5b-z3-ADL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4Qy-5k-58N" secondAttribute="trailing" constant="29" id="FNB-tl-sHd"/>
-                                                <constraint firstItem="66w-iH-Eej" firstAttribute="leading" secondItem="Pqk-Mh-rFv" secondAttribute="trailing" constant="209" id="J2i-1m-mD2"/>
-                                                <constraint firstAttribute="trailing" secondItem="66w-iH-Eej" secondAttribute="trailing" constant="61" id="LmU-dk-cdb"/>
+                                                <constraint firstAttribute="bottom" secondItem="h5b-z3-ADL" secondAttribute="bottom" constant="42" id="FMF-31-R23"/>
                                                 <constraint firstItem="Oim-cK-BFa" firstAttribute="leading" secondItem="t3z-mG-NxL" secondAttribute="leading" constant="20" id="OX7-9M-Ksc"/>
                                                 <constraint firstItem="wvq-PB-m1k" firstAttribute="leading" secondItem="4Qy-5k-58N" secondAttribute="leading" id="PTr-XO-BVP"/>
                                                 <constraint firstItem="wvq-PB-m1k" firstAttribute="top" secondItem="3Xl-0k-txF" secondAttribute="bottom" constant="17" id="PZu-Ho-cE7"/>
-                                                <constraint firstItem="h5b-z3-ADL" firstAttribute="top" secondItem="t3z-mG-NxL" secondAttribute="top" constant="11" id="Q8j-61-ukq"/>
                                                 <constraint firstItem="Pqk-Mh-rFv" firstAttribute="leading" secondItem="t3z-mG-NxL" secondAttribute="leading" constant="43" id="Qjh-CM-Rhe"/>
-                                                <constraint firstItem="66w-iH-Eej" firstAttribute="top" secondItem="h5b-z3-ADL" secondAttribute="bottom" constant="172" id="QqN-pr-41B"/>
                                                 <constraint firstItem="3Xl-0k-txF" firstAttribute="leading" secondItem="t3z-mG-NxL" secondAttribute="leading" constant="20" id="SZw-qT-iiD"/>
                                                 <constraint firstItem="Oim-cK-BFa" firstAttribute="leading" secondItem="4Qy-5k-58N" secondAttribute="leading" id="WI6-Sr-WrD"/>
                                                 <constraint firstAttribute="trailing" secondItem="AqY-oM-EL1" secondAttribute="trailing" constant="257" id="Zd4-Kj-bXv"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="66w-iH-Eej" secondAttribute="bottom" constant="42" id="c5u-Ij-iLk"/>
+                                                <constraint firstItem="66w-iH-Eej" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4Qy-5k-58N" secondAttribute="trailing" constant="10" id="aPf-ye-dbb"/>
+                                                <constraint firstAttribute="trailing" secondItem="66w-iH-Eej" secondAttribute="trailing" constant="75" id="cNd-fA-Z8G"/>
                                                 <constraint firstItem="4Qy-5k-58N" firstAttribute="leading" secondItem="t3z-mG-NxL" secondAttribute="leading" constant="20" id="cZl-48-ZJb"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Oim-cK-BFa" secondAttribute="trailing" constant="20" symbolic="YES" id="ir1-5J-kib"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Pqk-Mh-rFv" secondAttribute="bottom" constant="23" id="jgf-JM-PXN"/>
+                                                <constraint firstItem="66w-iH-Eej" firstAttribute="top" secondItem="t3z-mG-NxL" secondAttribute="top" constant="11" id="qZe-7p-f9f"/>
+                                                <constraint firstAttribute="trailing" secondItem="h5b-z3-ADL" secondAttribute="trailing" constant="75" id="sHW-mw-a0e"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3Xl-0k-txF" secondAttribute="trailing" constant="30" id="uSy-9Z-VOc"/>
+                                                <constraint firstItem="h5b-z3-ADL" firstAttribute="top" secondItem="66w-iH-Eej" secondAttribute="bottom" constant="173" id="wc7-Pw-dhw"/>
                                                 <constraint firstItem="AqY-oM-EL1" firstAttribute="top" secondItem="wvq-PB-m1k" secondAttribute="bottom" constant="14" id="xlB-pr-4p4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="deleteButton" destination="h5b-z3-ADL" id="w3C-lq-aJg"/>
                                             <outlet property="drugTypeLabel" destination="wvq-PB-m1k" id="jrd-3I-och"/>
                                             <outlet property="nameLabel" destination="4Qy-5k-58N" id="X6e-sH-Fqb"/>
                                             <outlet property="pharmacyLabel" destination="Pqk-Mh-rFv" id="bCr-wE-0Uv"/>
@@ -592,7 +593,7 @@
                             <constraint firstItem="2pW-bX-5G3" firstAttribute="centerY" secondItem="FI2-9b-E4E" secondAttribute="centerY" id="dtb-SE-Ta9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Hello!" id="edv-2W-ir9">
+                    <navigationItem key="navigationItem" title="Personal Prescriptions" id="edv-2W-ir9">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="person" catalog="system" id="ZoH-Lx-dja"/>
                     </navigationItem>
                     <connections>
