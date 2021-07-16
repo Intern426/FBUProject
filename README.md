@@ -6,8 +6,9 @@ Original App Design Project - README Template
 ## Table of Contents
 1. [Overview](#Overview)
 1. [Product Spec](#Product-Spec)
-1. [Wireframes](#Wireframes)
-2. [Schema](#Schema)
+2. [Demo](#Demo)
+3. [Wireframes](#Wireframes)
+4. [Schema](#Schema)
 
 ## Overview
 ### Description
@@ -25,6 +26,14 @@ An app that helps you manage your prescriptions by allowing you to see a list of
     * Reminders and Alarms will be setup on your phone 
     * Integrating multiple Drug APIs... initialy I find the GoodRX because I thought it would be useful for the user to get prescriptions and find a reasonable cost -- however, GoodRX doesn't supply any information about the drug (beyond name, manufacturer, price and pharmacy) so I'm hoping to utilize another API like RxNorm API to retreive information about the ingredients in the drug and other information that the user might be interested in
 
+## Demos
+
+-Using dummy data for the prescriptions
+
+![](https://i.imgur.com/KToNJLn.gif)
+
+
+
 ## Product Spec
 
 ### 1. User Stories (Required and Optional)
@@ -40,6 +49,7 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 
 **Optional Nice-to-have Stories**
 *  User can get more information on their medication (side effects, recommended dosage/instruction, price)
+*  Under the Reminders Tab, keep track of quantity (like if a prescription starts with a 100 tablets, each time user takes medication, decrease by 1 and when you get around 10% or something, alert user that it's time to refill)
 * Add an "Emergency Feature" that would help you find the nearest hospital and provide phone number information --> information about hospital gathered using Community Health API
 * User can write a note about issues/questions they may have for the doctor
 * Option for Dark Mode and "Kids Mode" that features a lighter palatte and maybe small animal stickers/characters to make it more appealing/relaxing for kids
