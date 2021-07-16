@@ -528,7 +528,7 @@
                                                     <rect key="frame" x="319" y="206" width="20" height="22"/>
                                                     <state key="normal" image="trash" catalog="system"/>
                                                     <connections>
-                                                        <action selector="didTapDeleteFavorite:" destination="HwB-D7-gXW" eventType="touchUpInside" id="fVN-iM-mn4"/>
+                                                        <action selector="didTapDelete:" destination="QVC-Se-6nn" eventType="touchUpInside" id="3is-6C-fgw"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66w-iH-Eej">

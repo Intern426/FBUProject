@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol PrescriptionCellDelegate <NSObject>
+
+-(void) updateFavorites;
+
+@end
+
 @interface PrescriptionCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -21,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
+@property (weak, nonatomic) id<PrescriptionCellDelegate> delegate;
 
 @property (strong, nonatomic) Prescription *prescription;
 

@@ -104,4 +104,19 @@
 - (IBAction)didTapSearch:(id)sender {
 }
 
+- (IBAction)didTapDelete:(id)sender {
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser removeObject:self.prescription.genericName forKey:@"savedDrugs"];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // The PFUser has been saved.
+            NSLog(@"Drug was removed");
+            [self.delegate updateFavorites];
+        } else {
+            // There was a problem, check error.description
+            NSLog(@"boo.....%@", error.localizedDescription);
+        }
+    }];
+}
+
 @end

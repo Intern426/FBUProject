@@ -9,7 +9,7 @@
 #import "PrescriptionCell.h"
 #import "Parse/Parse.h"
 
-@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, PrescriptionCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
@@ -23,7 +23,6 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser.username];
     
     // Do any additional setup after loading the view.
@@ -61,8 +60,8 @@
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     NSString *string = self.prescriptions[indexPath.row];
     cell.nameLabel.text = string;
+    cell.delegate = self;
     cell.prescription.genericName = cell.nameLabel.text;
-    self.prescriptionName = cell.prescription.genericName;
     return cell;
 }
 
@@ -82,6 +81,10 @@
             NSLog(@"boo.....%@", error.localizedDescription);
         }
     }];
+}
+
+- (void)updateFavorites{
+    [self loadFavorites];
 }
 
 @end
