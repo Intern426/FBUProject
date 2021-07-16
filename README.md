@@ -6,7 +6,7 @@ Original App Design Project - README Template
 ## Table of Contents
 1. [Overview](#Overview)
 1. [Product Spec](#Product-Spec)
-2. [Demo](#Demo)
+2. [Demos](#Demos)
 3. [Wireframes](#Wireframes)
 4. [Schema](#Schema)
 
