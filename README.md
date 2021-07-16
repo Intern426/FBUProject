@@ -52,7 +52,6 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 *  Under the Reminders Tab, keep track of quantity (like if a prescription starts with a 100 tablets, each time user takes medication, decrease by 1 and when you get around 10% or something, alert user that it's time to refill)
 * Add an "Emergency Feature" that would help you find the nearest hospital and provide phone number information --> information about hospital gathered using Community Health API
 * User can write a note about issues/questions they may have for the doctor
-* Option for Dark Mode and "Kids Mode" that features a lighter palatte and maybe small animal stickers/characters to make it more appealing/relaxing for kids
 
 ### 2. Screen Archetypes
 
