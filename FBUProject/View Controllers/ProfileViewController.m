@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
 @property (strong, nonatomic) PFUser *currentUser;
-@property (strong, nonatomic) NSString *prescriptionName;
 @end
 
 @implementation ProfileViewController
@@ -67,20 +66,6 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.prescriptions.count;
-}
-- (IBAction)didTapDeleteFavorite:(id)sender {
-    PFUser *currentUser = [PFUser currentUser];
-    [currentUser removeObject:self.prescriptionName forKey:@"savedDrugs"];
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            // The PFUser has been saved.
-            NSLog(@"Drug was removed");
-            [self loadFavorites];
-        } else {
-            // There was a problem, check error.description
-            NSLog(@"boo.....%@", error.localizedDescription);
-        }
-    }];
 }
 
 - (void)updateFavorites{
