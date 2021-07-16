@@ -9,7 +9,7 @@
 @import MapKit;
 @import CoreLocation;
 
-@interface MapViewController () <CLLocationManagerDelegate>
+@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mapView.delegate = self;
     // Do any additional setup after loading the view.
     // Create and initialize a search request object.
     MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
@@ -35,17 +36,41 @@
      {
         NSMutableArray *placemarks = [NSMutableArray array];
         for (MKMapItem *item in response.mapItems) {
-            [placemarks addObject:item.placemark];
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc] initWithCoordinate:item.placemark.coordinate title:item.name subtitle:item.phoneNumber];
+            [placemarks addObject:annotation];
         }
-        MKCoordinateSpan span = MKCoordinateSpanMake(0.0002, 0.0002);
+        MKCoordinateSpan span = MKCoordinateSpanMake(0.02, 0.02);
         MKCoordinateRegion region = MKCoordinateRegionMake(self.mapView.centerCoordinate, span);
         self.mapView.region = region;
-
+        
         
         [self.mapView removeAnnotations:[self.mapView annotations]];
-        [self.mapView showAnnotations:placemarks animated:NO];
+        [self.mapView showAnnotations:placemarks animated:YES];
+        
     }];
 }
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation{
+    // If no pin view already exists, create a new one.
+    MKPinAnnotationView *customPinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
+    if (customPinView == nil) {
+        customPinView = [[MKPinAnnotationView alloc]
+                         initWithAnnotation:annotation reuseIdentifier:@"Pin"];
+        customPinView.pinTintColor = UIColor.purpleColor;
+        customPinView.animatesDrop = YES;
+        customPinView.canShowCallout = YES;
+    }
+    // Because this is an iOS app, add the detail disclosure button to display details about the annotation in another view.
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    customPinView.rightCalloutAccessoryView = rightButton;
+    
+    // Add a custom image to the left side of the callout.
+    UIImageView *myCustomImage = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"star"]];
+    customPinView.leftCalloutAccessoryView = myCustomImage;
+    return customPinView;
+    
+}
+
 
 
 -(void) getUserLocation{
