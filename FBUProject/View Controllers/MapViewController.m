@@ -27,7 +27,6 @@
     self.navigationItem.title = @"Search for Walgreens";
     request.region = self.mapView.region;
     
-    
     // Create and initialize a search object.
     MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
     

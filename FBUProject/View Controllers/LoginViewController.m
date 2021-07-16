@@ -34,30 +34,6 @@
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         }
     }];
-
-}
-
-
-- (IBAction)didTapSignUp:(id)sender {
-    //TODO: Create another view controller to let them sign up -- main reason is to have them enter an address/location to use for the pharmacy search later
-    
-    // initialize a user object
-    PFUser *newUser = [PFUser user];
-    
-    // set user properties
-    newUser.username = self.usernameField.text;
-    newUser.password = self.passwordField.text;
-    
-    // call sign up function on the object
-    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        } else {
-            NSLog(@"User registered successfully");
-            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-            // manually segue to logged in view
-        }
-    }];
 }
 
 /*
