@@ -163,7 +163,7 @@
     }
 }
 
-
+/*
 -(void) updateUser: (BOOL) remove atKey: (NSString*) key withObject: (NSObject*) object {
     PFUser *currentUser = [PFUser currentUser];
     if (remove) {
@@ -192,5 +192,5 @@
         self.likeButton.selected = YES;
     }
 }
-
+*/
 @end

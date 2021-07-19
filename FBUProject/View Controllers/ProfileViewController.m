@@ -60,7 +60,7 @@
     NSString *string = self.prescriptions[indexPath.row];
     cell.nameLabel.text = string;
     cell.delegate = self;
-    cell.prescription.genericName = cell.nameLabel.text;
+    cell.prescription.displayName = cell.nameLabel.text;
     return cell;
 }
 
