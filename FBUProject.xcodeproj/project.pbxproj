@@ -18,6 +18,7 @@
 		DE82EF6D26A208AA00587096 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE82EF6C26A208AA00587096 /* SignUpViewController.m */; };
 		DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */; };
 		DEDA790826A5EB9200A4F72B /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */; };
+		DEDA790B26A5EEA400A4F72B /* ShoppingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */; };
 		DEFAFA55269CD7A900BEC4BF /* PrescriptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA54269CD7A900BEC4BF /* PrescriptionsViewController.m */; };
 		DEFAFA58269CD7BD00BEC4BF /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA57269CD7BD00BEC4BF /* ProfileViewController.m */; };
 		DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA5A269CDA1600BEC4BF /* LoginViewController.m */; };
@@ -77,6 +78,8 @@
 		DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindersViewController.m; sourceTree = "<group>"; };
 		DEDA790626A5EB9200A4F72B /* CheckoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
 		DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
+		DEDA790926A5EEA400A4F72B /* ShoppingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingCell.h; sourceTree = "<group>"; };
+		DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoppingCell.m; sourceTree = "<group>"; };
 		DEFAFA53269CD7A900BEC4BF /* PrescriptionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrescriptionsViewController.h; sourceTree = "<group>"; };
 		DEFAFA54269CD7A900BEC4BF /* PrescriptionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrescriptionsViewController.m; sourceTree = "<group>"; };
 		DEFAFA56269CD7BD00BEC4BF /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 				DEFAFA61269CE42600BEC4BF /* PrescriptionCell.m */,
 				DE6009D6269F7B3900CE21EA /* ReminderCell.h */,
 				DE6009D7269F7B3900CE21EA /* ReminderCell.m */,
+				DEDA790926A5EEA400A4F72B /* ShoppingCell.h */,
+				DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -510,6 +515,7 @@
 				DE6009D2269F766300CE21EA /* ReminderNotificationManager.m in Sources */,
 				DEFAFA65269CF30000BEC4BF /* Prescription.m in Sources */,
 				DE7FE023269F973F00B83F0F /* MapViewController.m in Sources */,
+				DEDA790B26A5EEA400A4F72B /* ShoppingCell.m in Sources */,
 				DEDA790826A5EB9200A4F72B /* CheckoutViewController.m in Sources */,
 				DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */,
 				DEFE0968269C9E6E00EAF59E /* main.m in Sources */,

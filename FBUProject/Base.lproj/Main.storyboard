@@ -363,16 +363,19 @@
                                                         <segue destination="Bff-8b-hjE" kind="presentation" modalPresentationStyle="fullScreen" id="Rqk-2s-ABe"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZb-Fo-MSR">
-                                                    <rect key="frame" x="20" y="237" width="23" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="cart" catalog="system"/>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJe-ve-qMU">
                                                     <rect key="frame" x="330" y="237" width="22" height="22"/>
                                                     <state key="normal" image="star" catalog="system"/>
                                                     <connections>
                                                         <action selector="didTapFavorite:" destination="Kts-iY-hom" eventType="touchUpInside" id="BcW-iO-rGO"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZb-Fo-MSR">
+                                                    <rect key="frame" x="20" y="237" width="23" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="cart" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="didTapBuy:" destination="Kts-iY-hom" eventType="touchUpInside" id="enc-Qh-Fau"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -411,6 +414,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="cartButton" destination="wZb-Fo-MSR" id="lby-dq-HMf"/>
                                             <outlet property="drugTypeLabel" destination="Cl5-Ub-jiS" id="asJ-uE-n9j"/>
                                             <outlet property="likeButton" destination="bJe-ve-qMU" id="bTt-cl-cXm"/>
                                             <outlet property="nameLabel" destination="sbG-KY-s5h" id="qUC-PJ-scH"/>
@@ -520,7 +524,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yUw-H8-arR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2313" y="1429"/>
+            <point key="canvasLocation" x="-2143" y="2251"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="lBv-9M-Bdu">
@@ -741,69 +745,102 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="179" id="agG-MO-Yem">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShoppingCell" rowHeight="179" id="agG-MO-Yem" customClass="ShoppingCell">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="179"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="agG-MO-Yem" id="p0D-BB-hqY">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="179"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Drug Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XsT-qc-QnF">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drug Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XsT-qc-QnF">
                                                     <rect key="frame" x="20" y="16" width="87" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45v-nT-HNj">
-                                                    <rect key="frame" x="367" y="142" width="20" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="x.circle" catalog="system"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Form: 20 MG, 30 tablets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX3-tM-1HX">
-                                                    <rect key="frame" x="20" y="61" width="186" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Form: 20 MG, 30 tablets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX3-tM-1HX">
+                                                    <rect key="frame" x="20" y="90" width="185.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oh-Vs-Wia">
-                                                    <rect key="frame" x="20" y="110" width="65" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oh-Vs-Wia">
+                                                    <rect key="frame" x="20" y="139" width="64.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price: $19.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RL-4K-GsR">
-                                                    <rect key="frame" x="294" y="16" width="100" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbJ-L8-btW">
-                                                    <rect key="frame" x="101" y="105" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbJ-L8-btW">
+                                                    <rect key="frame" x="100.5" y="134" width="30" height="30"/>
                                                     <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                                     <state key="normal" title="1">
                                                         <color key="titleColor" systemColor="labelColor"/>
                                                     </state>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manufacturer: Brand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLi-47-x89">
+                                                    <rect key="frame" x="20" y="52" width="157" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$19.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RL-4K-GsR">
+                                                    <rect key="frame" x="311" y="15" width="57" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45v-nT-HNj">
+                                                    <rect key="frame" x="348" y="137" width="20" height="22"/>
+                                                    <state key="normal" image="x.circle" catalog="system"/>
+                                                </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XsT-qc-QnF" firstAttribute="top" secondItem="p0D-BB-hqY" secondAttribute="top" constant="16" id="0np-NP-c9i"/>
+                                                <constraint firstItem="45v-nT-HNj" firstAttribute="leading" secondItem="lbJ-L8-btW" secondAttribute="trailing" constant="217.5" id="1kZ-ce-DNg"/>
+                                                <constraint firstItem="0RL-4K-GsR" firstAttribute="top" secondItem="p0D-BB-hqY" secondAttribute="top" constant="15" id="2nQ-8R-UXy"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QX3-tM-1HX" secondAttribute="trailing" constant="10" id="4ET-fK-xEV"/>
+                                                <constraint firstAttribute="trailing" secondItem="45v-nT-HNj" secondAttribute="trailing" constant="46" id="8WW-gl-JTt"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="45v-nT-HNj" secondAttribute="bottom" constant="15" id="BOL-eB-6yp"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zLi-47-x89" secondAttribute="trailing" constant="10" id="Bvf-D0-yjb"/>
+                                                <constraint firstAttribute="trailing" secondItem="0RL-4K-GsR" secondAttribute="trailing" constant="46" id="JMB-dk-xAU"/>
+                                                <constraint firstItem="0RL-4K-GsR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XsT-qc-QnF" secondAttribute="trailing" constant="10" id="L1x-jH-qeF"/>
+                                                <constraint firstItem="XsT-qc-QnF" firstAttribute="leading" secondItem="p0D-BB-hqY" secondAttribute="leading" constant="20" id="MVo-f4-a8P"/>
+                                                <constraint firstItem="zLi-47-x89" firstAttribute="leading" secondItem="XsT-qc-QnF" secondAttribute="leading" id="Ma8-fx-RO1"/>
+                                                <constraint firstItem="QX3-tM-1HX" firstAttribute="top" secondItem="zLi-47-x89" secondAttribute="bottom" constant="17" id="Y5l-r6-lwj"/>
+                                                <constraint firstItem="zLi-47-x89" firstAttribute="top" secondItem="XsT-qc-QnF" secondAttribute="bottom" constant="15" id="ZFB-Rz-4Sv"/>
+                                                <constraint firstItem="45v-nT-HNj" firstAttribute="top" secondItem="0RL-4K-GsR" secondAttribute="bottom" constant="101" id="ZN6-XF-QY5"/>
+                                                <constraint firstItem="9oh-Vs-Wia" firstAttribute="leading" secondItem="XsT-qc-QnF" secondAttribute="leading" id="aAN-d5-gWf"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9oh-Vs-Wia" secondAttribute="bottom" constant="19" id="apa-PY-mi6"/>
+                                                <constraint firstItem="QX3-tM-1HX" firstAttribute="leading" secondItem="XsT-qc-QnF" secondAttribute="leading" id="mzx-nT-Ys7"/>
+                                                <constraint firstItem="lbJ-L8-btW" firstAttribute="leading" secondItem="9oh-Vs-Wia" secondAttribute="trailing" constant="16" id="sV0-Eg-Hug"/>
+                                                <constraint firstItem="lbJ-L8-btW" firstAttribute="top" secondItem="QX3-tM-1HX" secondAttribute="bottom" constant="23" id="tKV-aH-PCa"/>
+                                                <constraint firstItem="9oh-Vs-Wia" firstAttribute="top" secondItem="QX3-tM-1HX" secondAttribute="bottom" constant="28" id="vKV-wO-M34"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountButton" destination="lbJ-L8-btW" id="dbb-hF-JyM"/>
+                                            <outlet property="drugNameLabel" destination="XsT-qc-QnF" id="F9N-Os-1LA"/>
+                                            <outlet property="formLabel" destination="QX3-tM-1HX" id="efU-7r-VOY"/>
+                                            <outlet property="manufacturerLabel" destination="zLi-47-x89" id="nYa-s8-JJv"/>
+                                            <outlet property="priceLabel" destination="0RL-4K-GsR" id="RiR-Ml-qCM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Subtotal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWg-nQ-aX9">
-                                <rect key="frame" x="20" y="99" width="119" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWg-nQ-aX9">
+                                <rect key="frame" x="20" y="99" width="107" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$19.99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raO-7d-NUT">
-                                <rect key="frame" x="211" y="99" width="183" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no saved prescriptions." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lv-GZ-gZT">
+                                <rect key="frame" x="57.5" y="435.5" width="299" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" systemColor="opaqueSeparatorColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$19.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raO-7d-NUT">
+                                <rect key="frame" x="281" y="101" width="89" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -811,8 +848,22 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UHx-Ll-dJC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8Lv-GZ-gZT" firstAttribute="centerX" secondItem="yvh-uG-vub" secondAttribute="centerX" id="5lP-yv-HpE"/>
+                            <constraint firstItem="UHx-Ll-dJC" firstAttribute="trailing" secondItem="raO-7d-NUT" secondAttribute="trailing" constant="44" id="BWI-K4-z47"/>
+                            <constraint firstItem="raO-7d-NUT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EWg-nQ-aX9" secondAttribute="trailing" constant="10" id="Bd1-vi-Qqn"/>
+                            <constraint firstItem="8Lv-GZ-gZT" firstAttribute="centerY" secondItem="yvh-uG-vub" secondAttribute="centerY" id="N1y-Ih-t0F"/>
+                            <constraint firstItem="EWg-nQ-aX9" firstAttribute="leading" secondItem="UHx-Ll-dJC" secondAttribute="leading" constant="20" id="hfu-Yd-UWO"/>
+                            <constraint firstItem="EWg-nQ-aX9" firstAttribute="top" secondItem="UHx-Ll-dJC" secondAttribute="top" constant="11" id="r5s-0v-fJ3"/>
+                            <constraint firstItem="raO-7d-NUT" firstAttribute="top" secondItem="UHx-Ll-dJC" secondAttribute="top" constant="13" id="xed-x9-F9k"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FjU-9f-Ybs"/>
+                    <connections>
+                        <outlet property="emptyLabel" destination="8Lv-GZ-gZT" id="fCH-v1-H03"/>
+                        <outlet property="tableView" destination="5aq-sH-nv1" id="Saf-dt-PdS"/>
+                        <outlet property="totalLabel" destination="raO-7d-NUT" id="9lH-Ck-dMR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBQ-TD-oRe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

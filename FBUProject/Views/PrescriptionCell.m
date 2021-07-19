@@ -30,10 +30,15 @@
 -(void)setupPrescription{
     // _prescription = prescription;
     self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", LoremIpsum.firstName];
-    self.prescription = [[Prescription alloc] init];
-    self.prescription.genericName = self.nameLabel.text;
     self.quantityLabel.text = [NSString stringWithFormat:@"Quantity: %@", LoremIpsum.word];;
     self.pharmacyLabel.text = [NSString stringWithFormat:@"Pharmacy: %@", LoremIpsum.word];
+    
+    self.prescription = [[Prescription alloc] init];
+    self.prescription.displayName = self.nameLabel.text;
+    self.prescription.manufacturer = @"Generic";
+    self.prescription.dosageAmount = @"500 mg";
+    self.prescription.dosageForm = @"60 tablets";
+
     
     self.pricesButton.menu = [self createMenu];
     self.pricesButton.showsMenuAsPrimaryAction = YES;
@@ -75,7 +80,7 @@
         currentUser[@"savedDrugs"] = [[NSMutableArray alloc] init];
     }
     if (self.likeButton.isSelected) {
-        [currentUser removeObject:self.prescription.genericName forKey:@"savedDrugs"];
+        [currentUser removeObject:self.prescription.displayName forKey:@"savedDrugs"];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 // The PFUser has been saved.
@@ -87,7 +92,7 @@
         }];
         self.likeButton.selected = NO;
     } else {
-        [currentUser addObject:self.prescription.genericName forKey:@"savedDrugs"];
+        [currentUser addObject:self.prescription.displayName forKey:@"savedDrugs"];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 // The PFUser has been saved.
@@ -106,7 +111,7 @@
 
 - (IBAction)didTapDelete:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
-    [currentUser removeObject:self.prescription.genericName forKey:@"savedDrugs"];
+    [currentUser removeObject:self.prescription.displayName forKey:@"savedDrugs"];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // The PFUser has been saved.
@@ -117,6 +122,75 @@
             NSLog(@"boo.....%@", error.localizedDescription);
         }
     }];
+}
+
+- (IBAction)didTapBuy:(id)sender {
+    PFUser *currentUser = [PFUser currentUser];
+    if (!currentUser[@"buyingDrugs"]) {
+        currentUser[@"buyingDrugs"] = [[NSMutableArray alloc] init];
+    }
+    NSMutableArray *prescriptionInfo = [[NSMutableArray alloc] init];
+    [prescriptionInfo addObject:self.prescription.displayName];
+    [prescriptionInfo addObject:self.prescription.manufacturer];
+    [prescriptionInfo addObject:self.prescription.dosageForm];
+    [prescriptionInfo addObject:self.prescription.dosageAmount];
+
+    
+    if (self.cartButton.isSelected) {
+        [currentUser removeObject:prescriptionInfo forKey:@"buyingDrugs"];
+        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The PFUser has been saved.
+                NSLog(@"Drug was removed from cart");
+            } else {
+                // There was a problem, check error.description
+                NSLog(@"boo.....%@", error.localizedDescription);
+            }
+        }];
+        self.likeButton.selected = NO;
+    } else {
+        [currentUser addObject:prescriptionInfo forKey:@"buyingDrugs"];
+        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The PFUser has been saved.
+                NSLog(@"Drug was added to cart");
+            } else {
+                // There was a problem, check error.description
+                NSLog(@"boo.....%@", error.localizedDescription);
+            }
+        }];
+        self.cartButton.selected = YES;
+    }
+}
+
+
+-(void) updateUser: (BOOL) remove atKey: (NSString*) key withObject: (NSObject*) object {
+    PFUser *currentUser = [PFUser currentUser];
+    if (remove) {
+        [currentUser removeObject:object forKey:key];
+        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The PFUser has been saved.
+                NSLog([NSString stringWithFormat:@"User's key %@ was updated - deleted item.", key]);
+            } else {
+                // There was a problem, check error.description
+                NSLog(@"boo.....%@", error.localizedDescription);
+            }
+        }];
+        self.likeButton.selected = NO;
+    } else {
+        [currentUser addObject:object forKey:key];
+        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The PFUser has been saved.
+                NSLog([NSString stringWithFormat:@"User's key %@ was updated - added item.", key]);
+            } else {
+                // There was a problem, check error.description
+                NSLog(@"boo.....%@", error.localizedDescription);
+            }
+        }];
+        self.likeButton.selected = YES;
+    }
 }
 
 @end

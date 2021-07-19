@@ -12,10 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Prescription : NSObject
 
 // Required information
+@property (nonatomic, strong) NSString *displayName; // what will show up on the cell's title
+
 @property (nonatomic, strong) NSString *brandName;
 @property (nonatomic, strong) NSString *genericName;
-@property (nonatomic) double dosageAmount;
-@property (nonatomic, strong) NSString *dosageForm; // i.e. tablet
+
+@property (nonatomic, strong) NSString* manufacturer; // either brand or generic
+
+@property (nonatomic, strong) NSString* dosageAmount; // i.e. 500 mg
+@property (nonatomic, strong) NSString *dosageForm; // i.e. 60 tablets
 @property (nonatomic) double price;
 @property (nonatomic, strong) NSString* pharamcy;
 
@@ -28,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
  // --> Might drop ingredients - difficult to acquire and frankly kinda confusing  so instead might just list
  // Purpose (i.e. Pain reliver)
  // Side Effects and Warnings
-
 
 @end
 
