@@ -40,7 +40,7 @@
     self.prescription.dosageForm = @"60 tablets";
 
     
-    self.pricesButton.menu = [self createMenu];
+    self.pricesButton.menu = [self createPriceMenu];
     self.pricesButton.showsMenuAsPrimaryAction = YES;
     
     PFUser *currentUser = [PFUser currentUser];
@@ -52,7 +52,7 @@
     }
 }
 
--(UIMenu*) createMenu{
+-(UIMenu*) createPriceMenu{
     NSMutableArray* pricesGathered = [[NSMutableArray alloc] init];
     [pricesGathered addObject:[NSString stringWithFormat:@"%.2f", 19.99]];
     [pricesGathered addObject:[NSString stringWithFormat:@"%.2f", 30.99]];
@@ -65,7 +65,9 @@
             [self.pricesButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
             self.pharmacyLabel.hidden = NO;
             self.searchButton.hidden = NO;
-            self.pharmacyLabel.text = @"Pharmacy: Walgreens";
+            NSArray* pharmacy = @[@"Walgreens", @"CVS", @"Rite Aid"];
+            int random = arc4random_uniform(3);
+            self.pharmacyLabel.text = pharmacy[random];
         }];
         [priceOptions addObject:testAction];
     }
@@ -104,9 +106,6 @@
         }];
         self.likeButton.selected = YES;
     }
-}
-
-- (IBAction)didTapSearch:(id)sender {
 }
 
 - (IBAction)didTapDelete:(id)sender {
@@ -163,7 +162,8 @@
     }
 }
 
-/*
+
+/* For refactoring purpose!!! --> Can replace all the instances where I'm updating hte user with this general method 
 -(void) updateUser: (BOOL) remove atKey: (NSString*) key withObject: (NSObject*) object {
     PFUser *currentUser = [PFUser currentUser];
     if (remove) {

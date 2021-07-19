@@ -359,7 +359,7 @@
                                                         <color key="titleColor" systemColor="opaqueSeparatorColor"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="didTapSearch:" destination="Kts-iY-hom" eventType="touchUpInside" id="Q6k-IM-xKP"/>
+                                                        <action selector="didTapSearch:" destination="8Ti-Hi-WuD" eventType="touchUpInside" id="4X2-uK-gWV"/>
                                                         <segue destination="Bff-8b-hjE" kind="presentation" modalPresentationStyle="fullScreen" id="Rqk-2s-ABe"/>
                                                     </connections>
                                                 </button>
@@ -534,7 +534,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lqk-JC-7cn">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lqk-JC-7cn">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </mapView>
                         </subviews>

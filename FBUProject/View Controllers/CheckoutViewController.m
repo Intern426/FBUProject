@@ -26,11 +26,11 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.currentUser = [PFUser currentUser];
-    self.totalCost = 0;
     // Do any additional setup after loading the view.
 }
 
 -(void) viewDidAppear:(BOOL)animated{
+    self.totalCost = 0;
     [self loadBoughtPrescriptions];
 }
 
