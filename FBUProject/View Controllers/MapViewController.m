@@ -21,6 +21,7 @@
     [super viewDidLoad];
     self.mapView.delegate = self;
     [self getUserLocation];
+    
     // Do any additional setup after loading the view.
     
 }
@@ -48,9 +49,7 @@
         UIImageView *myCustomImage = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"star"]];
         customPinView.leftCalloutAccessoryView = myCustomImage;
         return customPinView;
-        
     }
-    
 }
 
 - (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager{
@@ -87,24 +86,30 @@
     self.navigationItem.title = @"Search for Walgreens";
     request.region = self.mapView.region;
     
-    
     // Create and initialize a search object.
     MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
-    
     
     // Start the search and display the results as annotations on the map.
     [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error)
      {
+        int limit = 5;
         NSMutableArray *placemarks = [NSMutableArray array];
-        for (MKMapItem *item in response.mapItems) {
+        if (response.mapItems.count < 5) {
+            limit = response.mapItems.count;
+        }
+        
+        for (int i = 0; i < limit; i++) {
+            MKMapItem *item = response.mapItems[i];
             MKPointAnnotation *annotation = [[MKPointAnnotation alloc] initWithCoordinate:item.placemark.coordinate title:item.name subtitle:item.phoneNumber];
             [placemarks addObject:annotation];
+            
         }
+        
         MKCoordinateSpan span = MKCoordinateSpanMake(0.02, 0.02);
         MKCoordinateRegion region = MKCoordinateRegionMake(self.mapView.centerCoordinate, span);
         self.mapView.region = region;
         
-        //      [self.mapView removeAnnotations:[self.mapView annotations]];
+        [self.mapView removeAnnotations:[self.mapView annotations]];
         [self.mapView showAnnotations:placemarks animated:YES];
         
     }];
