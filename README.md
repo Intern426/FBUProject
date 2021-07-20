@@ -44,7 +44,7 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 * User can see list of prescriptions and their prices/pharamcies (using the GoodRX API)
 * User can view a personal list of the prescriptions they liked/need 
 * User can get daily reminders for when you should take your prescription - so if you want to do it at 6:00 PM daily, it'll alert you at the time and provide some information about the prescription you should be taking
-* Delivery Schedule 
+* Checkout feature
 
 **Optional Nice-to-have Stories**
 *  User can get more information on their medication (side effects, recommended dosage/instruction, price)
