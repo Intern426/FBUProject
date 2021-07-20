@@ -28,7 +28,7 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 
 ## Demos
 
--Using dummy data for the prescriptions
+-First Draft: Using dummy data for the prescriptions
 
 ![](https://i.imgur.com/KToNJLn.gif)
 
@@ -41,14 +41,14 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 **Required Must-have Stories**
 
 * User can log in to their account or sign up to create one
-* User can see list of prescriptions, and their prices/pharamcies (using the GoodRX API)
+* User can see list of prescriptions and their prices/pharamcies (using the GoodRX API)
 * User can view a personal list of the prescriptions they liked/need 
 * User can get daily reminders for when you should take your prescription - so if you want to do it at 6:00 PM daily, it'll alert you at the time and provide some information about the prescription you should be taking
-* Recommendation Feature Based on Price/Availability, Maybe evne recommend based on health issue (i.e. headache, diahrrea)
 * Delivery Schedule 
 
 **Optional Nice-to-have Stories**
 *  User can get more information on their medication (side effects, recommended dosage/instruction, price)
+*  Recommendation Feature Based on Price/Availability, Maybe evne recommend based on health issue (i.e. headache, diahrrea)
 *  Under the Reminders Tab, keep track of quantity (like if a prescription starts with a 100 tablets, each time user takes medication, decrease by 1 and when you get around 10% or something, alert user that it's time to refill)
 * Add an "Emergency Feature" that would help you find the nearest hospital and provide phone number information --> information about hospital gathered using Community Health API
 * User can write a note about issues/questions they may have for the doctor
