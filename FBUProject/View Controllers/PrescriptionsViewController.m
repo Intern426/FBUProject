@@ -12,9 +12,12 @@
 #import "Parse/Parse.h"
 #import "APIManager.h"
 
-@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
+@property (strong, nonatomic) NSMutableArray *searchedPrescriptions;
+
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -24,6 +27,7 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.searchBar.delegate = self;
     [self loadPrescriptions];
     // Do any additional setup after loading the view.
 }
@@ -33,6 +37,7 @@
         if (prescriptions) {
             NSLog(@"Okay... got something");
             self.prescriptions = (NSMutableArray*) prescriptions;
+            self.searchedPrescriptions = [NSMutableArray arrayWithArray:prescriptions];
             [self.tableView reloadData];
         }
     }];
@@ -46,11 +51,33 @@
             SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil]; // Access Main.storyboard
             LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"]; // Call forth the login view controller
-            
             sceneDelegate.window.rootViewController = loginViewController;
         }
     }];
 }
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    if (searchText.length != 0) {
+        self.searchBar.showsCancelButton = true;
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Prescription *evaluatedObject, NSDictionary *bindings) {
+            return [evaluatedObject.displayName containsString:searchText];
+        }];
+        self.searchedPrescriptions = (NSMutableArray*)[self.prescriptions filteredArrayUsingPredicate:predicate];
+    } else {
+        self.searchBar.showsCancelButton = false;
+        self.searchedPrescriptions = self.prescriptions;
+    }
+    [self.tableView reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    self.searchedPrescriptions = self.prescriptions;
+    [self.tableView reloadData];
+}
+
 
 
 /*
@@ -65,12 +92,12 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
-    cell.prescription = self.prescriptions[indexPath.row];
+    cell.prescription = self.searchedPrescriptions[indexPath.row];
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.prescriptions.count;
+    return self.searchedPrescriptions.count;
 }
 
 @end

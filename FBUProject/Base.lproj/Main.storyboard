@@ -440,6 +440,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="searchBar" destination="uKh-uy-tjC" id="wyk-ug-y5L"/>
                         <outlet property="tableView" destination="YYr-w3-KR9" id="dRH-Im-vcv"/>
                     </connections>
                 </viewController>
