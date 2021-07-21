@@ -30,7 +30,7 @@
 }
 
 -(void) loadFavorites{
-    self.prescriptions = self.currentUser[@"savedDrugs"];
+    self.prescriptions =  [Prescription prescriptionsWithStrings:self.currentUser[@"savedDrugs"]];
     if (self.prescriptions != nil && self.prescriptions.count != 0) {
         self.emptyLabel.hidden = YES;
     } else {
@@ -57,10 +57,8 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
-    NSString *string = self.prescriptions[indexPath.row];
-    cell.nameLabel.text = string;
+    cell.prescription = self.prescriptions[indexPath.row];
     cell.delegate = self;
-    cell.prescription.displayName = cell.nameLabel.text;
     return cell;
 }
 

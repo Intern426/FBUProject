@@ -66,7 +66,7 @@
             self.searchButton.hidden = NO;
             NSArray* pharmacy = @[@"Walgreens", @"CVS", @"Rite Aid"];
             int random = arc4random_uniform(3);
-            self.pharmacyLabel.text = pharmacy[random];
+            self.pharmacyLabel.text = @"Walgreens";
         }];
         [priceOptions addObject:testAction];
     }

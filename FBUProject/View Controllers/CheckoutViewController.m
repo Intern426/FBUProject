@@ -49,7 +49,7 @@
     ShoppingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShoppingCell"];
     NSArray *array = self.prescriptions[indexPath.row];
     cell.drugNameLabel.text = array[0];
-    cell.manufacturerLabel.text = [NSString stringWithFormat:@"Manufacturer:%@", array[1]];
+    cell.manufacturerLabel.text = [NSString stringWithFormat:@"Manufacturer: %@", array[1]];
     cell.formLabel.text = [NSString stringWithFormat:@"Form: %@, %@", array[2], array[3]];
     self.totalCost += 19.99;
     

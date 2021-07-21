@@ -35,7 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
  // Side Effects and Warnings
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithString:(NSString *)brand;
+
 + (NSMutableArray *)prescriptionsWithArray:(NSArray *)dictionaries;
++ (NSMutableArray *)prescriptionsWithStrings:(NSArray *)dictionaries;
 
 @end
 

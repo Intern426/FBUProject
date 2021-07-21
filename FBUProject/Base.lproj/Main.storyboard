@@ -340,8 +340,8 @@
                                                         <segue destination="rXB-2Y-GGU" kind="show" id="mPr-XC-RT6"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Form: Tablet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cl5-Ub-jiS">
-                                                    <rect key="frame" x="20" y="94" width="95" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manufacturer: Brand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cl5-Ub-jiS">
+                                                    <rect key="frame" x="20" y="94" width="157" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -359,7 +359,6 @@
                                                         <color key="titleColor" systemColor="opaqueSeparatorColor"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="didTapSearch:" destination="8Ti-Hi-WuD" eventType="touchUpInside" id="4X2-uK-gWV"/>
                                                         <segue destination="Bff-8b-hjE" kind="presentation" modalPresentationStyle="fullScreen" id="Rqk-2s-ABe"/>
                                                     </connections>
                                                 </button>
@@ -399,7 +398,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="bJe-ve-qMU" secondAttribute="trailing" constant="62" id="Pmc-2J-eVy"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mwy-l8-vZW" secondAttribute="trailing" constant="20" symbolic="YES" id="YRg-kT-BDE"/>
                                                 <constraint firstItem="sbG-KY-s5h" firstAttribute="leading" secondItem="26Y-Db-tRU" secondAttribute="leading" constant="20" id="aBn-3X-57r"/>
-                                                <constraint firstAttribute="trailing" secondItem="Cl5-Ub-jiS" secondAttribute="trailing" constant="299" id="ebJ-0a-LJP"/>
+                                                <constraint firstAttribute="trailing" secondItem="Cl5-Ub-jiS" secondAttribute="trailing" constant="237" id="ebJ-0a-LJP"/>
                                                 <constraint firstItem="Cl5-Ub-jiS" firstAttribute="top" secondItem="WrI-Md-jNj" secondAttribute="bottom" constant="17" id="fNw-vl-c53"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="bJe-ve-qMU" secondAttribute="bottom" constant="11" id="g5Z-VG-1By"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WrI-Md-jNj" secondAttribute="trailing" constant="30" id="gOC-gK-Bfd"/>
@@ -415,8 +414,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="cartButton" destination="wZb-Fo-MSR" id="lby-dq-HMf"/>
-                                            <outlet property="drugTypeLabel" destination="Cl5-Ub-jiS" id="asJ-uE-n9j"/>
                                             <outlet property="likeButton" destination="bJe-ve-qMU" id="bTt-cl-cXm"/>
+                                            <outlet property="manufacturerLabel" destination="Cl5-Ub-jiS" id="77O-gw-mxu"/>
                                             <outlet property="nameLabel" destination="sbG-KY-s5h" id="qUC-PJ-scH"/>
                                             <outlet property="pharmacyLabel" destination="ZEY-0k-wd0" id="dZf-Lr-ROE"/>
                                             <outlet property="pricesButton" destination="DAb-W3-IlH" id="c9F-Yk-Evr"/>
@@ -616,8 +615,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Form: Tablet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvq-PB-m1k">
-                                                    <rect key="frame" x="20" y="94" width="95" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manufacturer: Brand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvq-PB-m1k">
+                                                    <rect key="frame" x="20" y="94" width="157" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -645,7 +644,7 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="wvq-PB-m1k" secondAttribute="trailing" constant="299" id="06j-kg-o3y"/>
+                                                <constraint firstAttribute="trailing" secondItem="wvq-PB-m1k" secondAttribute="trailing" constant="237" id="06j-kg-o3y"/>
                                                 <constraint firstItem="Oim-cK-BFa" firstAttribute="leading" secondItem="4Qy-5k-58N" secondAttribute="leading" id="0MD-gM-uxq"/>
                                                 <constraint firstItem="Pqk-Mh-rFv" firstAttribute="top" secondItem="AqY-oM-EL1" secondAttribute="bottom" constant="47" id="2UA-Vv-97E"/>
                                                 <constraint firstItem="4Qy-5k-58N" firstAttribute="top" secondItem="t3z-mG-NxL" secondAttribute="top" constant="11" id="6MJ-mB-gst"/>
@@ -677,7 +676,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="deleteButton" destination="h5b-z3-ADL" id="w3C-lq-aJg"/>
-                                            <outlet property="drugTypeLabel" destination="wvq-PB-m1k" id="jrd-3I-och"/>
+                                            <outlet property="manufacturerLabel" destination="wvq-PB-m1k" id="w4p-07-dWf"/>
                                             <outlet property="nameLabel" destination="4Qy-5k-58N" id="X6e-sH-Fqb"/>
                                             <outlet property="pharmacyLabel" destination="Pqk-Mh-rFv" id="bCr-wE-0Uv"/>
                                             <outlet property="pricesButton" destination="AqY-oM-EL1" id="kqP-nb-380"/>

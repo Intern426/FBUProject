@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *quantityLabel;
-@property (weak, nonatomic) IBOutlet UILabel *drugTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *manufacturerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *pharmacyLabel;
 @property (weak, nonatomic) IBOutlet UIButton *pricesButton;

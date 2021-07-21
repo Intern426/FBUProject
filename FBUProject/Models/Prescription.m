@@ -15,10 +15,9 @@
     self.brandName = [dictionary[@"term"] capitalizedString];
     self.displayName = self.brandName;
     self.genericName = LoremIpsum.word;
-    self.manufacturer = @"Generic";
+    self.manufacturer = @"Brand";
     self.dosageAmount = @"500 mg";
     self.dosageForm = @"60 tablets";
-
     return self;
 }
 
@@ -29,5 +28,25 @@
         [prescriptions addObject:prescription];
     }
     return prescriptions;
+}
+
++ (NSMutableArray *)prescriptionsWithStrings:(NSArray *)dictionaries{
+    NSMutableArray *prescriptions = [NSMutableArray array];
+    for (NSString *string in dictionaries) {
+        Prescription *prescription = [[Prescription alloc] initWithString:string];
+        [prescriptions addObject:prescription];
+    }
+    return prescriptions;
+}
+
+- (instancetype)initWithString:(NSString *)brand {
+    self = [super init];
+    self.brandName = [brand capitalizedString];
+    self.displayName = self.brandName;
+    self.genericName = LoremIpsum.word;
+    self.manufacturer = @"Brand";
+    self.dosageAmount = @"500 mg";
+    self.dosageForm = @"60 tablets";
+    return self;
 }
 @end
