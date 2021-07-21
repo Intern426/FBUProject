@@ -28,9 +28,13 @@ An app that helps you manage your prescriptions by allowing you to see a list of
 
 ## Demos
 
--First Draft: Using dummy data for the prescriptions
+-Left: Using dummy data for the prescriptions
+
+-Right: Gathered a list of drugs from openFDA and shows the user's location and limited to five pharamacies
 
 ![](https://i.imgur.com/KToNJLn.gif)
+![](https://i.imgur.com/KIlqZEs.gif)
+
 
 
 
@@ -111,16 +115,16 @@ Digital Wireframe: https://ninjamock.com/s/GST5TJx
 
 | Property | Type | Descripton |
 | -------- | -------- | -------- |
-| name     | String     | name of the prescription (required)     |
-| ndc      | String (Number?)  | Unique code for a prescription (written out like a phone number) (required)
+| brand_name| String | brand name of the prescription|
+| generic_name| String | generic name of the prescription
 | dosage | Number | number containing the quantity of the prescription |
 | price | Number | price of the prescription 
 | price_pharamcy | String | name of the pharmacy that holds the prescription at the specified price |
-| active_ingredient| String | main ingredient in the drug
-| warning| String | a string that discusses the side effects as a result of the main ingredient**| 
-| inactive_ingredients | Array of Strings? | stores the other inactive ingredients that make up the prescription (optional)|
+| ** active_ingredient| String | main ingredient in the drug
+| ** warning| String | a string that discusses the side effects as a result of the main ingredient| 
+| ** inactive_ingredients | Array of Strings? | stores the other inactive ingredients that make up the prescription (optional)|
 
-** Written in paragraph format - information offered by the openFDA API, a drug API that doesn't require authentication
+** Part of the optionals
 
 
 *User*
@@ -129,19 +133,20 @@ Digital Wireframe: https://ninjamock.com/s/GST5TJx
 | -------- | -------- | -------- |
 | objectID | String     | unique ID for the user (default field)    |
 | address      | String  | Contains user's home location for possible implementation of delivery and to help with the searching of pharmacies|
-| array_ndc | Array of Strings | Holds the NDC codes for prescriptions the user liked/favorited to facilitate the gathering of information across APIs|
+| savedDrugs | Array of Strings | Holds the names of the drugs they're interested in|
+| buyingDrugs | Array of Arary of Strings | Holds the names of the drugs they're interested in buying - along with the dosage amount and manufacturer|
 
 **Networking**
 
 List of network requests by screen
 
 * Profile Screen
-    * (Read/GET) Query all favorited prescriptions by user
+    * (Read/GET - Parse) Query all favorited prescriptions by user
 
 * Prescription Screen
-    * (Create/POST) Update user - add another prescription to favorited list
-    * (Delete) Delete favorited prescription
-    * (Read/GET) Collect data on drugs
+    * (Create/POST - Parse) Update user - add another prescription to favorited list
+    * (Delete - Parse) Delete favorited prescription
+    * (Read/GET - openFDA) Collect data on drugs
 
 * Pharamcy Map Screen
-    * (Read/GET) Find location of pharamacy based of home address (or whatever location you put down in profile) or ask for current location
+    * (Read/GET - Map SDK) Find location of pharamacy based of home address (or whatever location you put down in profile) or ask for current location
