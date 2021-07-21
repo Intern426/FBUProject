@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString* dosageAmount; // i.e. 500 mg
 @property (nonatomic, strong) NSString *dosageForm; // i.e. 60 tablets
-@property (nonatomic) double price;
+@property (nonatomic, strong) NSArray *price; // TODO: Initialize the price
 @property (nonatomic, strong) NSString* pharamcy;
 
 // GoodRX requirement
@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
  // --> Might drop ingredients - difficult to acquire and frankly kinda confusing  so instead might just list
  // Purpose (i.e. Pain reliver)
  // Side Effects and Warnings
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
++ (NSMutableArray *)prescriptionsWithArray:(NSArray *)dictionaries;
 
 @end
 

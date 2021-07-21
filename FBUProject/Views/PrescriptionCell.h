@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<PrescriptionCellDelegate> delegate;
 
+-(void)setPrescription:(Prescription *) prescription;
+
 @property (strong, nonatomic) Prescription *prescription;
 
 

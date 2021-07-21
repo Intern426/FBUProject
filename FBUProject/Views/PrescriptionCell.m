@@ -17,7 +17,7 @@
     // Initialization code
     [self.likeButton setImage:[UIImage systemImageNamed:@"star.fill"] forState:UIControlStateSelected];
     [self.likeButton setImage:[UIImage systemImageNamed:@"star"] forState:UIControlStateNormal];
-    [self setupPrescription];
+    //[self setupPrescription];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -27,17 +27,16 @@
 }
 
 
--(void)setupPrescription{
-    // _prescription = prescription;
-    self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", LoremIpsum.firstName];
-    self.quantityLabel.text = [NSString stringWithFormat:@"Quantity: %@", LoremIpsum.word];;
-    self.pharmacyLabel.text = [NSString stringWithFormat:@"Pharmacy: %@", LoremIpsum.word];
-    
-    self.prescription = [[Prescription alloc] init];
+-(void)setPrescription: (Prescription*) prescription{
+     _prescription = prescription;
+    self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
+    self.quantityLabel.text = [NSString stringWithFormat:@"Quantity: %@, %@", self.prescription.dosageAmount, self.prescription.dosageForm];
+
+    /*self.prescription = [[Prescription alloc] init];
     self.prescription.displayName = self.nameLabel.text;
     self.prescription.manufacturer = @"Generic";
     self.prescription.dosageAmount = @"500 mg";
-    self.prescription.dosageForm = @"60 tablets";
+    self.prescription.dosageForm = @"60 tablets";*/
 
     
     self.pricesButton.menu = [self createPriceMenu];

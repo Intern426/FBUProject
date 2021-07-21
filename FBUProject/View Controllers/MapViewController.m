@@ -111,7 +111,6 @@
         
         [self.mapView removeAnnotations:[self.mapView annotations]];
         [self.mapView showAnnotations:placemarks animated:YES];
-        
     }];
 }
 

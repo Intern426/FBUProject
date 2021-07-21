@@ -10,9 +10,11 @@
 #import "LoginViewController.h"
 #import "SceneDelegate.h"
 #import "Parse/Parse.h"
+#import "APIManager.h"
 
 @interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *prescriptions;
 
 @end
 
@@ -22,7 +24,18 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self loadPrescriptions];
     // Do any additional setup after loading the view.
+}
+
+- (void) loadPrescriptions {
+    [[APIManager shared] getDrugsWithCompletion:^(NSArray * prescriptions, NSError *error) {
+        if (prescriptions) {
+            NSLog(@"Okay... got something");
+            self.prescriptions = (NSMutableArray*) prescriptions;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (IBAction)didTapLogout:(id)sender {
@@ -39,10 +52,6 @@
     }];
 }
 
-- (IBAction)didTapSearch:(id)sender {
-
-}
-
 
 /*
  #pragma mark - Navigation
@@ -55,13 +64,13 @@
  */
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell" forIndexPath:indexPath];
-    
+    PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
+    cell.prescription = self.prescriptions[indexPath.row];
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.prescriptions.count;
 }
 
 @end
