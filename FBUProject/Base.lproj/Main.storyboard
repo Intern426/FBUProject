@@ -858,7 +858,13 @@
                             <constraint firstItem="raO-7d-NUT" firstAttribute="top" secondItem="UHx-Ll-dJC" secondAttribute="top" constant="13" id="xed-x9-F9k"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="FjU-9f-Ybs"/>
+                    <navigationItem key="navigationItem" id="FjU-9f-Ybs">
+                        <barButtonItem key="rightBarButtonItem" title="Checkout" id="QQA-Oq-e47">
+                            <connections>
+                                <action selector="didTapCheckout:" destination="6NZ-pU-nyp" id="ACm-48-VOg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emptyLabel" destination="8Lv-GZ-gZT" id="fCH-v1-H03"/>
                         <outlet property="tableView" destination="5aq-sH-nv1" id="Saf-dt-PdS"/>
@@ -1056,11 +1062,11 @@
             </objects>
             <point key="canvasLocation" x="3201" y="1475"/>
         </scene>
-        <!--Checkout-->
+        <!--Cart-->
         <scene sceneID="flg-HS-3se">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5X1-md-usf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Checkout" image="cart.fill" catalog="system" id="Mf4-Le-P64"/>
+                    <tabBarItem key="tabBarItem" title="Cart" image="cart.fill" catalog="system" id="Mf4-Le-P64"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eb6-hl-nES">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

@@ -9,14 +9,16 @@
 #import "PrescriptionCell.h"
 #import "ShoppingCell.h"
 #import "Parse/Parse.h"
+@import SquareInAppPaymentsSDK;
 
-@interface CheckoutViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface CheckoutViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, SQIPCardEntryViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (nonatomic) double totalCost;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
 @property (strong, nonatomic) PFUser *currentUser;
+
 @end
 
 @implementation CheckoutViewController
@@ -26,11 +28,16 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.currentUser = [PFUser currentUser];
-    // Do any additional setup after loading the view.
+}
+
+// In-App Payment only supports portrait orientation on landscape so we'll limit this view controller to portrait mode
+- (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController{
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 -(void) viewDidAppear:(BOOL)animated{
-    self.totalCost = 0;
+    // Every time user selects tab reload data just in case they added a prescription
+    self.totalCost = 0; // prevents total from adding the cost of the same prescription
     [self loadBoughtPrescriptions];
 }
 
@@ -63,6 +70,37 @@
 
 -(void)updateCart{
     [self loadBoughtPrescriptions];
+}
+
+-(void) showCardEntryForm{
+    SQIPTheme *theme = [[SQIPTheme alloc] init];
+    
+    theme.tintColor = UIColor.grayColor;
+    theme.saveButtonTitle = @"Submit";
+    
+    SQIPCardEntryViewController *cardEntryForm = [[SQIPCardEntryViewController alloc] initWithTheme:theme];
+    cardEntryForm.delegate = self;
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:cardEntryForm];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didCompleteWithStatus:(SQIPCardEntryCompletionStatus)status{
+    if (status) {
+        NSLog(@"Success?");
+    } else {
+        NSLog(@"Something went wrong...");
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didObtainCardDetails:(SQIPCardDetails *)cardDetails completionHandler:(void (^)(NSError * _Nullable))completionHandler{
+    
+}
+
+- (IBAction)didTapCheckout:(id)sender {
+    [self showCardEntryForm];
 }
 
 /*

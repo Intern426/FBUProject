@@ -9,6 +9,7 @@ target 'FBUProject' do
   pod 'LoremIpsum'
   pod 'MBProgressHUD', '~> 1.2.0'  
   pod 'Parse'
+  pod 'SquareInAppPaymentsSDK'
 
   target 'FBUProjectTests' do
     inherit! :search_paths
