@@ -10,6 +10,7 @@
 #import "ShoppingCell.h"
 #import "Parse/Parse.h"
 @import SquareInAppPaymentsSDK;
+#import "PurchaseViewController.h"
 
 @interface CheckoutViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, SQIPCardEntryViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
@@ -72,46 +73,17 @@
     [self loadBoughtPrescriptions];
 }
 
--(void) showCardEntryForm{
-    SQIPTheme *theme = [[SQIPTheme alloc] init];
-    
-    theme.tintColor = UIColor.grayColor;
-    theme.saveButtonTitle = @"Submit";
-    
-    SQIPCardEntryViewController *cardEntryForm = [[SQIPCardEntryViewController alloc] initWithTheme:theme];
-    cardEntryForm.delegate = self;
-    
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:cardEntryForm];
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
-
-- (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didCompleteWithStatus:(SQIPCardEntryCompletionStatus)status{
-    if (status) {
-        NSLog(@"Success?");
-    } else {
-        NSLog(@"Something went wrong...");
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didObtainCardDetails:(SQIPCardDetails *)cardDetails completionHandler:(void (^)(NSError * _Nullable))completionHandler{
-    
-}
-
-- (IBAction)didTapCheckout:(id)sender {
-    [self showCardEntryForm];
-}
-
-/*
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     UINavigationController *navigationControl = [segue destinationViewController];
+     PurchaseViewController *purchaseController = (PurchaseViewController*)navigationControl.topViewController;
+     purchaseController.cost =  self.totalCost;
  }
- */
+ 
 
 
 @end

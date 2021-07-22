@@ -17,6 +17,7 @@
 		DE6009D8269F7B3900CE21EA /* ReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D7269F7B3900CE21EA /* ReminderCell.m */; };
 		DE7FE023269F973F00B83F0F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7FE022269F973F00B83F0F /* MapViewController.m */; };
 		DE82EF6D26A208AA00587096 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE82EF6C26A208AA00587096 /* SignUpViewController.m */; };
+		DE9EEF9726A932F500A257B8 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9EEF9626A932F500A257B8 /* PurchaseViewController.m */; };
 		DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */; };
 		DEDA790826A5EB9200A4F72B /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */; };
 		DEDA790B26A5EEA400A4F72B /* ShoppingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */; };
@@ -77,6 +78,8 @@
 		DE7FE022269F973F00B83F0F /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		DE82EF6B26A208AA00587096 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		DE82EF6C26A208AA00587096 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		DE9EEF9526A932F500A257B8 /* PurchaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
+		DE9EEF9626A932F500A257B8 /* PurchaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseViewController.m; sourceTree = "<group>"; };
 		DECCBF97269F4DEC00C20B68 /* RemindersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindersViewController.h; sourceTree = "<group>"; };
 		DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindersViewController.m; sourceTree = "<group>"; };
 		DEDA790626A5EB9200A4F72B /* CheckoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				DE4B96AA26A235EA006099A8 /* NewReminderViewController.m */,
 				DEDA790626A5EB9200A4F72B /* CheckoutViewController.h */,
 				DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */,
+				DE9EEF9526A932F500A257B8 /* PurchaseViewController.h */,
+				DE9EEF9626A932F500A257B8 /* PurchaseViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -526,6 +531,7 @@
 				DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */,
 				DEFE0968269C9E6E00EAF59E /* main.m in Sources */,
 				DEFE095A269C9E6D00EAF59E /* SceneDelegate.m in Sources */,
+				DE9EEF9726A932F500A257B8 /* PurchaseViewController.m in Sources */,
 				DEFAFA58269CD7BD00BEC4BF /* ProfileViewController.m in Sources */,
 				DE4B96AB26A235EA006099A8 /* NewReminderViewController.m in Sources */,
 				DE82EF6D26A208AA00587096 /* SignUpViewController.m in Sources */,
