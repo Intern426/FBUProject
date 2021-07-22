@@ -7,6 +7,8 @@
 
 #import "APIManager.h"
 #import "Prescription.h"
+#import "Parse/Parse.h"
+@import SquareInAppPaymentsSDK;
 
 @implementation APIManager
 
@@ -23,11 +25,6 @@ NSString *apiKey = @"";
     return sharedManager;
 }
 
-/*
- * Analogy:
- * Synchronous Call - I call you to do something, you tell me to do something and wait five minutes while on the call
- * Aynsynchronous call - I call you to do something, you hang up and return teh data when you're done while I'm doing something else
- */
 
 - (void)getDrugsWithCompletion:(void (^)(NSArray *, NSError *))completion{
     // get the data from the user's endpoint
@@ -48,5 +45,9 @@ NSString *apiKey = @"";
        }];
     [task resume];
 }
+
+/*- (void) addCustomerWithCompletion(PFUser *)user completion:(void (^)(Customers *, NSError *))completion{
+        
+}*/
 
 @end

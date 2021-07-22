@@ -9,10 +9,9 @@
 #import "PrescriptionCell.h"
 #import "ShoppingCell.h"
 #import "Parse/Parse.h"
-@import SquareInAppPaymentsSDK;
 #import "PurchaseViewController.h"
 
-@interface CheckoutViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, SQIPCardEntryViewControllerDelegate>
+@interface CheckoutViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (nonatomic) double totalCost;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
