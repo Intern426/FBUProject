@@ -33,13 +33,23 @@
 }
 
 - (void) loadPrescriptions {
-    [[APIManager shared] getDrugsWithCompletion:^(NSArray * prescriptions, NSError *error) {
-        if (prescriptions) {
-            NSLog(@"Okay... got something");
-            self.prescriptions = (NSMutableArray*) prescriptions;
-            self.searchedPrescriptions = [NSMutableArray arrayWithArray:prescriptions];
+    PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
+    query.limit = 20;
+    
+    [query orderByDescending:@"drugName"];
+    
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *prescriptions, NSError *error) {
+        if (prescriptions != nil) {
+            // do something with the array of object returned by the call
+            self.prescriptions = [Prescription prescriptionsDatainArray:prescriptions];
+            self.searchedPrescriptions = [NSMutableArray arrayWithArray:self.prescriptions];
             [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
         }
+       // [self.refreshControl endRefreshing];
+       // [self.loadingIndicatorView stopAnimating];
     }];
 }
 

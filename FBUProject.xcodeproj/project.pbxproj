@@ -21,6 +21,8 @@
 		DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */; };
 		DEDA790826A5EB9200A4F72B /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */; };
 		DEDA790B26A5EEA400A4F72B /* ShoppingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */; };
+		DEEF3C1026A9F0C50021FC0C /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEF3C0F26A9F0C50021FC0C /* Order.m */; };
+		DEF4B2F426AA15E400581E78 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF4B2F326AA15E400581E78 /* BDBOAuth1SessionManager+SFAuthenticationSession.m */; };
 		DEFAFA55269CD7A900BEC4BF /* PrescriptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA54269CD7A900BEC4BF /* PrescriptionsViewController.m */; };
 		DEFAFA58269CD7BD00BEC4BF /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA57269CD7BD00BEC4BF /* ProfileViewController.m */; };
 		DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA5A269CDA1600BEC4BF /* LoginViewController.m */; };
@@ -86,6 +88,10 @@
 		DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
 		DEDA790926A5EEA400A4F72B /* ShoppingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingCell.h; sourceTree = "<group>"; };
 		DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoppingCell.m; sourceTree = "<group>"; };
+		DEEF3C0E26A9F0C50021FC0C /* Order.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		DEEF3C0F26A9F0C50021FC0C /* Order.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		DEF4B2F226AA15E000581E78 /* BDBOAuth1SessionManager+SFAuthenticationSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "BDBOAuth1SessionManager+SFAuthenticationSession.h"; path = "../../../../Desktop/BDBOAuth1SessionManager+SFAuthenticationSession.h"; sourceTree = "<group>"; };
+		DEF4B2F326AA15E400581E78 /* BDBOAuth1SessionManager+SFAuthenticationSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BDBOAuth1SessionManager+SFAuthenticationSession.m"; path = "../../../../Desktop/BDBOAuth1SessionManager+SFAuthenticationSession.m"; sourceTree = "<group>"; };
 		DEFAFA53269CD7A900BEC4BF /* PrescriptionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrescriptionsViewController.h; sourceTree = "<group>"; };
 		DEFAFA54269CD7A900BEC4BF /* PrescriptionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrescriptionsViewController.m; sourceTree = "<group>"; };
 		DEFAFA56269CD7BD00BEC4BF /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -179,6 +185,17 @@
 			path = "Features Controllers";
 			sourceTree = "<group>";
 		};
+		DEF4B2F126AA12C200581E78 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				DE01A2D726A7724100C612AF /* APIManager.h */,
+				DE01A2D826A7724100C612AF /* APIManager.m */,
+				DEF4B2F226AA15E000581E78 /* BDBOAuth1SessionManager+SFAuthenticationSession.h */,
+				DEF4B2F326AA15E400581E78 /* BDBOAuth1SessionManager+SFAuthenticationSession.m */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		DEFAFA52269CD78F00BEC4BF /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +235,8 @@
 				DEFAFA64269CF30000BEC4BF /* Prescription.m */,
 				DE6009D3269F778000CE21EA /* Reminder.h */,
 				DE6009D4269F778000CE21EA /* Reminder.m */,
+				DEEF3C0E26A9F0C50021FC0C /* Order.h */,
+				DEEF3C0F26A9F0C50021FC0C /* Order.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -247,6 +266,7 @@
 		DEFE0954269C9E6D00EAF59E /* FBUProject */ = {
 			isa = PBXGroup;
 			children = (
+				DEF4B2F126AA12C200581E78 /* API */,
 				DEFAFA5F269CE40F00BEC4BF /* Models */,
 				DEFAFA5E269CE40300BEC4BF /* Views */,
 				DEEF3C0D26A9DC200021FC0C /* Features Controllers */,
@@ -257,8 +277,6 @@
 				DEFE0959269C9E6D00EAF59E /* SceneDelegate.m */,
 				DE6009D0269F766200CE21EA /* ReminderNotificationManager.h */,
 				DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */,
-				DE01A2D726A7724100C612AF /* APIManager.h */,
-				DE01A2D826A7724100C612AF /* APIManager.m */,
 				DEFE095E269C9E6D00EAF59E /* Main.storyboard */,
 				DEFE0961269C9E6E00EAF59E /* Assets.xcassets */,
 				DEFE0963269C9E6E00EAF59E /* LaunchScreen.storyboard */,
@@ -529,8 +547,10 @@
 				DEFAFA62269CE42600BEC4BF /* PrescriptionCell.m in Sources */,
 				DE01A2D926A7724100C612AF /* APIManager.m in Sources */,
 				DEFAFA55269CD7A900BEC4BF /* PrescriptionsViewController.m in Sources */,
+				DEF4B2F426AA15E400581E78 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,
 				DEFE0957269C9E6D00EAF59E /* AppDelegate.m in Sources */,
 				DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */,
+				DEEF3C1026A9F0C50021FC0C /* Order.m in Sources */,
 				DE6009D2269F766300CE21EA /* ReminderNotificationManager.m in Sources */,
 				DEFAFA65269CF30000BEC4BF /* Prescription.m in Sources */,
 				DE7FE023269F973F00B83F0F /* MapViewController.m in Sources */,

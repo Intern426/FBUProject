@@ -17,30 +17,28 @@
     // Initialization code
     [self.likeButton setImage:[UIImage systemImageNamed:@"star.fill"] forState:UIControlStateSelected];
     [self.likeButton setImage:[UIImage systemImageNamed:@"star"] forState:UIControlStateNormal];
-    //[self setupPrescription];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
     // Configure the view for the selected state
 }
 
 
 -(void)setPrescription: (Prescription*) prescription{
      _prescription = prescription;
+    if ([prescription isKindOfClass:[PFObject class]]) {
+        self.prescription = [[Prescription alloc] initWithParseData:prescription];
+    }
     self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
-    self.quantityLabel.text = [NSString stringWithFormat:@"Quantity: %@, %@", self.prescription.dosageAmount, self.prescription.dosageForm];
-
-    /*self.prescription = [[Prescription alloc] init];
-    self.prescription.displayName = self.nameLabel.text;
-    self.prescription.manufacturer = @"Generic";
-    self.prescription.dosageAmount = @"500 mg";
-    self.prescription.dosageForm = @"60 tablets";*/
-
-    
-    self.pricesButton.menu = [self createPriceMenu];
-    self.pricesButton.showsMenuAsPrimaryAction = YES;
+    self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
+    if (self.quantityControl.selectedSegmentIndex == 0) {
+        self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
+        self.priceLabel.text = self.prescription.price30;
+    } else {
+        self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount90];
+        self.priceLabel.text =  self.prescription.price90;
+    }
     
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser[@"savedDrugs"]) {
@@ -51,29 +49,17 @@
     }
 }
 
--(UIMenu*) createPriceMenu{
-    NSMutableArray* pricesGathered = [[NSMutableArray alloc] init];
-    [pricesGathered addObject:[NSString stringWithFormat:@"%.2f", 19.99]];
-    [pricesGathered addObject:[NSString stringWithFormat:@"%.2f", 30.99]];
-    [pricesGathered addObject:[NSString stringWithFormat:@"%.2f", 60.99]];
-    NSMutableArray *priceOptions = [[NSMutableArray alloc] init];
-    
-    for (NSString *price in pricesGathered) {
-        UIAction *testAction = [UIAction actionWithTitle:price image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-            [self.pricesButton setTitle:price forState:UIControlStateNormal];
-            [self.pricesButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-            self.pharmacyLabel.hidden = NO;
-            self.searchButton.hidden = NO;
-            NSArray* pharmacy = @[@"Walgreens", @"CVS", @"Rite Aid"];
-            int random = arc4random_uniform(3);
-            self.pharmacyLabel.text = @"Walgreens";
-        }];
-        [priceOptions addObject:testAction];
+- (IBAction)didChangeQuantity:(id)sender {
+    if (self.quantityControl.selectedSegmentIndex == 0) {
+        self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
+        self.priceLabel.text = self.prescription.price30;
+    } else {
+        self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount90];
+        self.priceLabel.text =  self.prescription.price90;
     }
-    
-    UIMenu *menu = [UIMenu menuWithChildren:priceOptions];
-    return menu;
 }
+
+
 
 - (IBAction)didTapFavorite:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
@@ -93,7 +79,7 @@
         }];
         self.likeButton.selected = NO;
     } else {
-        [currentUser addObject:self.prescription.displayName forKey:@"savedDrugs"];
+        [currentUser addObject:self.prescription.prescriptionPointer forKey:@"savedDrugs"];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 // The PFUser has been saved.
@@ -129,7 +115,6 @@
     }
     NSMutableArray *prescriptionInfo = [[NSMutableArray alloc] init];
     [prescriptionInfo addObject:self.prescription.displayName];
-    [prescriptionInfo addObject:self.prescription.manufacturer];
     [prescriptionInfo addObject:self.prescription.dosageForm];
     [prescriptionInfo addObject:self.prescription.dosageAmount];
 

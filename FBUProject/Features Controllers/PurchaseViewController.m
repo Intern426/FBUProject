@@ -8,6 +8,8 @@
 #import "PurchaseViewController.h"
 #import "Parse/Parse.h"
 @import SquareInAppPaymentsSDK;
+#import "APIManager.h"
+#import "Order.h"
 
 @import MapKit;
 @import CoreLocation;
@@ -16,6 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *buyerInfoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *costLabel;
+@property (weak, nonatomic) APIManager *squareManager;
 
 @end
 
@@ -31,6 +34,8 @@
 - (void) setupTransaction{
     PFUser *buyer = [PFUser currentUser];
     
+    // self.squareManager = [APIManager sharedSquare];
+    
     // Convert geocode back to user-friendly address
     PFGeoPoint *address = buyer[@"address"];
     CLLocation* location = [[CLLocation alloc] initWithLatitude:address.latitude longitude:address.longitude];
@@ -44,12 +49,15 @@
                 NSLog(@"%@", placemark.postalAddress);
                 
                 CNPostalAddress *addressConverter = placemark.postalAddress;
-
-                self.costLabel.text = [NSString stringWithFormat:@"%f", self.cost];
-                self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@ \n%@\n%@, %@, %@", buyer[@"name"], addressConverter.street,
-                                            addressConverter.city, addressConverter.state, addressConverter.postalCode];
+                CNPostalAddressFormatter *formatter = [[CNPostalAddressFormatter alloc] init];
+                NSString *sample = [formatter stringFromPostalAddress:addressConverter];
+                
+                self.costLabel.text = [NSString stringWithFormat:@"$%.2f", self.cost];
+                self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
             }
     }];
+    
+    
 }
 
 -(void) showCardEntryForm{
@@ -95,6 +103,9 @@
  */
 
 - (IBAction)didTapPayCard:(id)sender {
+   /* [self.squareManager postOrderWithCompletion:@"LYT236XTGSF59" completion:^(Order * _Nonnull order, NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];*/
     [self showCardEntryForm];
 }
 

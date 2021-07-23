@@ -30,7 +30,8 @@
 }
 
 -(void) loadFavorites{
-    self.prescriptions =  [Prescription prescriptionsWithStrings:self.currentUser[@"savedDrugs"]];
+    self.prescriptions =  [[NSMutableArray alloc] init];
+    [self queryPrescriptions];
     if (self.prescriptions != nil && self.prescriptions.count != 0) {
         self.emptyLabel.hidden = YES;
     } else {
@@ -45,6 +46,17 @@
     [self loadFavorites];
 }
 
+
+-(void) queryPrescriptions {
+    NSArray *array = self.currentUser[@"savedDrugs"];
+    for (int i = 0; i < array.count; i++) {
+        PFObject *object = array[i];
+        NSString *objectId =  object.objectId;
+        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
+        Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:objectId]];
+        [self.prescriptions addObject:prescription];
+    }
+}
 /*
 #pragma mark - Navigation
 

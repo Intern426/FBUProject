@@ -30,7 +30,7 @@
     
     [Parse initializeWithConfiguration:config];
     [SQIPInAppPaymentsSDK setSquareApplicationID:[dict objectForKey:@"square_app_id"]];
-
+    
     return YES;
 }
 

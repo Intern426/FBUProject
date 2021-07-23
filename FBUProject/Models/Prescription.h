@@ -6,39 +6,38 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Parse/Parse.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Prescription : NSObject
 
-// Required information
+// Required information for List
 @property (nonatomic, strong) NSString *displayName; // what will show up on the cell's title
+@property (nonatomic, strong) NSString *dosageAmount;
+@property (nonatomic, strong) NSString *dosageForm;
+@property (nonatomic, strong) NSString *price30;
+@property (nonatomic, strong) NSString *price90;
+@property (nonatomic, strong) NSString *amount30;
+@property (nonatomic, strong) NSString *amount90;
+@property (nonatomic, strong) PFObject *prescriptionPointer; // refers to the data saved in Parse
 
-@property (nonatomic, strong) NSString *brandName;
-@property (nonatomic, strong) NSString *genericName;
 
-@property (nonatomic, strong) NSString* manufacturer; // either brand or generic
-
-@property (nonatomic, strong) NSString* dosageAmount; // i.e. 500 mg
-@property (nonatomic, strong) NSString *dosageForm; // i.e. 60 tablets
-@property (nonatomic, strong) NSArray *price; // TODO: Initialize the price
-@property (nonatomic, strong) NSString* pharamcy;
-
-// GoodRX requirement
-@property (nonatomic, strong) NSString *url; //Links back to the GoodRX website as per Terms and Conditions
 
 // Additional/Detail info
  // Active Ingredient
  // Inactive Ingredient
- // --> Might drop ingredients - difficult to acquire and frankly kinda confusing  so instead might just list
  // Purpose (i.e. Pain reliver)
  // Side Effects and Warnings
+ // Generic and Brand name
+ // Manufacturer who provided info
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (instancetype)initWithString:(NSString *)brand;
 
++ (NSMutableArray *)prescriptionsDatainArray:(NSArray *)data;
 + (NSMutableArray *)prescriptionsWithArray:(NSArray *)dictionaries;
 + (NSMutableArray *)prescriptionsWithStrings:(NSArray *)dictionaries;
+
+- (instancetype)initWithParseData:(PFObject *)prescription;
 
 @end
 
