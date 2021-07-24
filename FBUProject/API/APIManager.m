@@ -11,7 +11,6 @@
 
 #import "Parse/Parse.h"
 @import SquareInAppPaymentsSDK;
-#import "OAuth2/OAuthRequestController.h"
 
 @implementation APIManager
 
@@ -24,35 +23,6 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
         sharedManager = [[self alloc] init];
     });
     return sharedManager;
-}
-
-+ (instancetype) sharedSquare {
-    static APIManager *sharedManager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedManager = [[self alloc] initWithSquare];
-    });
-    return sharedManager;
-}
-
-
-
-
-- (instancetype) initWithSquare{
-    
-    NSURL *baseURL = [NSURL URLWithString:baseURLString];
-    
-    // Pull API Keys from your new Keys.plist file
-    NSString *path = [[NSBundle mainBundle] pathForResource: @"Key" ofType: @"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
-    
-    
-    
-    self = [super initWithBaseURL:baseURL];
-    if (self) {
-        
-    }
-    return self;
 }
 
 
@@ -76,13 +46,69 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     [task resume];
 }
 
-/*- (void)postOrderWithCompletion:(NSString *)text completion:(void (^)(Order *, NSError *))completion{
-    NSDictionary *parameters = @{@"location_id": text};
-    [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable orders) {
-        completion(nil, nil);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        completion(nil, error);
+- (void)uploadOrderWithCompletion:(Order*) order completion: (void (^)(Order *, NSError *))completion{
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Key" ofType: @"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters addEntriesFromDictionary:@{@"idempotency":@"value"}];
+    
+    NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingSortedKeys error:nil];
+    
+    NSURL *url = [NSURL URLWithString:@"https://connect.squareupsandbox.com/v2/orders "];
+    NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    request.HTTPMethod = @"POST";
+    [request setValue:@"2021-07-21"  forKey:@"Square-Version"];
+    [request setValue:@"application/json" forKey:@"Content-Type"];
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@", [dict objectForKey: @"square_access_token"]];
+    [request setValue:authorization forKey:@"Authorization"];
+    
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:jsonItem completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+        } else {
+            NSLog(@"DID IT WORK!!!!??");
+        }
     }];
-}*/
+    [task resume];
+}
 
+- (void) uploadPaymentWithCompletion: (NSMutableDictionary*) amount completion:  (void (^)(NSDictionary * payment, NSError * error))completion{
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Key" ofType: @"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    
+    NSMutableDictionary *parameters = (NSMutableDictionary*) amount;
+    
+    NSString *string = [[[NSProcessInfo processInfo] globallyUniqueString] substringWithRange:NSMakeRange(0, 44)];
+    [parameters addEntriesFromDictionary:@{@"idempotency_key": string}];
+    [parameters addEntriesFromDictionary:@{@"source_id":@"cnon:card-nonce-ok"}];
+    
+    NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingSortedKeys error:nil];
+    
+    NSURL *url = [NSURL URLWithString:@"https://connect.squareupsandbox.com/v2/payments"];
+    NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url];
+    
+    request.HTTPMethod = @"POST";
+    [request addValue:@"2021-07-21"  forHTTPHeaderField:@"Square-Version"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@", [dict objectForKey: @"square_access_token"]];
+    [request addValue:authorization forHTTPHeaderField:@"Authorization"];
+    
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:jsonItem completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error != nil) { // Something wrong with the authentication/url session
+            NSLog(@"%@", error.localizedDescription);
+            completion(nil, error);
+        }
+        NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        completion(dataDictionary, nil);
+    }];
+    [task resume];
+}
 @end

@@ -42,19 +42,19 @@
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-            if (error != nil) {
-                NSLog(@"%@", error.localizedDescription);
-            } else {
-                CLPlacemark* placemark = placemarks.firstObject;
-                NSLog(@"%@", placemark.postalAddress);
-                
-                CNPostalAddress *addressConverter = placemark.postalAddress;
-                CNPostalAddressFormatter *formatter = [[CNPostalAddressFormatter alloc] init];
-                NSString *sample = [formatter stringFromPostalAddress:addressConverter];
-                
-                self.costLabel.text = [NSString stringWithFormat:@"$%.2f", self.cost];
-                self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
-            }
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+        } else {
+            CLPlacemark* placemark = placemarks.firstObject;
+            NSLog(@"%@", placemark.postalAddress);
+            
+            CNPostalAddress *addressConverter = placemark.postalAddress;
+            CNPostalAddressFormatter *formatter = [[CNPostalAddressFormatter alloc] init];
+            NSString *sample = [formatter stringFromPostalAddress:addressConverter];
+            
+            self.costLabel.text = [NSString stringWithFormat:@"$%.2f", self.cost];
+            self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
+        }
     }];
     
     
@@ -76,8 +76,20 @@
 - (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didCompleteWithStatus:(SQIPCardEntryCompletionStatus)status{
     if (status) {
         NSLog(@"Success!");
-        // TODO: Clear the cart -- already bought all their stuff
-        // TODO: Deal with tracking and delivery order
+        NSMutableDictionary *amount = [[NSMutableDictionary alloc] init];
+        [amount addEntriesFromDictionary:@{@"amount": @3998}]; //TODO: ACTUALLY TRANSFER THE MONEY!!!!!!
+        [amount addEntriesFromDictionary:@{@"currency": @"USD"}];
+        
+        NSMutableDictionary *entry = [[NSMutableDictionary alloc] init];
+        [entry addEntriesFromDictionary:@{@"amount_money":amount}];
+        
+        [[APIManager shared] uploadPaymentWithCompletion:entry completion:^(NSDictionary * payment, NSError * error) {
+            if (error != nil) {
+                NSLog(@"Error! %@", error.localizedDescription);
+            } else {
+                NSLog(@"Let's gooooo!");
+            }
+        }];
     } else {
         NSLog(@"Something went wrong...");
     }
@@ -103,9 +115,6 @@
  */
 
 - (IBAction)didTapPayCard:(id)sender {
-   /* [self.squareManager postOrderWithCompletion:@"LYT236XTGSF59" completion:^(Order * _Nonnull order, NSError * _Nonnull error) {
-        NSLog(@"%@", error.localizedDescription);
-    }];*/
     [self showCardEntryForm];
 }
 

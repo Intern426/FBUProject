@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Order : NSObject
 
+@property (nonatomic, strong) NSString *customer_id; // Use Parse's object ID
+@property (nonatomic, strong) NSString *location_id;
 
 
 @end

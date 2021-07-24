@@ -27,9 +27,6 @@
 
 -(void)setPrescription: (Prescription*) prescription{
      _prescription = prescription;
-    if ([prescription isKindOfClass:[PFObject class]]) {
-        self.prescription = [[Prescription alloc] initWithParseData:prescription];
-    }
     self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
     self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
     if (self.quantityControl.selectedSegmentIndex == 0) {
@@ -67,7 +64,7 @@
         currentUser[@"savedDrugs"] = [[NSMutableArray alloc] init];
     }
     if (self.likeButton.isSelected) {
-        [currentUser removeObject:self.prescription.displayName forKey:@"savedDrugs"];
+        [currentUser removeObject:self.prescription.prescriptionPointer forKey:@"savedDrugs"];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 // The PFUser has been saved.
@@ -95,7 +92,7 @@
 
 - (IBAction)didTapDelete:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
-    [currentUser removeObject:self.prescription.displayName forKey:@"savedDrugs"];
+    [currentUser removeObject:self.prescription.prescriptionPointer forKey:@"savedDrugs"];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // The PFUser has been saved.

@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)postOrderWithCompletion:(NSString *)text completion:(void (^)(Order *order, NSError *error))completion;
 
+- (void) uploadPaymentWithCompletion: (NSMutableDictionary*) amount completion:  (void (^)(NSDictionary * payment, NSError * error))completion;
+
 @end
 
 NS_ASSUME_NONNULL_END
