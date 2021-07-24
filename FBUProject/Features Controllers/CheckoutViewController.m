@@ -38,11 +38,12 @@
 -(void) viewDidAppear:(BOOL)animated{
     // Every time user selects tab reload data just in case they added a prescription
     self.totalCost = 0; // prevents total from adding the cost of the same prescription
+    self.prescriptions = [[NSMutableArray alloc] init];
     [self loadBoughtPrescriptions];
 }
 
 -(void) loadBoughtPrescriptions{
-    self.prescriptions = self.currentUser[@"buyingDrugs"];
+    [self queryPrescriptions];
     if (self.prescriptions != nil && self.prescriptions.count != 0) {
         self.emptyLabel.hidden = YES;
     } else {
@@ -52,15 +53,24 @@
     [self.tableView reloadData];
 }
 
+-(void) queryPrescriptions {
+    NSArray *array = self.currentUser[@"buyingDrugs"];
+    for (int i = 0; i < array.count; i++) {
+        NSDictionary *object = array[i];
+        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
+        Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        formatter.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *quantity = [formatter numberFromString:object[@"quantity"]];
+        NSLog(@"%@", quantity);
+        [prescription setQuantity:quantity];
+        [self.prescriptions addObject:prescription];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShoppingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShoppingCell"];
-    NSArray *array = self.prescriptions[indexPath.row];
-    cell.drugNameLabel.text = array[0];
-    cell.manufacturerLabel.text = [NSString stringWithFormat:@"Manufacturer: %@", array[1]];
-    cell.formLabel.text = [NSString stringWithFormat:@"Form: %@, %@", array[2], array[3]];
-    self.totalCost += 19.99;
-    
-    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalCost];
+    cell.prescription = self.prescriptions[indexPath.row];
     return cell;
 }
 
@@ -83,6 +93,4 @@
      purchaseController.cost =  self.totalCost;
  }
  
-
-
 @end

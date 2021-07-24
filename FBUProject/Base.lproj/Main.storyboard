@@ -812,8 +812,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Form: 20 MG, 30 tablets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX3-tM-1HX">
-                                                    <rect key="frame" x="20" y="90" width="185.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dosage:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX3-tM-1HX">
+                                                    <rect key="frame" x="20" y="90" width="63" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -831,12 +831,6 @@
                                                         <color key="titleColor" systemColor="labelColor"/>
                                                     </state>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manufacturer: Brand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLi-47-x89">
-                                                    <rect key="frame" x="20" y="52" width="157" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$19.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RL-4K-GsR">
                                                     <rect key="frame" x="311" y="15" width="57" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -847,6 +841,23 @@
                                                     <rect key="frame" x="348" y="137" width="20" height="22"/>
                                                     <state key="normal" image="x.circle" catalog="system"/>
                                                 </button>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uvy-i9-zTi">
+                                                    <rect key="frame" x="20" y="52" width="131" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="131" id="Plt-nv-rTG"/>
+                                                        <constraint firstAttribute="height" constant="31" id="sOP-Yp-tkE"/>
+                                                    </constraints>
+                                                    <segments>
+                                                        <segment title="30 Days"/>
+                                                        <segment title="90 Days"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZA-mn-zst">
+                                                    <rect key="frame" x="169" y="56" width="77" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="XsT-qc-QnF" firstAttribute="top" secondItem="p0D-BB-hqY" secondAttribute="top" constant="16" id="0np-NP-c9i"/>
@@ -855,28 +866,33 @@
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QX3-tM-1HX" secondAttribute="trailing" constant="10" id="4ET-fK-xEV"/>
                                                 <constraint firstAttribute="trailing" secondItem="45v-nT-HNj" secondAttribute="trailing" constant="46" id="8WW-gl-JTt"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="45v-nT-HNj" secondAttribute="bottom" constant="15" id="BOL-eB-6yp"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zLi-47-x89" secondAttribute="trailing" constant="10" id="Bvf-D0-yjb"/>
+                                                <constraint firstItem="QX3-tM-1HX" firstAttribute="leading" secondItem="uvy-i9-zTi" secondAttribute="leading" id="HfF-5E-vrK"/>
+                                                <constraint firstItem="LZA-mn-zst" firstAttribute="top" secondItem="p0D-BB-hqY" secondAttribute="top" constant="56" id="INV-Bu-ims"/>
                                                 <constraint firstAttribute="trailing" secondItem="0RL-4K-GsR" secondAttribute="trailing" constant="46" id="JMB-dk-xAU"/>
                                                 <constraint firstItem="0RL-4K-GsR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XsT-qc-QnF" secondAttribute="trailing" constant="10" id="L1x-jH-qeF"/>
                                                 <constraint firstItem="XsT-qc-QnF" firstAttribute="leading" secondItem="p0D-BB-hqY" secondAttribute="leading" constant="20" id="MVo-f4-a8P"/>
-                                                <constraint firstItem="zLi-47-x89" firstAttribute="leading" secondItem="XsT-qc-QnF" secondAttribute="leading" id="Ma8-fx-RO1"/>
-                                                <constraint firstItem="QX3-tM-1HX" firstAttribute="top" secondItem="zLi-47-x89" secondAttribute="bottom" constant="17" id="Y5l-r6-lwj"/>
-                                                <constraint firstItem="zLi-47-x89" firstAttribute="top" secondItem="XsT-qc-QnF" secondAttribute="bottom" constant="15" id="ZFB-Rz-4Sv"/>
+                                                <constraint firstItem="LZA-mn-zst" firstAttribute="leading" secondItem="uvy-i9-zTi" secondAttribute="trailing" constant="18" id="SwJ-Fu-ruD"/>
+                                                <constraint firstAttribute="bottom" secondItem="LZA-mn-zst" secondAttribute="bottom" constant="102" id="TxF-QL-rNC"/>
                                                 <constraint firstItem="45v-nT-HNj" firstAttribute="top" secondItem="0RL-4K-GsR" secondAttribute="bottom" constant="101" id="ZN6-XF-QY5"/>
                                                 <constraint firstItem="9oh-Vs-Wia" firstAttribute="leading" secondItem="XsT-qc-QnF" secondAttribute="leading" id="aAN-d5-gWf"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9oh-Vs-Wia" secondAttribute="bottom" constant="19" id="apa-PY-mi6"/>
+                                                <constraint firstAttribute="trailing" secondItem="LZA-mn-zst" secondAttribute="trailing" constant="168" id="hgD-GY-grS"/>
+                                                <constraint firstItem="uvy-i9-zTi" firstAttribute="top" secondItem="XsT-qc-QnF" secondAttribute="bottom" constant="15" id="iXL-Tz-Slt"/>
                                                 <constraint firstItem="QX3-tM-1HX" firstAttribute="leading" secondItem="XsT-qc-QnF" secondAttribute="leading" id="mzx-nT-Ys7"/>
                                                 <constraint firstItem="lbJ-L8-btW" firstAttribute="leading" secondItem="9oh-Vs-Wia" secondAttribute="trailing" constant="16" id="sV0-Eg-Hug"/>
                                                 <constraint firstItem="lbJ-L8-btW" firstAttribute="top" secondItem="QX3-tM-1HX" secondAttribute="bottom" constant="23" id="tKV-aH-PCa"/>
+                                                <constraint firstAttribute="bottom" secondItem="lbJ-L8-btW" secondAttribute="bottom" constant="15" id="u8z-qa-oWt"/>
                                                 <constraint firstItem="9oh-Vs-Wia" firstAttribute="top" secondItem="QX3-tM-1HX" secondAttribute="bottom" constant="28" id="vKV-wO-M34"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="amountButton" destination="lbJ-L8-btW" id="dbb-hF-JyM"/>
+                                            <outlet property="deleteButton" destination="45v-nT-HNj" id="9Ga-6X-MNH"/>
+                                            <outlet property="dosageLabel" destination="QX3-tM-1HX" id="IvM-cr-RDc"/>
                                             <outlet property="drugNameLabel" destination="XsT-qc-QnF" id="F9N-Os-1LA"/>
-                                            <outlet property="formLabel" destination="QX3-tM-1HX" id="efU-7r-VOY"/>
-                                            <outlet property="manufacturerLabel" destination="zLi-47-x89" id="nYa-s8-JJv"/>
                                             <outlet property="priceLabel" destination="0RL-4K-GsR" id="RiR-Ml-qCM"/>
+                                            <outlet property="quantityControl" destination="uvy-i9-zTi" id="0or-aZ-DOb"/>
+                                            <outlet property="quantityLabel" destination="LZA-mn-zst" id="DaF-Jx-6yT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -928,7 +944,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBQ-TD-oRe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="0MO-zI-HUO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1497" y="1418"/>
+            <point key="canvasLocation" x="-1497.1014492753625" y="1417.6339285714284"/>
         </scene>
         <!--Purchase View Controller-->
         <scene sceneID="GWr-a9-UlQ">

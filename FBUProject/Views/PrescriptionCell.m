@@ -110,11 +110,9 @@
     if (!currentUser[@"buyingDrugs"]) {
         currentUser[@"buyingDrugs"] = [[NSMutableArray alloc] init];
     }
-    NSMutableArray *prescriptionInfo = [[NSMutableArray alloc] init];
-    [prescriptionInfo addObject:self.prescription.displayName];
-    [prescriptionInfo addObject:self.prescription.dosageForm];
-    [prescriptionInfo addObject:self.prescription.dosageAmount];
-
+    NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
+    [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
+    [prescriptionInfo addEntriesFromDictionary:@{@"quantity": @"1"}];
     
     if (self.cartButton.isSelected) {
         [currentUser removeObject:prescriptionInfo forKey:@"buyingDrugs"];
@@ -127,7 +125,7 @@
                 NSLog(@"boo.....%@", error.localizedDescription);
             }
         }];
-        self.likeButton.selected = NO;
+        self.cartButton.selected = NO;
     } else {
         [currentUser addObject:prescriptionInfo forKey:@"buyingDrugs"];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

@@ -43,6 +43,14 @@
     return self;
 }
 
+- (NSNumber*) retrievePrice30 {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *result = [formatter numberFromString:[self.price30 substringWithRange:NSMakeRange(1, self.price30.length - 1)]];
+    return result;
+}
+
+
 - (void) parseDrugName:(NSArray*)information {
     NSMutableString *drugName = [[NSMutableString alloc]init];
     BOOL isDrugName = YES;
@@ -64,18 +72,5 @@
         [dosageInformation appendString:[NSString stringWithFormat:@"%@ ", information[j]]];
     self.dosageAmount = dosageInformation;
 }
-
-
-
-
-+ (NSMutableArray *)prescriptionsWithStrings:(NSArray *)dictionaries{
-    NSMutableArray *prescriptions = [NSMutableArray array];
-    for (NSString *string in dictionaries) {
-      //  Prescription *prescription = [[Prescription alloc] initWithString:string];
-      //  [prescriptions addObject:prescription];
-    }
-    return prescriptions;
-}
-
 
 @end

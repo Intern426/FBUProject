@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *buyerInfoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *costLabel;
 @property (weak, nonatomic) APIManager *squareManager;
+@property (strong, nonatomic) NSMutableDictionary *purchaseDetails;
+@property (strong, nonatomic) NSMutableArray *prescriptions;
 
 @end
 
@@ -28,6 +30,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupTransaction];
+    self.purchaseDetails = [[NSMutableDictionary alloc] init];
+}
+
+- (void) proccessOrders{
+    Order *newOrder = [[Order alloc] init];
+
 }
 
 
@@ -56,8 +64,6 @@
             self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
         }
     }];
-    
-    
 }
 
 -(void) showCardEntryForm{
@@ -74,20 +80,17 @@
 }
 
 - (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didCompleteWithStatus:(SQIPCardEntryCompletionStatus)status{
-    if (status) {
-        NSLog(@"Success!");
+    if (status == SQIPCardEntryCompletionStatusSuccess) {
         NSMutableDictionary *amount = [[NSMutableDictionary alloc] init];
-        [amount addEntriesFromDictionary:@{@"amount": @3998}]; //TODO: ACTUALLY TRANSFER THE MONEY!!!!!!
+        [amount addEntriesFromDictionary:@{@"amount": [NSNumber numberWithFloat:self.cost*100]}];
         [amount addEntriesFromDictionary:@{@"currency": @"USD"}];
         
-        NSMutableDictionary *entry = [[NSMutableDictionary alloc] init];
-        [entry addEntriesFromDictionary:@{@"amount_money":amount}];
-        
-        [[APIManager shared] uploadPaymentWithCompletion:entry completion:^(NSDictionary * payment, NSError * error) {
+        [self.purchaseDetails addEntriesFromDictionary:@{@"amount_money":amount}];
+        [[APIManager shared] uploadPaymentWithCompletion:self.purchaseDetails completion:^(NSDictionary * payment, NSError * error) {
             if (error != nil) {
                 NSLog(@"Error! %@", error.localizedDescription);
             } else {
-                NSLog(@"Let's gooooo!");
+                NSLog(@"Successfully uploaded payment to Square!");
             }
         }];
     } else {
@@ -99,8 +102,7 @@
 }
 
 - (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didObtainCardDetails:(SQIPCardDetails *)cardDetails completionHandler:(void (^)(NSError * _Nullable))completionHandler{
-    // TODO: Can store the card on Parse if they want to buy something again with the same card
-    // TODO: Integrate it with Walgreen's Add to Cart
+    [self.purchaseDetails addEntriesFromDictionary:@{@"source_id": cardDetails.nonce}];
     completionHandler(nil);
 }
 
