@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface APIManager : NSObject
 
 + (instancetype)shared;
-+ (instancetype) sharedSquare;
 
 - (void)uploadOrderWithCompletion:(NSMutableDictionary *)order completion:(void (^)(NSDictionary *order, NSError *error))completion;
 - (void) uploadPaymentWithCompletion: (NSMutableDictionary*) amount completion:  (void (^)(NSDictionary * payment, NSError * error))completion;

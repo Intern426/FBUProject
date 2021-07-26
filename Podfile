@@ -10,8 +10,6 @@ target 'FBUProject' do
   pod 'MBProgressHUD', '~> 1.2.0'  
   pod 'Parse'
   pod 'SquareInAppPaymentsSDK'
-  pod 'OAuth2'
-  pod 'BDBOAuth1Manager'
 
   target 'FBUProjectTests' do
     inherit! :search_paths

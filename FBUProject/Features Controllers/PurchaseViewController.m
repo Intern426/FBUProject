@@ -18,7 +18,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *buyerInfoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *costLabel;
-@property (weak, nonatomic) APIManager *squareManager;
 @property (strong, nonatomic) NSMutableDictionary *purchaseDetails;
 @property (strong, nonatomic) NSMutableDictionary *paymentDetails;
 
