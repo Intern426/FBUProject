@@ -25,27 +25,6 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     return sharedManager;
 }
 
-
-- (void)getDrugsWithCompletion:(void (^)(NSArray *, NSError *))completion{
-    // get the data from the user's endpoint
-    NSURL *url = [NSURL URLWithString:@"https://api.fda.gov/drug/drugsfda.json?count=products.brand_name.exact&limit=10"];
-    NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
-            completion(nil, error);
-        } else {
-            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSArray *drugResults = dataDictionary[@"results"];
-            NSMutableArray *prescriptions  = [Prescription prescriptionsWithArray:drugResults];
-            completion(prescriptions, nil);
-        }
-    }];
-    [task resume];
-}
-
 - (void) uploadPaymentWithCompletion: (NSMutableDictionary*) parameters completion:  (void (^)(NSDictionary * payment, NSError * error))completion{
     NSString *string = [[[NSProcessInfo processInfo] globallyUniqueString] substringWithRange:NSMakeRange(0, 44)];
     [parameters addEntriesFromDictionary:@{@"idempotency_key": string}];

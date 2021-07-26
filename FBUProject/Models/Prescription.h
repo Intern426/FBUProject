@@ -34,8 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  // Manufacturer who provided info
 
 
-+ (NSMutableArray *)prescriptionsDatainArray:(NSArray *)data;
-+ (NSMutableArray *)prescriptionsWithArray:(NSArray *)dictionaries;
++ (NSMutableArray *)prescriptionsDataInArray:(NSArray *)data;
 + (NSMutableArray *)prescriptionsWithStrings:(NSArray *)dictionaries;
 
 - (instancetype)initWithParseData:(PFObject *)prescription;

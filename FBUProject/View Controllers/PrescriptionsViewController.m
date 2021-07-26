@@ -42,7 +42,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *prescriptions, NSError *error) {
         if (prescriptions != nil) {
             // do something with the array of object returned by the call
-            self.prescriptions = [Prescription prescriptionsDatainArray:prescriptions];
+            self.prescriptions = [Prescription prescriptionsDataInArray:prescriptions];
             self.searchedPrescriptions = [NSMutableArray arrayWithArray:self.prescriptions];
             [self.tableView reloadData];
         } else {

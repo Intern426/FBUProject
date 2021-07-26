@@ -53,17 +53,22 @@
     [self.tableView reloadData];
 }
 
+// Goes through the drugs they bought - which is stored in Parse - and converts them to Prescription objects
 -(void) queryPrescriptions {
-    NSArray *array = self.currentUser[@"buyingDrugs"];
+    NSArray *array = self.currentUser[@"buyingDrugs"];  //TODO: Give these vars better names!!!
     for (int i = 0; i < array.count; i++) {
         NSDictionary *object = array[i];
         PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
+        
+        // Sets the cost
         self.totalCost +=  [prescription.retrievePrice30 floatValue];
+        
+        // TODO: Clean this part up -- can simplify it to int
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         NSNumber *quantity = [formatter numberFromString:object[@"quantity"]];
-        NSLog(@"%@", quantity);
+        
         [prescription setQuantity:[quantity intValue]];
         [self.prescriptions addObject:prescription];
     }

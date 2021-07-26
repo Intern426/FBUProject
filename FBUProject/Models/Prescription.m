@@ -11,18 +11,7 @@
 
 @implementation Prescription
 
-
-+ (NSMutableArray *)prescriptionsWithArray:(NSArray *)dictionaries{
-    NSMutableArray *prescriptions = [NSMutableArray array];
-    for (NSDictionary *dictionary in dictionaries) {
- //       Prescription *prescription = [[Prescription alloc] init];
-  //      [prescriptions addObject:prescription];
-    }
-    return prescriptions;
-}
-
-
-+ (NSMutableArray *)prescriptionsDatainArray:(NSArray *)data{
++ (NSMutableArray *)prescriptionsDataInArray:(NSArray *)data{
     NSMutableArray *prescriptions = [NSMutableArray array];
     for (PFObject *object in data) {
         Prescription *prescription = [[Prescription alloc] initWithParseData:object];
