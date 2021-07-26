@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PurchaseViewController : UIViewController
 
 @property (nonatomic) double cost;
+@property (nonatomic, strong) NSMutableArray *prescriptions;
 
 @end
 

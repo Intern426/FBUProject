@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getDrugsWithCompletion:(void(^)(NSArray*, NSError*)) completion; // nothing significant about withCompletion suffix, just makes it clear that you're passing a completion
 
-- (void)postOrderWithCompletion:(NSString *)text completion:(void (^)(Order *order, NSError *error))completion;
+- (void)uploadOrderWithCompletion:(NSMutableDictionary *)order completion:(void (^)(NSDictionary *order, NSError *error))completion;
 
 - (void) uploadPaymentWithCompletion: (NSMutableDictionary*) amount completion:  (void (^)(NSDictionary * payment, NSError * error))completion;
 

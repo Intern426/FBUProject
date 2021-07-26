@@ -59,11 +59,12 @@
         NSDictionary *object = array[i];
         PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
+        self.totalCost +=  [prescription.retrievePrice30 floatValue];
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         NSNumber *quantity = [formatter numberFromString:object[@"quantity"]];
         NSLog(@"%@", quantity);
-        [prescription setQuantity:quantity];
+        [prescription setQuantity:[quantity intValue]];
         [self.prescriptions addObject:prescription];
     }
 }
@@ -91,6 +92,7 @@
      UINavigationController *navigationControl = [segue destinationViewController];
      PurchaseViewController *purchaseController = (PurchaseViewController*)navigationControl.topViewController;
      purchaseController.cost =  self.totalCost;
+     purchaseController.prescriptions = self.prescriptions;
  }
  
 @end

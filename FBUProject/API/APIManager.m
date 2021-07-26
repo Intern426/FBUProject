@@ -53,7 +53,7 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingSortedKeys error:nil];
     
     NSMutableURLRequest *request = [self setupURLRequest:@"v2/payments"];
-
+    
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
     NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:jsonItem completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -68,8 +68,19 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
 }
 
 - (void) uploadOrderWithCompletion: (NSMutableDictionary*) parameters completion:  (void (^)(NSDictionary * order, NSError * error))completion{
-    NSString *string = [[[NSProcessInfo processInfo] globallyUniqueString] substringWithRange:NSMakeRange(0, 44)];
-    [parameters addEntriesFromDictionary:@{@"idempotency_key": string}];
+    NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingSortedKeys error:nil];
+    NSMutableURLRequest *request = [self setupURLRequest:@"v2/orders"];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:jsonItem completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error != nil) { // Something wrong with the authentication/url session
+            NSLog(@"%@", error.localizedDescription);
+            completion(nil, error);
+        }
+        NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        completion(dataDictionary, nil);
+    }];
+    [task resume];
     
 }
 

@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *amount90;
 @property (nonatomic, strong) PFObject *prescriptionPointer; // refers to the data saved in Parse
 
-@property (nonatomic, strong) NSNumber *quantity; // Just for checkout purposes!
+@property (nonatomic) int quantity; // Just for checkout purposes!
 
 
 // Additional/Detail info

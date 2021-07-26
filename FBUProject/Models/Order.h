@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary *fullfillment; // contains the details of the order (Pickup or Shipping?)
 
--(void) buyPrescription:(NSMutableArray*) prescriptions quantity:(NSString *) quantity;
+-(void) buyPrescriptions:(NSMutableArray*) prescriptions;
 
 @end
 

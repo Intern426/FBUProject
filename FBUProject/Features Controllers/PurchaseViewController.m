@@ -20,7 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *costLabel;
 @property (weak, nonatomic) APIManager *squareManager;
 @property (strong, nonatomic) NSMutableDictionary *purchaseDetails;
-@property (strong, nonatomic) NSMutableArray *prescriptions;
+@property (strong, nonatomic) NSMutableDictionary *paymentDetails;
+
 
 @end
 
@@ -31,11 +32,23 @@
     // Do any additional setup after loading the view.
     [self setupTransaction];
     self.purchaseDetails = [[NSMutableDictionary alloc] init];
+    self.paymentDetails = [[NSMutableDictionary alloc] init];
+    [self proccessOrders];
 }
 
 - (void) proccessOrders{
     Order *newOrder = [[Order alloc] init];
+    [newOrder buyPrescriptions:self.prescriptions];
+    
+    [self.purchaseDetails addEntriesFromDictionary:@{@"idempotency_key": newOrder.object_id}];
 
+    
+    NSMutableDictionary *order = [[NSMutableDictionary alloc] init];
+    [order addEntriesFromDictionary:newOrder.line_items];
+    [order addEntriesFromDictionary:newOrder.fullfillment];
+    [order addEntriesFromDictionary:@{@"location_id" : newOrder.location_id}];
+    
+    [self.purchaseDetails addEntriesFromDictionary:@{@"order": order}];
 }
 
 
@@ -85,8 +98,8 @@
         [amount addEntriesFromDictionary:@{@"amount": [NSNumber numberWithFloat:self.cost*100]}];
         [amount addEntriesFromDictionary:@{@"currency": @"USD"}];
         
-        [self.purchaseDetails addEntriesFromDictionary:@{@"amount_money":amount}];
-        [[APIManager shared] uploadPaymentWithCompletion:self.purchaseDetails completion:^(NSDictionary * payment, NSError * error) {
+        [self.paymentDetails addEntriesFromDictionary:@{@"amount_money":amount}];
+        [[APIManager shared] uploadPaymentWithCompletion:self.paymentDetails completion:^(NSDictionary * payment, NSError * error) {
             if (error != nil) {
                 NSLog(@"Error! %@", error.localizedDescription);
             } else {
@@ -102,7 +115,7 @@
 }
 
 - (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didObtainCardDetails:(SQIPCardDetails *)cardDetails completionHandler:(void (^)(NSError * _Nullable))completionHandler{
-    [self.purchaseDetails addEntriesFromDictionary:@{@"source_id": cardDetails.nonce}];
+    [self.paymentDetails addEntriesFromDictionary:@{@"source_id": cardDetails.nonce}];
     completionHandler(nil);
 }
 
@@ -118,6 +131,14 @@
 
 - (IBAction)didTapPayCard:(id)sender {
     [self showCardEntryForm];
+    [[APIManager shared] uploadOrderWithCompletion:self.purchaseDetails completion:^(NSDictionary * order, NSError * error) {
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+        } else {
+            NSDictionary *completedOrder = order[@"order"];
+            [self.paymentDetails addEntriesFromDictionary:@{@"order_id": completedOrder[@"id"]}];
+        }
+    }];
 }
 
 @end

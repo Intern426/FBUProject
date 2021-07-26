@@ -24,15 +24,17 @@
     return self;
 }
 
--(void) buyPrescription:(NSMutableArray*) prescriptions quantity:(NSString *) quantity{
+-(void) buyPrescriptions:(NSMutableArray*) prescriptions{
     NSMutableArray *arrayOfPrescriptions = [[NSMutableArray alloc]init];
     for (Prescription *prescription in prescriptions) {
         NSMutableDictionary *dictionaryEntry = [[NSMutableDictionary alloc]init];
-        [dictionaryEntry addEntriesFromDictionary:@{@"quantity": quantity}];
+        [dictionaryEntry addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d", prescription.quantity]}];
         
         // Deals with amount
         NSMutableDictionary *amount = [[NSMutableDictionary alloc] init];
-        [amount addEntriesFromDictionary:@{@"amount": prescription.retrievePrice30}];
+        
+        
+        [amount addEntriesFromDictionary:@{@"amount":[NSNumber numberWithFloat:[prescription.retrievePrice30 floatValue] * 100]}];
         [amount addEntriesFromDictionary:@{@"currency": @"USD"}];
         
         [dictionaryEntry addEntriesFromDictionary:@{@"base_price_money": amount}];
@@ -63,7 +65,9 @@
     
     [dictionaryEntry addEntriesFromDictionary:@{@"shipment_details":shipmentDetails}];
     
-    [self.fullfillment addEntriesFromDictionary:@{@"fullfillments": dictionaryEntry}];
+    [arrayForShipping addObject:dictionaryEntry];
+    
+    [self.fullfillment addEntriesFromDictionary:@{@"fulfillments": arrayForShipping}];
 }
 
 @end
