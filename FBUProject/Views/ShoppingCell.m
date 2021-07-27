@@ -50,5 +50,26 @@
     return menu;
 }
 
+- (IBAction)didTapDelete:(id)sender {
+    PFUser *currentUser = [PFUser currentUser];
+    NSArray *array = currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
+    for (int i = 0; i < array.count; i++) {
+        NSDictionary *object = array[i];
+        if ([object[@"item"] isEqual:self.prescription.prescriptionPointer.objectId]) {
+            [currentUser removeObject:object forKey:@"buyingDrugs"];
+            [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    // The PFUser has been saved.
+                    NSLog(@"Drug was removed");
+                    [self.delegate updateShoppingList];
+                    return;
+                } else {
+                    // There was a problem, check error.description
+                    NSLog(@"boo.....%@", error.localizedDescription);
+                }
+            }];
+        }
+    }
+}
 
 @end

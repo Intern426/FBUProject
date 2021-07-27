@@ -11,7 +11,7 @@
 #import "Parse/Parse.h"
 #import "PurchaseViewController.h"
 
-@interface CheckoutViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate>
+@interface CheckoutViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, ShoppingCellDelegate, PurchaseViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (nonatomic) double totalCost;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -39,6 +39,9 @@
     // Every time user selects tab reload data just in case they added a prescription
     self.totalCost = 0; // prevents total from adding the cost of the same prescription
     self.prescriptions = [[NSMutableArray alloc] init];
+    if (!self.currentUser[@"buyingDrugs"]) {
+        self.currentUser[@"buyingDrugs"] = [[NSMutableArray alloc] init];
+    }
     [self loadBoughtPrescriptions];
 }
 
@@ -55,6 +58,7 @@
 
 // Goes through the drugs they bought - which is stored in Parse - and converts them to Prescription objects
 -(void) queryPrescriptions {
+    NSLog(@"%@", self.currentUser[@"buyingDrugs"]);
     NSArray *array = self.currentUser[@"buyingDrugs"];  //TODO: Give these vars better names!!!
     for (int i = 0; i < array.count; i++) {
         NSDictionary *object = array[i];
@@ -72,6 +76,7 @@
         [prescription setQuantity:[quantity intValue]];
         [self.prescriptions addObject:prescription];
     }
+    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalCost];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -88,16 +93,41 @@
     [self loadBoughtPrescriptions];
 }
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
-     UINavigationController *navigationControl = [segue destinationViewController];
-     PurchaseViewController *purchaseController = (PurchaseViewController*)navigationControl.topViewController;
-     purchaseController.cost =  self.totalCost;
-     purchaseController.prescriptions = self.prescriptions;
- }
- 
+-(void) updateShoppingList{
+    [self loadBoughtPrescriptions];
+}
+
+-(void) clearCart{
+    PFUser *currentUser = [PFUser currentUser];
+    NSArray *array = currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
+    for (int i = 0; i < array.count; i++) {
+        NSDictionary *object = array[i];
+        [currentUser removeObject:object forKey:@"buyingDrugs"];
+        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The PFUser has been saved.
+                NSLog(@"Drug was removed");
+                [self loadBoughtPrescriptions];
+                return;
+            } else {
+                // There was a problem, check error.description
+                NSLog(@"boo.....%@", error.localizedDescription);
+            }
+        }];
+    }
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    UINavigationController *navigationControl = [segue destinationViewController];
+    PurchaseViewController *purchaseController = (PurchaseViewController*)navigationControl.topViewController;
+    purchaseController.delegate = self;
+    purchaseController.cost =  self.totalCost;
+    purchaseController.prescriptions = self.prescriptions;
+}
+
 @end

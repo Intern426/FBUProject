@@ -104,6 +104,10 @@
                 NSLog(@"Error! %@", error.localizedDescription);
             } else {
                 NSLog(@"Successfully uploaded payment to Square!"); //TODO: Change currency
+                
+                // Display banner saying orders have been proccessed
+                [self.delegate clearCart];
+                
             }
         }];
     } else {
