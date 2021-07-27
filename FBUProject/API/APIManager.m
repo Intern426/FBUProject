@@ -25,6 +25,26 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     return sharedManager;
 }
 
+-(void) getDrugInformationOpenFDA:(NSString*) drugName completion: (void (^)(NSDictionary * information, NSError * error))completion{
+    drugName = [drugName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.fda.gov/drug/label.json?search=openfda.brand_name.exact:%@", [drugName uppercaseString]];
+    NSLog(@"%@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString]; // openFDA search queries are case sensitive
+    
+     NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error != nil) {
+                NSLog(@"%@", [error localizedDescription]);
+                completion(nil, error);
+            } else {
+                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                completion(dataDictionary, nil);
+            }
+        }];
+     [task resume];
+}
+
 - (void) uploadPaymentWithCompletion: (NSMutableDictionary*) parameters completion:  (void (^)(NSDictionary * payment, NSError * error))completion{
     NSString *string = [[[NSProcessInfo processInfo] globallyUniqueString] substringWithRange:NSMakeRange(0, 44)];
     [parameters addEntriesFromDictionary:@{@"idempotency_key": string}];
@@ -69,13 +89,12 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     
     NSMutableString *baseURL = [[NSMutableString alloc] initWithString:@"https://connect.squareupsandbox.com/"];
-    
     [baseURL appendString:url];
     
     NSURL *sendingUrl = [NSURL URLWithString:baseURL];
-    
     NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:sendingUrl];
     
+    // Add the required keys for any call to Square
     request.HTTPMethod = @"POST";
     [request addValue:@"2021-07-21"  forHTTPHeaderField:@"Square-Version"];
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

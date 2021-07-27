@@ -9,7 +9,7 @@
 #import "PrescriptionCell.h"
 #import "Parse/Parse.h"
 
-@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, PrescriptionCellDelegate>
+@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, PrescriptionCellProfileDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
@@ -70,7 +70,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.prescriptions[indexPath.row];
-    cell.delegate = self;
+    cell.profileDelegate = self;
     return cell;
 }
 

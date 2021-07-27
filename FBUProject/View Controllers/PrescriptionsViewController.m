@@ -11,8 +11,10 @@
 #import "SceneDelegate.h"
 #import "Parse/Parse.h"
 #import "APIManager.h"
+#import "DetailViewController.h"
 
-@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+
+@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
 @property (strong, nonatomic) NSMutableArray *searchedPrescriptions;
@@ -90,24 +92,35 @@
 
 
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     if ([segue.identifier isEqual:@"detailSegue"]) {
+         DetailViewController *detailController = [segue destinationViewController];
+         detailController.prescription = sender;
+     }
+
  }
- */
+
+- (void)sendDetailInformation:(Prescription *)prescription{
+    [self performSegueWithIdentifier:@"detailSegue" sender:prescription];
+}
+ 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.searchedPrescriptions[indexPath.row];
+    cell.detailDelegate = self;
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.searchedPrescriptions.count;
 }
+
 
 @end

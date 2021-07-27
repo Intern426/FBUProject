@@ -15,6 +15,7 @@
 		DE6009D2269F766300CE21EA /* ReminderNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */; };
 		DE6009D5269F778000CE21EA /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D4269F778000CE21EA /* Reminder.m */; };
 		DE6009D8269F7B3900CE21EA /* ReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D7269F7B3900CE21EA /* ReminderCell.m */; };
+		DE725A6B26AF491B00AB1B70 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE725A6A26AF491B00AB1B70 /* DetailViewController.m */; };
 		DE7FE023269F973F00B83F0F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7FE022269F973F00B83F0F /* MapViewController.m */; };
 		DE82EF6D26A208AA00587096 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE82EF6C26A208AA00587096 /* SignUpViewController.m */; };
 		DE9EEF9726A932F500A257B8 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9EEF9626A932F500A257B8 /* PurchaseViewController.m */; };
@@ -75,6 +76,8 @@
 		DE6009D4269F778000CE21EA /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
 		DE6009D6269F7B3900CE21EA /* ReminderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderCell.h; sourceTree = "<group>"; };
 		DE6009D7269F7B3900CE21EA /* ReminderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderCell.m; sourceTree = "<group>"; };
+		DE725A6926AF491B00AB1B70 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		DE725A6A26AF491B00AB1B70 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		DE7FE021269F973F00B83F0F /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		DE7FE022269F973F00B83F0F /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		DE82EF6B26A208AA00587096 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				DE82EF6C26A208AA00587096 /* SignUpViewController.m */,
 				DE4B96A926A235EA006099A8 /* NewReminderViewController.h */,
 				DE4B96AA26A235EA006099A8 /* NewReminderViewController.m */,
+				DE725A6926AF491B00AB1B70 /* DetailViewController.h */,
+				DE725A6A26AF491B00AB1B70 /* DetailViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -558,6 +563,7 @@
 				DE4B96AB26A235EA006099A8 /* NewReminderViewController.m in Sources */,
 				DE82EF6D26A208AA00587096 /* SignUpViewController.m in Sources */,
 				DE6009D8269F7B3900CE21EA /* ReminderCell.m in Sources */,
+				DE725A6B26AF491B00AB1B70 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,9 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol PrescriptionCellDelegate <NSObject>
+@protocol PrescriptionCellProfileDelegate <NSObject>
 
 -(void) updateFavorites;
+
+@end
+
+@protocol PrescriptionCellDetailDelegate <NSObject>
+
+-(void) sendDetailInformation:(Prescription*) prescription;
 
 @end
 
@@ -32,7 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *quantityControl;
 
-@property (weak, nonatomic) id<PrescriptionCellDelegate> delegate;
+@property (weak, nonatomic) id<PrescriptionCellProfileDelegate> profileDelegate;
+@property (weak, nonatomic) id<PrescriptionCellDetailDelegate> detailDelegate;
+
 
 -(void)setPrescription:(Prescription *) prescription;
 

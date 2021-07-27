@@ -97,12 +97,16 @@
         if (succeeded) {
             // The PFUser has been saved.
             NSLog(@"Drug was removed");
-            [self.delegate updateFavorites];
+            [self.profileDelegate updateFavorites];
         } else {
             // There was a problem, check error.description
             NSLog(@"boo.....%@", error.localizedDescription);
         }
     }];
+}
+
+- (IBAction)didTapDetail:(id)sender {
+    [self.detailDelegate sendDetailInformation:self.prescription];
 }
 
 - (IBAction)didTapBuy:(id)sender {

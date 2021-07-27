@@ -78,6 +78,7 @@
     }];
 }
 
+
 -(void) showCardEntryForm{
     SQIPTheme *theme = [[SQIPTheme alloc] init];
     
@@ -93,7 +94,7 @@
 
 - (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didCompleteWithStatus:(SQIPCardEntryCompletionStatus)status{
     if (status == SQIPCardEntryCompletionStatusSuccess) {
-        NSMutableDictionary *amount = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *amount = [[NSMutableDictionary alloc] init]; // TODO: NSLock - thread safety!!!!! (1)
         [amount addEntriesFromDictionary:@{@"amount": [NSNumber numberWithFloat:self.cost*100]}];
         [amount addEntriesFromDictionary:@{@"currency": @"USD"}];
         
@@ -102,13 +103,12 @@
             if (error != nil) {
                 NSLog(@"Error! %@", error.localizedDescription);
             } else {
-                NSLog(@"Successfully uploaded payment to Square!");
+                NSLog(@"Successfully uploaded payment to Square!"); //TODO: Change currency
             }
         }];
     } else {
         NSLog(@"Something went wrong...");
     }
-    
     [self dismissViewControllerAnimated:YES completion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -132,10 +132,10 @@
     [self showCardEntryForm];
     [[APIManager shared] uploadOrderWithCompletion:self.purchaseDetails completion:^(NSDictionary * order, NSError * error) {
         if (error != nil) {
-            NSLog(@"%@", error.localizedDescription);
+            NSLog(@"%@", error.localizedDescription); //TODO: Pop up - UIAlertControl that shows error!
         } else {
             NSDictionary *completedOrder = order[@"order"];
-            [self.paymentDetails addEntriesFromDictionary:@{@"order_id": completedOrder[@"id"]}];
+            [self.paymentDetails addEntriesFromDictionary:@{@"order_id": completedOrder[@"id"]}]; // Block it - Progress Bar?
         }
     }];
 }

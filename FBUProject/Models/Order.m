@@ -67,7 +67,7 @@
     
     [arrayForShipping addObject:dictionaryEntry];
     
-    [self.fullfillment addEntriesFromDictionary:@{@"fulfillments": arrayForShipping}];
+    [self.fullfillment addEntriesFromDictionary:@{@"fulfillments": arrayForShipping}]; //TODO: add constants file
 }
 
 @end
