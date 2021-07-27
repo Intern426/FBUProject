@@ -7,11 +7,11 @@
 
 #import "DetailViewController.h"
 #import "APIManager.h"
+#import "MBProgressHUD.h"
 
 @interface DetailViewController ()
 
 @property (nonatomic, strong) NSDictionary *drugInformation;
-
 @property (nonatomic, strong) NSDictionary *rxNormDrugInformation;
 
 @end
@@ -19,6 +19,7 @@
 @implementation DetailViewController
 
 - (void)viewDidLoad {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString* searchingDrugName = self.prescription.displayName;
     NSArray* splitDrugName = [searchingDrugName componentsSeparatedByString:@" "];
     if (splitDrugName.count > 1) {
@@ -33,9 +34,11 @@
     // 1. Make a call to openFDA using search = BRAND_NAME
     // 2. Make a call to openFDA using search = GENERIC_NAME
     // 3. Make a call to RxNorm with the drug name and see if the rxcui number gets you results so
-    //    3.1 Save the data for RxNorm just in case.
+    //    3.1 Save the data for RxNorm so you don't have to call it again.
     //    3.2 Make a call to openFDA using search = rxcui.exact
-    // 4. When you make the call to RxNorm, just save the data then check the name... see if that name gets results!
+    // 4. Make a call to openFDA using the name RxNorm returns.
+    //  --> For example, Zmax is also known as Azithromycin and RxNorm will return it's generic name to you as it's name field.
+    //      so search through openFDA for this name instead of Zmax, and you get results.
     
 }
 
@@ -121,12 +124,8 @@
     }];
 }
 
-
-
-
 -(void) displayInformation{
     [self displayBuyingInformation];
-    NSLog(@"%@", self.drugInformation);
     NSDictionary *openFdaData = self.drugInformation[@"openfda"];
     
     NSArray *manufacturerInformation = openFdaData[@"manufacturer_name"];
@@ -147,21 +146,38 @@
         NSArray *inactiveIngredientInfo = self.drugInformation[@"inactive_ingredients"];
         self.inactiveIngredientLabel.text = inactiveIngredientInfo[0];
     } else {
-        NSArray *descriptionInfo = self.drugInformation[@"description"];
-        NSString *description = descriptionInfo[0];
-        if ([description containsString:@"inactive ingredient"]) {
-            self.inactiveIngredientLabel.text = @"It's there.";
-        } else {
+    //    NSArray *descriptionInfo = self.drugInformation[@"description"];
+     //   NSString *description = descriptionInfo[0];
+     //   if ([description containsString:@"inactive ingredient"]) {
+        //    [self findInactiveIngredients:description];
+      //  } else {
             self.inactiveIngredientLabel.hidden = YES;
-        }
+       // }
     }
-    
     if (self.drugInformation[@"purpose"]) {
         NSArray *purposeInfo = self.drugInformation[@"purpose"];
         self.purposeLabel.text = purposeInfo[0];
     } else {
         self.purposeLabel.hidden = YES;
     }
+    [self showFields];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+
+// TODO: Improve method or possibly take it out.
+// Refer to this StackOverflow Post: https://stackoverflow.com/questions/32168581/split-paragraphs-into-sentences
+-(void) findInactiveIngredients:(NSString*) description{
+    NSArray* descriptionSentences = [description componentsSeparatedByString:@"."];
+    BOOL noFoundIngredients = YES;
+    for (int i = 0; i < descriptionSentences.count && noFoundIngredients; i++) {
+        NSString *sentence = descriptionSentences[i];
+        if ([sentence containsString:@"inactive ingredient"]) {
+            NSArray* words = [sentence componentsSeparatedByString:@"inactive ingredient"];
+            self.inactiveIngredientLabel.text = words[1];
+        }
+    }
+    self.inactiveIngredientLabel.text = @"It's there.";
 }
 
 -(void)displayBuyingInformation{
@@ -183,6 +199,23 @@
         self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount90];
         self.priceLabel.text =  self.prescription.price90;
     }
+}
+
+-(void) showFields{
+    self.activeIngredientLabel.hidden = false;
+    self.amountLabel.hidden = false;
+    self.brandLabel.hidden = false;
+    self.cartButton.hidden = false;
+    self.dosageHolderLabel.hidden = false;
+    self.dosageLabel.hidden = false;
+    self.likeButton.hidden = false;
+    self.manufacturerLabel.hidden = false;
+    self.priceLabel.hidden = false;
+    self.quantityControl.hidden = false;
+    self.routeLabel.hidden = false;
+    self.searchButton.hidden = false;
+    self.qualityHolderLabel.hidden = false;
+    self.priceHolderLabel.hidden = false;
 }
 
 

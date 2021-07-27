@@ -22,10 +22,18 @@ NS_ASSUME_NONNULL_BEGIN
 // Fields already known from Prescription database
 @property (weak, nonatomic) IBOutlet UILabel *dosageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pharmacyLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *quantityControl;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
 @property (nonatomic, strong) Prescription *prescription;
+
+// Fields that are created just to hide/show while waiting for the load.
+@property (weak, nonatomic) IBOutlet UILabel *dosageHolderLabel;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (weak, nonatomic) IBOutlet UIButton *cartButton;
+@property (weak, nonatomic) IBOutlet UILabel *qualityHolderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceHolderLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END

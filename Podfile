@@ -6,7 +6,6 @@ target 'FBUProject' do
   use_frameworks!
 
   # Pods for FBUProject
-  pod 'LoremIpsum'
   pod 'MBProgressHUD', '~> 1.2.0'  
   pod 'Parse'
   pod 'SquareInAppPaymentsSDK'

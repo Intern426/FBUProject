@@ -6,7 +6,6 @@
 //
 
 #import "Prescription.h"
-#import "LoremIpsum/LoremIpsum.h"
 #import "Parse/Parse.h"
 
 @implementation Prescription

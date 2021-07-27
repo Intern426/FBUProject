@@ -6,7 +6,6 @@
 //
 
 #import "PrescriptionCell.h"
-#import "LoremIpsum/LoremIpsum.h"
 #import "Parse/Parse.h"
 #import "ProfileViewController.h"
 
@@ -17,6 +16,8 @@
     // Initialization code
     [self.likeButton setImage:[UIImage systemImageNamed:@"star.fill"] forState:UIControlStateSelected];
     [self.likeButton setImage:[UIImage systemImageNamed:@"star"] forState:UIControlStateNormal];
+    [self.cartButton setImage:[UIImage systemImageNamed:@"cart.fill"] forState:UIControlStateSelected];
+    [self.cartButton setImage:[UIImage systemImageNamed:@"cart"] forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
