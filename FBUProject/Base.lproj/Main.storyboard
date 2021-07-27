@@ -266,7 +266,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="SZJ-6F-67L">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="e2j-wq-YUh"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="MVG-IL-1Xn"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="MVG-IL-1Xn">
+                            <connections>
+                                <action selector="didTapSave:" destination="inT-lJ-6oW" id="gK2-QH-pc6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="instructionsField" destination="Thk-OD-Ovc" id="WUd-eu-8gA"/>

@@ -10,19 +10,37 @@
 
 @interface DetailViewController ()
 
-@property (nonatomic, strong) NSMutableDictionary *drugInformation;
+@property (nonatomic, strong) NSDictionary *drugInformation;
+
+@property (nonatomic, strong) NSDictionary *rxNormDrugInformation;
 
 @end
 
 @implementation DetailViewController
 
 - (void)viewDidLoad {
+    NSString* searchingDrugName = self.prescription.displayName;
+    NSArray* splitDrugName = [searchingDrugName componentsSeparatedByString:@" "];
+    if (splitDrugName.count > 1) {
+        searchingDrugName = splitDrugName[0];
+    }
     [super viewDidLoad];
     [self.navigationItem setTitle:self.prescription.displayName];
-    
+    [self queryOpenFDABrand:searchingDrugName];
     // Do any additional setup after loading the view.
-    // 1. Make a call to openFDA with the drug name and see if you can get the information.
-    [[APIManager shared] getDrugInformationOpenFDA:self.prescription.displayName completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
+    
+    // Flow of the API Calls
+    // 1. Make a call to openFDA using search = BRAND_NAME
+    // 2. Make a call to openFDA using search = GENERIC_NAME
+    // 3. Make a call to RxNorm with the drug name and see if the rxcui number gets you results so
+    //    3.1 Save the data for RxNorm just in case.
+    //    3.2 Make a call to openFDA using search = rxcui.exact
+    // 4. When you make the call to RxNorm, just save the data then check the name... see if that name gets results!
+    
+}
+
+-(void) queryOpenFDABrand:(NSString* )query {
+    [[APIManager shared] getDrugInformationOpenFDABrandName:query completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
         } else {
@@ -30,10 +48,80 @@
                 NSArray *result = information[@"results"];
                 self.drugInformation = result[0]; // for now, just grab the data from the first manufacturer company
                 [self displayInformation];
+            } else {
+                [self queryOpenFDAGeneric:query];
             }
         }
     }];
 }
+
+-(void) queryOpenFDAGeneric:(NSString* )query {
+    [[APIManager shared] getDrugInformationOpenFDAGenericName:query completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {
+            if (information[@"results"]) {
+                NSArray *result = information[@"results"];
+                self.drugInformation = result[0]; // for now, just grab the data from the first manufacturer company
+                [self displayInformation];
+            } else {
+                [self queryRxNorm:query];
+            }
+        }
+    }];
+}
+
+-(void) queryRxNorm:(NSString*) query{
+    [[APIManager shared] getDrugInformationRxNorm:query completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {
+            NSDictionary *dictionary = information[@"drugGroup"];
+            NSArray *results = dictionary[@"conceptGroup"];
+            if (results != nil) {
+                NSDictionary *drugData = results[1];
+                NSArray *drugResults = drugData[@"conceptProperties"];
+                NSDictionary* drugActualResults = drugResults[0];
+                self.rxNormDrugInformation = drugActualResults;
+                NSString* rxcuiString = drugActualResults[@"rxcui"];
+                [self queryUsingRxcui:rxcuiString];
+            } else {
+                
+            }
+        }
+    }];
+}
+
+-(void) queryUsingRxcui:(NSString* )rxcui{
+    [[APIManager shared] getDrugInformationOpenFdaUsingRxcui: rxcui completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {
+            if (information[@"results"]) {
+                NSArray *result = information[@"results"];
+                self.drugInformation = result[0]; // for now, just grab the data from the first manufacturer company
+                [self displayInformation];
+            } else {
+                NSArray *lastQuery = [self.rxNormDrugInformation[@"name"] componentsSeparatedByString:@" "];
+                NSMutableString *drugName = [[NSMutableString alloc]init];
+                BOOL isDrugName = YES;
+                for (int i = 0; i < lastQuery.count && isDrugName; i++) {
+                    NSString *result =  lastQuery[i];
+                    unichar firstCharacter = [result characterAtIndex:0];
+                    NSCharacterSet *numericSet = [NSCharacterSet decimalDigitCharacterSet];
+                    if ([numericSet characterIsMember:firstCharacter]) { // Starts with a number so not the drug name
+                        isDrugName = NO;
+                    } else {
+                        [drugName appendString: [NSString stringWithFormat:@"%@ ", result]];
+                    }
+                }
+                [self queryOpenFDABrand:drugName];
+            }
+        }
+    }];
+}
+
+
 
 
 -(void) displayInformation{
@@ -54,7 +142,7 @@
     NSArray *oralInformation = openFdaData[@"route"];
     self.routeLabel.text = [NSString stringWithFormat:@"Route: %@", [oralInformation[0] capitalizedString]];
     
-   
+    
     if (self.drugInformation[@"inactive_ingredients"]) {
         NSArray *inactiveIngredientInfo = self.drugInformation[@"inactive_ingredients"];
         self.inactiveIngredientLabel.text = inactiveIngredientInfo[0];

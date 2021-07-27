@@ -25,25 +25,86 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     return sharedManager;
 }
 
--(void) getDrugInformationOpenFDA:(NSString*) drugName completion: (void (^)(NSDictionary * information, NSError * error))completion{
+-(void) getDrugInformationRxNorm:(NSString *)drugName completion:(void (^)(NSDictionary * information, NSError * error))completion{
+    drugName = [drugName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *urlString = [NSString stringWithFormat:@"https://rxnav.nlm.nih.gov/REST/drugs.json?name=%@", drugName];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+            completion(nil, error);
+        } else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            completion(dataDictionary, nil);
+        }
+    }];
+    [task resume];
+}
+
+-(void) getDrugInformationOpenFDABrandName:(NSString*) drugName completion: (void (^)(NSDictionary * information, NSError * error))completion{
     drugName = [drugName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *urlString = [NSString stringWithFormat:@"https://api.fda.gov/drug/label.json?search=openfda.brand_name.exact:%@", [drugName uppercaseString]];
     NSLog(@"%@", urlString);
     NSURL *url = [NSURL URLWithString:urlString]; // openFDA search queries are case sensitive
     
-     NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (error != nil) {
-                NSLog(@"%@", [error localizedDescription]);
-                completion(nil, error);
-            } else {
-                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                completion(dataDictionary, nil);
-            }
-        }];
-     [task resume];
+    NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+            completion(nil, error);
+        } else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            completion(dataDictionary, nil);
+        }
+    }];
+    [task resume];
 }
+
+-(void) getDrugInformationOpenFDAGenericName:(NSString*) drugName completion: (void (^)(NSDictionary * information, NSError * error))completion{
+    drugName = [drugName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.fda.gov/drug/label.json?search=openfda.generic_name.exact:%@", [drugName uppercaseString]];
+    NSLog(@"%@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString]; // openFDA search queries are case sensitive
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+            completion(nil, error);
+        } else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            completion(dataDictionary, nil);
+        }
+    }];
+    [task resume];
+}
+
+
+
+-(void) getDrugInformationOpenFdaUsingRxcui:(NSString *)rxcui completion:(void (^)(NSDictionary * _Nonnull, NSError * _Nonnull))completion{
+    rxcui = [rxcui stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.fda.gov/drug/label.json?search=openfda.rxcui:%@", rxcui];
+    NSLog(@"%@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString]; // openFDA search queries are case sensitive
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+            completion(nil, error);
+        } else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            completion(dataDictionary, nil);
+        }
+    }];
+    [task resume];
+}
+
 
 - (void) uploadPaymentWithCompletion: (NSMutableDictionary*) parameters completion:  (void (^)(NSDictionary * payment, NSError * error))completion{
     NSString *string = [[[NSProcessInfo processInfo] globallyUniqueString] substringWithRange:NSMakeRange(0, 44)];
