@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString* searchingDrugName = self.prescription.displayName;
+    // TODO: Fix this. In some cases, can get away with just searching the whole display name but in cases like Zmax ER (where ER = extended release)
+    // TODO: it just confuses query
     NSArray* splitDrugName = [searchingDrugName componentsSeparatedByString:@" "];
     if (splitDrugName.count > 1) {
         searchingDrugName = splitDrugName[0];

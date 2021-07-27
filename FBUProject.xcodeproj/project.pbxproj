@@ -181,6 +181,10 @@
 				DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */,
 				DE9EEF9526A932F500A257B8 /* PurchaseViewController.h */,
 				DE9EEF9626A932F500A257B8 /* PurchaseViewController.m */,
+				DECCBF97269F4DEC00C20B68 /* RemindersViewController.h */,
+				DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */,
+				DE4B96A926A235EA006099A8 /* NewReminderViewController.h */,
+				DE4B96AA26A235EA006099A8 /* NewReminderViewController.m */,
 			);
 			path = "Features Controllers";
 			sourceTree = "<group>";
@@ -203,12 +207,8 @@
 				DEFAFA57269CD7BD00BEC4BF /* ProfileViewController.m */,
 				DEFAFA59269CDA1600BEC4BF /* LoginViewController.h */,
 				DEFAFA5A269CDA1600BEC4BF /* LoginViewController.m */,
-				DECCBF97269F4DEC00C20B68 /* RemindersViewController.h */,
-				DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */,
 				DE82EF6B26A208AA00587096 /* SignUpViewController.h */,
 				DE82EF6C26A208AA00587096 /* SignUpViewController.m */,
-				DE4B96A926A235EA006099A8 /* NewReminderViewController.h */,
-				DE4B96AA26A235EA006099A8 /* NewReminderViewController.m */,
 				DE725A6926AF491B00AB1B70 /* DetailViewController.h */,
 				DE725A6A26AF491B00AB1B70 /* DetailViewController.m */,
 			);

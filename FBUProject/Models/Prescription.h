@@ -35,7 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (NSMutableArray *)prescriptionsDataInArray:(NSArray *)data;
-+ (NSMutableArray *)prescriptionsWithStrings:(NSArray *)dictionaries;
 
 - (instancetype)initWithParseData:(PFObject *)prescription;
 

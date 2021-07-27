@@ -9,6 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol NewReminderViewControllerDelegate <NSObject>
+
+-(void) updateReminder;
+
+@end
+
 @interface NewReminderViewController : UIViewController
 
 @end

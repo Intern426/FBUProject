@@ -11,15 +11,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Reminder : NSObject
+@interface Reminder : PFObject<PFSubclassing>
 
-@property (strong, nonatomic) NSDate *time;
-@property (strong, nonatomic) Prescription *prescription;
+@property (strong, nonatomic) NSDate *alarm;
+@property (strong, nonatomic) PFObject *prescription;
 @property (strong, nonatomic) NSString *prescriptionName;
 
-@property (strong, nonatomic) NSString *instructions;
+@property (strong, nonatomic) NSString *instruction;
 @property (nonatomic) int quantityLeft;
-@property (strong, nonatomic) PFUser *assignedUser; 
+@property (strong, nonatomic) PFUser *author;
+
+-(instancetype) initWithPrescription:(Prescription*) prescription time: (NSDate*) date
+                        instructions: (NSString*) instruction quantity: (int) quantity;
+-(instancetype) initWithParseData:(PFObject*) reminder;
++ (NSMutableArray *)initWithArray:(NSArray *)data;
+
 
 @end
 
