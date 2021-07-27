@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSDictionary *drugInformation;
 @property (nonatomic, strong) NSDictionary *rxNormDrugInformation;
+@property (nonatomic) BOOL keepLooking;
 
 @end
 
@@ -46,6 +47,7 @@
     [[APIManager shared] getDrugInformationOpenFDABrandName:query completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
+            [self displayError];
         } else {
             if (information[@"results"]) {
                 NSArray *result = information[@"results"];
@@ -62,13 +64,18 @@
     [[APIManager shared] getDrugInformationOpenFDAGenericName:query completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
+            [self displayError];
         } else {
             if (information[@"results"]) {
                 NSArray *result = information[@"results"];
                 self.drugInformation = result[0]; // for now, just grab the data from the first manufacturer company
                 [self displayInformation];
             } else {
-                [self queryRxNorm:query];
+                if (self.keepLooking)
+                    [self queryRxNorm:query];
+                else {
+                    [self displayError];
+                }
             }
         }
     }];
@@ -78,6 +85,7 @@
     [[APIManager shared] getDrugInformationRxNorm:query completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
+            [self displayError];
         } else {
             NSDictionary *dictionary = information[@"drugGroup"];
             NSArray *results = dictionary[@"conceptGroup"];
@@ -89,22 +97,39 @@
                 NSString* rxcuiString = drugActualResults[@"rxcui"];
                 [self queryUsingRxcui:rxcuiString];
             } else {
-                
+                [self displayError];
             }
         }
     }];
+}
+
+-(void) displayError{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:@"Currently cannot get more information on the drug. Please try again later."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+        [self.navigationController popViewControllerAnimated:true];
+    }];
+    
+    [alert addAction:defaultAction];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void) queryUsingRxcui:(NSString* )rxcui{
     [[APIManager shared] getDrugInformationOpenFdaUsingRxcui: rxcui completion:^(NSDictionary * _Nonnull information, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
+            [self displayError];
         } else {
             if (information[@"results"]) {
                 NSArray *result = information[@"results"];
                 self.drugInformation = result[0]; // for now, just grab the data from the first manufacturer company
                 [self displayInformation];
             } else {
+                self.keepLooking = false;
                 NSArray *lastQuery = [self.rxNormDrugInformation[@"name"] componentsSeparatedByString:@" "];
                 NSMutableString *drugName = [[NSMutableString alloc]init];
                 BOOL isDrugName = YES;
@@ -146,13 +171,13 @@
         NSArray *inactiveIngredientInfo = self.drugInformation[@"inactive_ingredients"];
         self.inactiveIngredientLabel.text = inactiveIngredientInfo[0];
     } else {
-    //    NSArray *descriptionInfo = self.drugInformation[@"description"];
-     //   NSString *description = descriptionInfo[0];
-     //   if ([description containsString:@"inactive ingredient"]) {
+        //    NSArray *descriptionInfo = self.drugInformation[@"description"];
+        //   NSString *description = descriptionInfo[0];
+        //   if ([description containsString:@"inactive ingredient"]) {
         //    [self findInactiveIngredients:description];
-      //  } else {
-            self.inactiveIngredientLabel.hidden = YES;
-       // }
+        //  } else {
+        self.inactiveIngredientLabel.hidden = YES;
+        // }
     }
     if (self.drugInformation[@"purpose"]) {
         NSArray *purposeInfo = self.drugInformation[@"purpose"];
