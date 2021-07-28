@@ -54,9 +54,8 @@
 - (void) setupTransaction{
     PFUser *buyer = [PFUser currentUser];
     
-    // self.squareManager = [APIManager sharedSquare];
-    
     // Convert geocode back to user-friendly address
+    if (buyer[@"address"]) {
     PFGeoPoint *address = buyer[@"address"];
     CLLocation* location = [[CLLocation alloc] initWithLatitude:address.latitude longitude:address.longitude];
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -72,10 +71,13 @@
             CNPostalAddressFormatter *formatter = [[CNPostalAddressFormatter alloc] init];
             NSString *sample = [formatter stringFromPostalAddress:addressConverter];
             
-            self.costLabel.text = [NSString stringWithFormat:@"$%.2f", self.cost];
             self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
         }
     }];
+    } else
+        self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@", buyer[@"name"]];
+    self.costLabel.text = [NSString stringWithFormat:@"$%.2f", self.cost];
+
 }
 
 

@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *zipCodeField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @end
 
@@ -40,36 +41,41 @@
     // initialize a user object
     PFUser *newUser = [PFUser user];
     // set user properties
-    newUser.username = self.usernameField.text;
-    newUser.password = self.passwordField.text;
-    newUser[@"name"] = self.fullNameField.text;
-    
-    NSString *address = [NSString stringWithFormat:@"%@, %@, %@ %@", self.addressField.text, self.cityField.text, self.stateField.text, self.zipCodeField.text];
-    NSLog(@"%@", address);
-    
-    PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder geocodeAddressString:address completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"Error encoding address: %@", error.localizedDescription);
-        } else {
-            CLLocation *location = placemarks.firstObject.location;
-            geoPoint.latitude = location.coordinate.latitude;
-            geoPoint.longitude = location.coordinate.longitude;
-            newUser[@"address"] = geoPoint;
-            [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+    if (self.usernameField.text.length == 0 || self.passwordField.text.length == 0 || self.fullNameField.text.length == 0) {
+        self.errorLabel.text = @"Please fill out the required fields.";
+        self.errorLabel.hidden = NO;
+    } else {
+        newUser.username = self.usernameField.text;
+        newUser.password = self.passwordField.text;
+        newUser[@"name"] = self.fullNameField.text;
+        if (self.addressField.text != 0) {
+            NSString *address = [NSString stringWithFormat:@"%@, %@, %@ %@", self.addressField.text, self.cityField.text, self.stateField.text, self.zipCodeField.text];
+            NSLog(@"%@", address);
+            
+            PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
+            
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            [geocoder geocodeAddressString:address completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
                 if (error != nil) {
-                    NSLog(@"Error: %@", error.localizedDescription);
+                    NSLog(@"Error encoding address: %@", error.localizedDescription);
                 } else {
-                    NSLog(@"User registered successfully");
-                    [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-                    // manually segue to logged in view
+                    CLLocation *location = placemarks.firstObject.location;
+                    geoPoint.latitude = location.coordinate.latitude;
+                    geoPoint.longitude = location.coordinate.longitude;
+                    newUser[@"address"] = geoPoint;
                 }
             }];
         }
-    }];
-    
+        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+            if (error != nil) {
+                NSLog(@"Error: %@", error.localizedDescription);
+            } else {
+                NSLog(@"User registered successfully");
+                [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+                // manually segue to logged in view
+            }
+        }];
+    }
 }
 
 @end
