@@ -58,7 +58,8 @@
 
 // Goes through the drugs they bought - which is stored in Parse - and converts them to Prescription objects
 -(void) queryPrescriptions {
-    NSLog(@"%@", self.currentUser[@"buyingDrugs"]);
+    self.totalCost = 0;
+    NSMutableArray* currentPrescriptions = [[NSMutableArray alloc] init];
     NSArray *array = self.currentUser[@"buyingDrugs"];  //TODO: Give these vars better names!!!
     for (int i = 0; i < array.count; i++) {
         NSDictionary *object = array[i];
@@ -66,7 +67,7 @@
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
         
         // Sets the cost
-        self.totalCost +=  [prescription.retrievePrice30 floatValue];
+        self.totalCost += [prescription.retrievePrice30 floatValue];
         
         // TODO: Clean this part up -- can simplify it to int
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -74,13 +75,15 @@
         NSNumber *quantity = [formatter numberFromString:object[@"quantity"]];
         
         [prescription setQuantity:[quantity intValue]];
-        [self.prescriptions addObject:prescription];
+        [currentPrescriptions addObject:prescription];
     }
+    self.prescriptions = currentPrescriptions;
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalCost];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShoppingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShoppingCell"];
+    cell.delegate = self;
     cell.prescription = self.prescriptions[indexPath.row];
     return cell;
 }

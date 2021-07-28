@@ -11,6 +11,7 @@
 		AC83A820BAFB578E60CEAAF6 /* Pods_FBUProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52073665FB9FB534B73C2C89 /* Pods_FBUProjectTests.framework */; };
 		C7662F188BA509AD33C02595 /* Pods_FBUProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B8AEAEA75278B4558BBFBF /* Pods_FBUProject.framework */; };
 		DE01A2D926A7724100C612AF /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE01A2D826A7724100C612AF /* APIManager.m */; };
+		DE0798A726B0F1D30055C955 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0798A626B0F1D30055C955 /* Reachability.m */; };
 		DE4B96AB26A235EA006099A8 /* NewReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4B96AA26A235EA006099A8 /* NewReminderViewController.m */; };
 		DE6009D2269F766300CE21EA /* ReminderNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */; };
 		DE6009D5269F778000CE21EA /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D4269F778000CE21EA /* Reminder.m */; };
@@ -68,6 +69,8 @@
 		C42742C4C834375D0A7DB798 /* Pods-FBUProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUProject.debug.xcconfig"; path = "Target Support Files/Pods-FBUProject/Pods-FBUProject.debug.xcconfig"; sourceTree = "<group>"; };
 		DE01A2D726A7724100C612AF /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		DE01A2D826A7724100C612AF /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
+		DE0798A526B0F1D30055C955 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		DE0798A626B0F1D30055C955 /* Reachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DE4B96A926A235EA006099A8 /* NewReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewReminderViewController.h; sourceTree = "<group>"; };
 		DE4B96AA26A235EA006099A8 /* NewReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewReminderViewController.m; sourceTree = "<group>"; };
 		DE6009D0269F766200CE21EA /* ReminderNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderNotificationManager.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 				DEFE0966269C9E6E00EAF59E /* Info.plist */,
 				DEFE0967269C9E6E00EAF59E /* main.m */,
 				DEFAFA5C269CDB4900BEC4BF /* Key.plist */,
+				DE0798A526B0F1D30055C955 /* Reachability.h */,
+				DE0798A626B0F1D30055C955 /* Reachability.m */,
 			);
 			path = FBUProject;
 			sourceTree = "<group>";
@@ -557,6 +562,7 @@
 				DEDA790826A5EB9200A4F72B /* CheckoutViewController.m in Sources */,
 				DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */,
 				DEFE0968269C9E6E00EAF59E /* main.m in Sources */,
+				DE0798A726B0F1D30055C955 /* Reachability.m in Sources */,
 				DEFE095A269C9E6D00EAF59E /* SceneDelegate.m in Sources */,
 				DE9EEF9726A932F500A257B8 /* PurchaseViewController.m in Sources */,
 				DEFAFA58269CD7BD00BEC4BF /* ProfileViewController.m in Sources */,

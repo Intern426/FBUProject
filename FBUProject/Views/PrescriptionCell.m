@@ -28,6 +28,8 @@
 
 -(void)setPrescription: (Prescription*) prescription{
      _prescription = prescription;
+    self.likeButton.selected = NO;
+    self.cartButton.selected = NO;
     self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
     self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
     if (self.quantityControl.selectedSegmentIndex == 0) {
@@ -41,6 +43,8 @@
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser[@"savedDrugs"]) {
         [self checkForSavedFavorites:currentUser[@"savedDrugs"]];
+    } else{
+        
     }
     if (currentUser[@"buyingDrugs"]) {
         [self checkForBoughtDrugs:currentUser[@"buyingDrugs"]];

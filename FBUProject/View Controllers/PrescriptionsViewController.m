@@ -12,7 +12,7 @@
 #import "Parse/Parse.h"
 #import "APIManager.h"
 #import "DetailViewController.h"
-
+#import "Reachability.h"
 
 @interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -31,17 +31,34 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
-
     self.searchBar.delegate = self;
-    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(loadPrescriptions) forControlEvents:UIControlEventValueChanged]; //Deprecated and only used for older objects
     [self.tableView insertSubview:self.refreshControl atIndex:0]; // controls where you put it in the view hierarchy
     [self.loadingIndicatorView startAnimating];
     
-    [self loadPrescriptions];
-    // Do any additional setup after loading the view.
+    if (networkStatus == NotReachable) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot get prescriptions"
+                                                                       message:@"There seems to be no internet connection"
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *tryAgainAction = [UIAlertAction actionWithTitle:@"Try Again"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * _Nonnull action) {
+            [self loadPrescriptions];
+        }];
+        [alert addAction:tryAgainAction];
+        [self presentViewController:alert animated:YES completion:^{}];
+    } else
+        [self loadPrescriptions];
 }
+
+- (void)viewDidAppear:(BOOL)animated{
+    // When switching tabs, will update favorites as needed
+    [self loadPrescriptions];
+}
+
 
 - (void) loadPrescriptions {
     PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
@@ -102,34 +119,34 @@
 
 
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
-     if ([segue.identifier isEqual:@"detailSegue"]) {
-         DetailViewController *detailController = [segue destinationViewController];
-         detailController.prescription = sender;
-     }
+#pragma mark - Navigation
 
- }
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqual:@"detailSegue"]) {
+        DetailViewController *detailController = [segue destinationViewController];
+        detailController.prescription = sender;
+    }
+    
+}
 
 - (void)sendDetailInformation:(Prescription *)prescription{
     [self performSegueWithIdentifier:@"detailSegue" sender:prescription];
 }
- 
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.searchedPrescriptions[indexPath.row];
     cell.detailDelegate = self;
+    cell.profileDelegate = self;
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.searchedPrescriptions.count;
 }
-
 
 @end
