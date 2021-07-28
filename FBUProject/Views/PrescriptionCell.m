@@ -42,6 +42,9 @@
     if (currentUser[@"savedDrugs"]) {
         [self checkForSavedFavorites:currentUser[@"savedDrugs"]];
     }
+    if (currentUser[@"buyingDrugs"]) {
+        [self checkForBoughtDrugs:currentUser[@"buyingDrugs"]];
+    }
 }
 
 -(void) checkForSavedFavorites:(NSArray*) savedDrugs{
@@ -52,7 +55,16 @@
         if ([prescription.displayName isEqual:self.prescription.displayName] && [prescription.dosageAmount isEqual:self.prescription.dosageAmount])
             self.likeButton.selected = YES;
     }
-        
+}
+
+-(void) checkForBoughtDrugs:(NSArray*) boughtDrugs{
+    for (int i = 0; i < boughtDrugs.count; i++) {
+        NSDictionary *object = boughtDrugs[i];
+        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
+        Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
+        if ([prescription.displayName isEqual:self.prescription.displayName] && [prescription.dosageAmount isEqual:self.prescription.dosageAmount])
+            self.cartButton.selected = YES;
+    }
 }
 
 - (IBAction)didChangeQuantity:(id)sender {
