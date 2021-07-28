@@ -38,7 +38,6 @@
 
 -(void) viewDidAppear:(BOOL)animated{
     // Every time user selects tab reload data just in case they added a prescription
-    self.totalCost = 0; // prevents total from adding the cost of the same prescription
     if (!self.currentUser[@"buyingDrugs"]) {
         self.currentUser[@"buyingDrugs"] = [[NSMutableArray alloc] init];
     }
@@ -46,6 +45,7 @@
 }
 
 -(void) loadBoughtPrescriptions{
+    self.totalCost = 0; // prevents total from adding the cost of the same prescription
     [self queryPrescriptions];
     if (self.prescriptions != nil && self.prescriptions.count != 0) {
         self.emptyLabel.hidden = YES;
@@ -58,27 +58,27 @@
 
 // Goes through the drugs they bought - which is stored in Parse - and converts them to Prescription objects
 -(void) queryPrescriptions {
-    self.totalCost = 0;
     NSMutableArray* currentPrescriptions = [[NSMutableArray alloc] init];
-    NSArray *array = self.currentUser[@"buyingDrugs"];  //TODO: Give these vars better names!!!
-    for (int i = 0; i < array.count; i++) {
-        NSDictionary *object = array[i];
+    NSArray *boughtDrugs = self.currentUser[@"buyingDrugs"];
+    NSLog(@"Data in Parse: %@", self.currentUser[@"buyingDrugs"]);
+    for (int i = 0; i < boughtDrugs.count; i++) {
+        NSDictionary *object = boughtDrugs[i];
         PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
-        
-        // Sets the cost
-        self.totalCost += [prescription.retrievePrice30 floatValue];
-        
-        // TODO: Clean this part up -- can simplify it to int
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        formatter.numberStyle = NSNumberFormatterDecimalStyle;
-        NSNumber *quantity = [formatter numberFromString:object[@"quantity"]];
-        
+    
+        NSString *quantity = object[@"quantity"];
+        prescription.quantity = [quantity intValue];
         [prescription setQuantity:[quantity intValue]];
+    
+        self.totalCost += [prescription.retrievePrice30 floatValue] * prescription.quantity;
         [currentPrescriptions addObject:prescription];
     }
     self.prescriptions = currentPrescriptions;
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalCost];
+}
+
+- (void)updateTotal{
+    [self refreshCart];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,24 +100,52 @@
     [self loadBoughtPrescriptions];
 }
 
--(void) clearCart{
-    PFUser *currentUser = [PFUser currentUser];
-    NSArray *array = currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
-    for (int i = 0; i < array.count; i++) {
-        NSDictionary *object = array[i];
-        [currentUser removeObject:object forKey:@"buyingDrugs"];
-        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // The PFUser has been saved.
-                NSLog(@"Drug was removed");
-                [self loadBoughtPrescriptions];
-                return;
-            } else {
-                // There was a problem, check error.description
-                NSLog(@"boo.....%@", error.localizedDescription);
-            }
-        }];
+-(void) refreshCart{
+    [self emptyCartSynchronously];
+    for (int i = 0; i < self.prescriptions.count; i++) {
+        Prescription* prescription = self.prescriptions[i];
+        NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
+        [prescriptionInfo addEntriesFromDictionary:@{@"item": prescription.prescriptionPointer.objectId}];
+        [prescriptionInfo addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d", prescription.quantity]}];
+        [self.currentUser addObject:prescriptionInfo forKey:@"buyingDrugs"];
     }
+    [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // The PFUser has been updated.
+            [self loadBoughtPrescriptions];
+        } else {
+            // There was a problem, check error.description
+            NSLog(@"boo.....%@", error.localizedDescription);
+        }
+    }];
+}
+
+-(void) emptyCartSynchronously{
+    NSArray *cart = self.currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
+    for (int i = 0; i < cart.count; i++) {
+        NSDictionary *object = cart[i];
+        [self.currentUser removeObject:object forKey:@"buyingDrugs"];
+    }
+    [self.currentUser save];
+}
+
+-(void) clearCart:(BOOL) updateList{
+    NSArray *cart = self.currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
+    for (int i = 0; i < cart.count; i++) {
+        NSDictionary *object = cart[i];
+        [self.currentUser removeObject:object forKey:@"buyingDrugs"];
+    }
+    [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // The PFUser has been saved.
+            NSLog(@"Drug was removed");
+            if (updateList)
+                [self loadBoughtPrescriptions];
+        } else {
+            // There was a problem, check error.description
+            NSLog(@"boo.....%@", error.localizedDescription);
+        }
+    }];
 }
 
 #pragma mark - Navigation

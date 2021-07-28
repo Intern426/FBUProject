@@ -32,6 +32,7 @@
     }
     self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
     
+    [self.amountButton setTitle:[NSString stringWithFormat:@"%d", self.prescription.quantity] forState:UIControlStateNormal];
     self.amountButton.menu = [self createAmountMenu];
     self.amountButton.showsMenuAsPrimaryAction = YES;
 }
@@ -43,6 +44,8 @@
         UIAction *testAction = [UIAction actionWithTitle:value image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
             [self.amountButton setTitle:value forState:UIControlStateNormal];
             [self.amountButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+            self.prescription.quantity = [value intValue];
+            [self.delegate updateTotal];
         }];
         [amountChoices addObject:testAction];
     }

@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol PurchaseViewControllerDelegate <NSObject>
 
--(void) clearCart;
+-(void) clearCart:(BOOL) updateList;
 
 @end
 

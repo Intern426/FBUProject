@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ShoppingCellDelegate <NSObject>
 
 -(void) updateShoppingList;
+-(void) updateTotal;
 
 @end
 
