@@ -28,6 +28,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.currentUser = [PFUser currentUser];
+    self.prescriptions = [[NSMutableArray alloc] init];
 }
 
 // In-App Payment only supports portrait orientation on landscape so we'll limit this view controller to portrait mode
@@ -38,7 +39,6 @@
 -(void) viewDidAppear:(BOOL)animated{
     // Every time user selects tab reload data just in case they added a prescription
     self.totalCost = 0; // prevents total from adding the cost of the same prescription
-    self.prescriptions = [[NSMutableArray alloc] init];
     if (!self.currentUser[@"buyingDrugs"]) {
         self.currentUser[@"buyingDrugs"] = [[NSMutableArray alloc] init];
     }

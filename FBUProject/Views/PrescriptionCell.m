@@ -27,7 +27,7 @@
 
 
 -(void)setPrescription: (Prescription*) prescription{
-     _prescription = prescription;
+    _prescription = prescription;
     self.likeButton.selected = NO;
     self.cartButton.selected = NO;
     self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
@@ -39,12 +39,9 @@
         self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount90];
         self.priceLabel.text =  self.prescription.price90;
     }
-    
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser[@"savedDrugs"]) {
         [self checkForSavedFavorites:currentUser[@"savedDrugs"]];
-    } else{
-        
     }
     if (currentUser[@"buyingDrugs"]) {
         [self checkForBoughtDrugs:currentUser[@"buyingDrugs"]];
@@ -81,38 +78,12 @@
     }
 }
 
-
-
 - (IBAction)didTapFavorite:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
     if (!currentUser[@"savedDrugs"]) {
         currentUser[@"savedDrugs"] = [[NSMutableArray alloc] init];
     }
-    if (self.likeButton.isSelected) {
-        [currentUser removeObject:self.prescription.prescriptionPointer forKey:@"savedDrugs"];
-        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // The PFUser has been saved.
-                NSLog(@"Drug was removed");
-            } else {
-                // There was a problem, check error.description
-                NSLog(@"boo.....%@", error.localizedDescription);
-            }
-        }];
-        self.likeButton.selected = NO;
-    } else {
-        [currentUser addObject:self.prescription.prescriptionPointer forKey:@"savedDrugs"];
-        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // The PFUser has been saved.
-                NSLog(@"Drug was favorited");
-            } else {
-                // There was a problem, check error.description
-                NSLog(@"boo.....%@", error.localizedDescription);
-            }
-        }];
-        self.likeButton.selected = YES;
-    }
+    [self updateUserAtKey:@"savedDrugs" withObject:self.prescription.prescriptionPointer updateButton:self.likeButton];
 }
 
 - (IBAction)didTapDelete:(id)sender {
@@ -142,63 +113,38 @@
     NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
     [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
     [prescriptionInfo addEntriesFromDictionary:@{@"quantity": @"1"}];
-    
-    if (self.cartButton.isSelected) {
-        [currentUser removeObject:prescriptionInfo forKey:@"buyingDrugs"];
-        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // The PFUser has been saved.
-                NSLog(@"Drug was removed from cart");
-            } else {
-                // There was a problem, check error.description
-                NSLog(@"boo.....%@", error.localizedDescription);
-            }
-        }];
-        self.cartButton.selected = NO;
-    } else {
-        [currentUser addObject:prescriptionInfo forKey:@"buyingDrugs"];
-        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // The PFUser has been saved.
-                NSLog(@"Drug was added to cart");
-            } else {
-                // There was a problem, check error.description
-                NSLog(@"boo.....%@", error.localizedDescription);
-            }
-        }];
-        self.cartButton.selected = YES;
-    }
+    [self updateUserAtKey:@"buyingDrugs" withObject:prescriptionInfo updateButton:self.cartButton];
 }
 
 
-/* For refactoring purpose!!! --> Can replace all the instances where I'm updating hte user with this general method 
--(void) updateUser: (BOOL) remove atKey: (NSString*) key withObject: (NSObject*) object {
+-(void) updateUserAtKey: (NSString*) key withObject: (NSObject*) object updateButton:(UIButton*) button {
     PFUser *currentUser = [PFUser currentUser];
-    if (remove) {
+    if (button.isSelected) {
         [currentUser removeObject:object forKey:key];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 // The PFUser has been saved.
-                NSLog([NSString stringWithFormat:@"User's key %@ was updated - deleted item.", key]);
+                NSLog(@"%@", [NSString stringWithFormat:@"User's key %@ was updated - deleted item.", key]);
             } else {
                 // There was a problem, check error.description
                 NSLog(@"boo.....%@", error.localizedDescription);
             }
         }];
-        self.likeButton.selected = NO;
+        button.selected = NO;
     } else {
         [currentUser addObject:object forKey:key];
         [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 // The PFUser has been saved.
-                NSLog([NSString stringWithFormat:@"User's key %@ was updated - added item.", key]);
+                NSLog(@"%@", [NSString stringWithFormat:@"User's key %@ was updated - added item.", key]);
             } else {
                 // There was a problem, check error.description
                 NSLog(@"boo.....%@", error.localizedDescription);
             }
         }];
-        self.likeButton.selected = YES;
+        if (button != nil)
+            button.selected = YES;
     }
 }
-*/
+
 @end
