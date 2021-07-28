@@ -979,6 +979,9 @@
                                                         <segment title="30 Days"/>
                                                         <segment title="90 Days"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="didChangeQuantity:" destination="agG-MO-Yem" eventType="valueChanged" id="0dr-GX-aZH"/>
+                                                    </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZA-mn-zst">
                                                     <rect key="frame" x="169" y="56" width="77" height="21"/>

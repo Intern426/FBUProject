@@ -21,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *amount90;
 @property (nonatomic, strong) PFObject *prescriptionPointer; // refers to the data saved in Parse
 
-@property (nonatomic) int quantity; // Just for checkout purposes!
+// Just for checkout purposes!
+@property (nonatomic) int quantity;
+@property (nonatomic) int selectedDays; // 30 days or 90 days - corresponds to segmented control: 0 = 30 days, 1 = 90 days.
 
 
 // Additional/Detail info
@@ -38,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithParseData:(PFObject *)prescription;
 
 - (NSNumber*) retrievePrice30;
+- (NSNumber*) retrievePrice90;
 
 @end
 

@@ -69,17 +69,29 @@
         NSString *quantity = object[@"quantity"];
         prescription.quantity = [quantity intValue];
         [prescription setQuantity:[quantity intValue]];
-    
-        self.totalCost += [prescription.retrievePrice30 floatValue] * prescription.quantity;
+        
+        NSString *selectedDays = object[@"number_of_days"];
+        prescription.selectedDays = [selectedDays intValue];
+        [prescription setSelectedDays:[selectedDays intValue]];
+        
+        if (prescription.selectedDays == 0)
+            self.totalCost += [prescription.retrievePrice30 floatValue] * prescription.quantity;
+        else
+            self.totalCost += [prescription.retrievePrice90 floatValue] * prescription.quantity;
+        
         [currentPrescriptions addObject:prescription];
     }
     self.prescriptions = currentPrescriptions;
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalCost];
 }
 
+
+
 - (void)updateTotal{
-    [self refreshCart];
+        [self refreshCart];
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShoppingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShoppingCell"];
@@ -107,6 +119,7 @@
         NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
         [prescriptionInfo addEntriesFromDictionary:@{@"item": prescription.prescriptionPointer.objectId}];
         [prescriptionInfo addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d", prescription.quantity]}];
+        [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d", prescription.selectedDays]}];
         [self.currentUser addObject:prescriptionInfo forKey:@"buyingDrugs"];
     }
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -121,7 +134,7 @@
 }
 
 -(void) emptyCartSynchronously{
-    NSArray *cart = self.currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
+    NSArray *cart = self.currentUser[@"buyingDrugs"];
     for (int i = 0; i < cart.count; i++) {
         NSDictionary *object = cart[i];
         [self.currentUser removeObject:object forKey:@"buyingDrugs"];

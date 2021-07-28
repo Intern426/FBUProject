@@ -26,7 +26,7 @@
     self.amount30 = prescription[@"day30amount"];
     self.amount90 = prescription[@"day90amount"];
     self.price30 = prescription[@"day30price"];
-    self.price90 = prescription[@"day90price"];
+    self.price90 = [prescription[@"day90price"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     self.prescriptionPointer = prescription;
     return self;
 }
@@ -38,6 +38,12 @@
     return result;
 }
 
+- (NSNumber*) retrievePrice90 {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *result = [formatter numberFromString:[self.price90 substringWithRange:NSMakeRange(1, self.price90.length - 1)]];
+    return result;
+}
 
 - (void) parseDrugName:(NSArray*)information {
     NSMutableString *drugName = [[NSMutableString alloc]init];

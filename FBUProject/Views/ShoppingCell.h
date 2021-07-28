@@ -14,12 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ShoppingCellDelegate <NSObject>
 
 -(void) updateShoppingList;
--(void) updateTotal;
+-(void) updateTotal; 
 
 @end
 
 @interface ShoppingCell : UITableViewCell
-
 
 @property (strong, nonatomic) Prescription *prescription;
 @property (weak, nonatomic) id<ShoppingCellDelegate> delegate;

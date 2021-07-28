@@ -26,9 +26,11 @@
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.quantityLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
         self.priceLabel.text = self.prescription.price30;
+        self.prescription.selectedDays = 0;
     } else {
         self.quantityLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount90];
         self.priceLabel.text =  self.prescription.price90;
+        self.prescription.selectedDays = 1;
     }
     self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
     
@@ -51,6 +53,20 @@
     }
     UIMenu *menu = [UIMenu menuWithChildren:amountChoices];
     return menu;
+}
+
+- (IBAction)didChangeQuantity:(id)sender {
+    [self.delegate updateTotal];
+    if (self.quantityControl.selectedSegmentIndex == 0) {
+        self.quantityLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
+        self.priceLabel.text = self.prescription.price30;
+        self.prescription.selectedDays = 0;
+    } else {
+        self.quantityLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount90];
+        self.priceLabel.text =  self.prescription.price90;
+        self.prescription.selectedDays = 1;
+    }
+    [self.delegate updateTotal];
 }
 
 - (IBAction)didTapDelete:(id)sender {

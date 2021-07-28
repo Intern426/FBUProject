@@ -113,6 +113,7 @@
     NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
     [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
     [prescriptionInfo addEntriesFromDictionary:@{@"quantity": @"1"}];
+    [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d", self.quantityControl.selectedSegmentIndex]}];
     [self updateUserAtKey:@"buyingDrugs" withObject:prescriptionInfo updateButton:self.cartButton];
 }
 
