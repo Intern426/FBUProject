@@ -20,6 +20,7 @@
 @implementation DetailViewController
 
 - (void)viewDidLoad {
+    self.keepLooking = YES;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString* searchingDrugName = self.prescription.displayName;
     // TODO: Fix this. In some cases, can get away with just searching the whole display name but in cases like Zmax ER (where ER = extended release)
