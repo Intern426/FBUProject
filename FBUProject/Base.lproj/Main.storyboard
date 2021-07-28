@@ -453,6 +453,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="EeY-Oq-VFJ">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.018977902330000001" green="0.017215202249999999" blue="0.14701803929999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="color" red="0.012948887500000001" green="0.01174617264" blue="0.1003124591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vrO-f6-jvR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -467,6 +473,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="loadingIndicatorView" destination="EeY-Oq-VFJ" id="jyk-E7-Zbk"/>
                         <outlet property="searchBar" destination="uKh-uy-tjC" id="wyk-ug-y5L"/>
                         <outlet property="tableView" destination="YYr-w3-KR9" id="dRH-Im-vcv"/>
                         <segue destination="rXB-2Y-GGU" kind="show" identifier="detailSegue" id="F6Z-3J-Bvt"/>
@@ -852,6 +859,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gwd-pF-uzm">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no saved prescriptions." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pW-bX-5G3">
                                 <rect key="frame" x="57.5" y="435.5" width="299" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
@@ -871,6 +882,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emptyLabel" destination="2pW-bX-5G3" id="A04-OT-1EF"/>
+                        <outlet property="loadingIndicatorView" destination="gwd-pF-uzm" id="Rwh-ca-fgK"/>
                         <outlet property="tableView" destination="nGv-cW-nBX" id="lKS-MB-VUB"/>
                     </connections>
                 </viewController>

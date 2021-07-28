@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicatorView;
 @property (strong, nonatomic) PFUser *currentUser;
 @end
 
@@ -26,6 +28,10 @@
     
     // Do any additional setup after loading the view.
     self.currentUser = [PFUser currentUser];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(loadFavorites) forControlEvents:UIControlEventValueChanged]; //Deprecated and only used for older objects
+    [self.tableView insertSubview:self.refreshControl atIndex:0]; // controls where you put it in the view hierarchy
+    [self.loadingIndicatorView startAnimating];
     [self loadFavorites];
 }
 
@@ -56,6 +62,8 @@
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:objectId]];
         [self.prescriptions addObject:prescription];
     }
+    [self.loadingIndicatorView stopAnimating];
+    [self.refreshControl endRefreshing];
 }
 /*
 #pragma mark - Navigation

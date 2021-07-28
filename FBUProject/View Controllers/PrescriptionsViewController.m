@@ -18,7 +18,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
 @property (strong, nonatomic) NSMutableArray *searchedPrescriptions;
-
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicatorView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
@@ -29,7 +30,15 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
+
     self.searchBar.delegate = self;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(loadPrescriptions) forControlEvents:UIControlEventValueChanged]; //Deprecated and only used for older objects
+    [self.tableView insertSubview:self.refreshControl atIndex:0]; // controls where you put it in the view hierarchy
+    [self.loadingIndicatorView startAnimating];
+    
     [self loadPrescriptions];
     // Do any additional setup after loading the view.
 }
@@ -50,8 +59,8 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
-       // [self.refreshControl endRefreshing];
-       // [self.loadingIndicatorView stopAnimating];
+        [self.refreshControl endRefreshing];
+        [self.loadingIndicatorView stopAnimating];
     }];
 }
 

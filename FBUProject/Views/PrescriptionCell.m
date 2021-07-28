@@ -40,11 +40,19 @@
     
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser[@"savedDrugs"]) {
-        NSArray *array = currentUser[@"savedDrugs"];
-        if ([array containsObject:self.nameLabel.text]) {
-            self.likeButton.selected = YES;
-        }
+        [self checkForSavedFavorites:currentUser[@"savedDrugs"]];
     }
+}
+
+-(void) checkForSavedFavorites:(NSArray*) savedDrugs{
+    for (int i = 0; i < savedDrugs.count; i++) {
+        PFObject *object = savedDrugs[i];
+        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
+        Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object.objectId]];
+        if ([prescription.displayName isEqual:self.prescription.displayName] && [prescription.dosageAmount isEqual:self.prescription.dosageAmount])
+            self.likeButton.selected = YES;
+    }
+        
 }
 
 - (IBAction)didChangeQuantity:(id)sender {

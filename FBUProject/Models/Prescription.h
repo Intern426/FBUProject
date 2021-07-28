@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Required information for List
 @property (nonatomic, strong) NSString *displayName; // what will show up on the cell's title
 @property (nonatomic, strong) NSString *dosageAmount;
-@property (nonatomic, strong) NSString *dosageForm;
 @property (nonatomic, strong) NSString *price30;
 @property (nonatomic, strong) NSString *price90;
 @property (nonatomic, strong) NSString *amount30;
