@@ -17,8 +17,11 @@
 
 @interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (strong, nonatomic) NSMutableArray *prescriptions;
 @property (strong, nonatomic) NSMutableArray *searchedPrescriptions;
+@property (strong, nonatomic) NSMutableArray *allPrescriptions;
+
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicatorView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -47,8 +50,9 @@
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
-    
+    [self retrieveAllPrescriptions];
     [self checkInternetConnection];
+    
 }
 
 -(void) checkInternetConnection {
@@ -77,6 +81,18 @@
 - (void)viewDidAppear:(BOOL)animated{
     // When switching tabs, will update favorites as needed
     [self loadPrescriptions];
+}
+
+-(void) retrieveAllPrescriptions{
+    PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
+    query.limit = 1000;
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable prescriptions, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+        } else {
+            self.allPrescriptions = [Prescription prescriptionsDataInArray:prescriptions];
+        }
+    }];
 }
 
 
@@ -120,7 +136,7 @@
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Prescription *evaluatedObject, NSDictionary *bindings) {
             return [evaluatedObject.displayName containsString:searchText];
         }];
-        self.searchedPrescriptions = (NSMutableArray*)[self.prescriptions filteredArrayUsingPredicate:predicate];
+        self.searchedPrescriptions = (NSMutableArray*)[self.allPrescriptions filteredArrayUsingPredicate:predicate];
     } else {
         self.searchBar.showsCancelButton = false;
         self.searchedPrescriptions = self.prescriptions;
@@ -189,7 +205,6 @@
             [self.loadingMoreView startAnimating];
             
             [self loadMoreData:[self.prescriptions count] + 20];
-            
         }
     }
 }

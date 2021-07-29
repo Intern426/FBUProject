@@ -174,13 +174,7 @@
         NSArray *inactiveIngredientInfo = self.drugInformation[@"inactive_ingredients"];
         self.inactiveIngredientLabel.text = inactiveIngredientInfo[0];
     } else {
-        //    NSArray *descriptionInfo = self.drugInformation[@"description"];
-        //   NSString *description = descriptionInfo[0];
-        //   if ([description containsString:@"inactive ingredient"]) {
-        //    [self findInactiveIngredients:description];
-        //  } else {
         self.inactiveIngredientLabel.hidden = YES;
-        // }
     }
     if (self.drugInformation[@"purpose"]) {
         NSArray *purposeInfo = self.drugInformation[@"purpose"];
@@ -209,7 +203,10 @@
 }
 
 -(void)displayBuyingInformation{
-    self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
+    if ([self.prescription.dosageAmount isEqual:@""])
+        self.dosageLabel.hidden = YES;
+    else
+        self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
         self.priceLabel.text = self.prescription.price30;
