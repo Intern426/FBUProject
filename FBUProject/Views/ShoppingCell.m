@@ -16,12 +16,13 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
 -(void)setPrescription:(Prescription *)prescription{
     _prescription = prescription;
+    self.quantityControl.selectedSegmentIndex = self.prescription.selectedDays;
     self.drugNameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.quantityLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
@@ -56,7 +57,6 @@
 }
 
 - (IBAction)didChangeQuantity:(id)sender {
-    [self.delegate updateTotal];
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.quantityLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
         self.priceLabel.text = self.prescription.price30;
@@ -71,24 +71,21 @@
 
 - (IBAction)didTapDelete:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
-    NSArray *array = currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
-    for (int i = 0; i < array.count; i++) {
-        NSDictionary *object = array[i];
-        if ([object[@"item"] isEqual:self.prescription.prescriptionPointer.objectId]) {
-            [currentUser removeObject:object forKey:@"buyingDrugs"];
-            [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    // The PFUser has been saved.
-                    NSLog(@"Drug was removed");
-                    [self.delegate updateShoppingList];
-                    return;
-                } else {
-                    // There was a problem, check error.description
-                    NSLog(@"boo.....%@", error.localizedDescription);
-                }
-            }];
+    NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
+    [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
+    [prescriptionInfo addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d", self.prescription.quantity]}];
+    [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d", self.prescription.selectedDays]}];
+    [currentUser removeObject:prescriptionInfo forKey:@"buyingDrugs"];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // The PFUser has been saved.
+            NSLog(@"No longer buying drug.");
+            [self.delegate updateShoppingList];
+        } else {
+            // There was a problem, check error.description
+            NSLog(@"boo.....%@", error.localizedDescription);
         }
-    }
+    }];
 }
 
 @end

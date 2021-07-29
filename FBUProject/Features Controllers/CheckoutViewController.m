@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
 @property (strong, nonatomic) PFUser *currentUser;
+@property (strong, nonatomic) NSLock *arrayLock;
 
 @end
 
@@ -27,6 +28,7 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.arrayLock = [[NSLock alloc] init];
     self.currentUser = [PFUser currentUser];
     self.prescriptions = [[NSMutableArray alloc] init];
 }
@@ -58,9 +60,9 @@
 
 // Goes through the drugs they bought - which is stored in Parse - and converts them to Prescription objects
 -(void) queryPrescriptions {
+    [self.arrayLock lock];
     NSMutableArray* currentPrescriptions = [[NSMutableArray alloc] init];
     NSArray *boughtDrugs = self.currentUser[@"buyingDrugs"];
-    NSLog(@"Data in Parse: %@", self.currentUser[@"buyingDrugs"]);
     for (int i = 0; i < boughtDrugs.count; i++) {
         NSDictionary *object = boughtDrugs[i];
         PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
@@ -82,16 +84,13 @@
         [currentPrescriptions addObject:prescription];
     }
     self.prescriptions = currentPrescriptions;
+    [self.arrayLock unlock];
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalCost];
 }
-
-
 
 - (void)updateTotal{
         [self refreshCart];
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShoppingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShoppingCell"];
@@ -114,6 +113,7 @@
 
 -(void) refreshCart{
     [self emptyCartSynchronously];
+    [self.arrayLock lock];
     for (int i = 0; i < self.prescriptions.count; i++) {
         Prescription* prescription = self.prescriptions[i];
         NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
@@ -123,6 +123,7 @@
         [self.currentUser addObject:prescriptionInfo forKey:@"buyingDrugs"];
     }
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self.arrayLock unlock];
         if (succeeded) {
             // The PFUser has been updated.
             [self loadBoughtPrescriptions];
@@ -135,20 +136,24 @@
 
 -(void) emptyCartSynchronously{
     NSArray *cart = self.currentUser[@"buyingDrugs"];
+    [self.arrayLock lock];
     for (int i = 0; i < cart.count; i++) {
         NSDictionary *object = cart[i];
         [self.currentUser removeObject:object forKey:@"buyingDrugs"];
     }
     [self.currentUser save];
+    [self.arrayLock unlock];
 }
 
 -(void) clearCart:(BOOL) updateList{
+    [self.arrayLock lock];
     NSArray *cart = self.currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
     for (int i = 0; i < cart.count; i++) {
         NSDictionary *object = cart[i];
         [self.currentUser removeObject:object forKey:@"buyingDrugs"];
     }
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self.arrayLock unlock];
         if (succeeded) {
             // The PFUser has been saved.
             NSLog(@"Drug was removed");
