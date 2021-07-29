@@ -6,15 +6,16 @@
 //
 
 #import "RemindersViewController.h"
-#import "ReminderNotificationManager.h"
 #import "NewReminderViewController.h"
 #import "ReminderCell.h"
 #import "Parse/Parse.h"
 @import UserNotifications;
 
-@interface RemindersViewController () <UITableViewDelegate, UITableViewDataSource, NewReminderViewControllerDelegate>
+@interface RemindersViewController () <UITableViewDelegate, UITableViewDataSource, NewReminderViewControllerDelegate, UNUserNotificationCenterDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray* reminders;
+@property (strong, nonatomic) UNUserNotificationCenter* center;
+
 @end
 
 @implementation RemindersViewController
@@ -23,20 +24,17 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.center = [UNUserNotificationCenter currentNotificationCenter];
+    self.center.delegate = self;
     [self fetchReminders];
-    // Request to notify user
-    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound)
-       completionHandler:^(BOOL granted, NSError * _Nullable error) {
-          // Enable or disable features based on authorization.
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        } else if (!granted) {
-            NSLog(@"User did not grant access... Alert them that they will not see alarms until they accept!");
-        }
-    }];
-    ReminderNotificationManager *reminder = [[ReminderNotificationManager alloc] init];
-    [reminder testNotifications];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [self fetchReminders];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    completionHandler(UNNotificationPresentationOptionSound);
 }
 
 -(void) fetchReminders{

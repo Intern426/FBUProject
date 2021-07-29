@@ -17,10 +17,10 @@
 @dynamic prescriptionName;
 @dynamic quantityLeft;
 
--(instancetype) initWithPrescription:(Prescription*) prescription time: (NSDate*) date instructions: (NSString*) instruction quantity: (int) quantity{
+-(instancetype) initWithPrescription:(Prescription*) prescription name:(NSString*) name time: (NSDate*) date instructions: (NSString*) instruction quantity: (int) quantity{
     self = [super init];
     self.prescription = prescription.prescriptionPointer;
-    self.prescriptionName = prescription.displayName;
+    self.prescriptionName = name;
     self.alarm = date;
     self.instruction = instruction;
     self.quantityLeft = quantity;
@@ -46,6 +46,7 @@
     PFObject* authorObject = reminder[@"author"];
     PFQuery *findAuthor = [PFQuery queryWithClassName:@"User"];
     self.author =  [findAuthor getObjectWithId:authorObject.objectId];
+    
     self.alarm = reminder[@"alarm"];
     self.instruction = reminder[@"instruction"];
     PFObject* prescriptionObject = reminder[@"prescription"];

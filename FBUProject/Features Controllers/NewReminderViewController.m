@@ -95,9 +95,9 @@
     NSDate* time = self.timePicker.date;
     NSLog(@"time");
     int quantityLeft = 30;
-    Reminder *newReminder = [[Reminder alloc] initWithPrescription:prescription time:time instructions:instructions quantity:quantityLeft];
+    Reminder *newReminder = [[Reminder alloc] initWithPrescription:prescription name:self.prescriptionField.text time:time instructions:instructions quantity:quantityLeft];
     [newReminder saveInBackground];
-    [self.navigationController popViewControllerAnimated:true];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)didTapCancel:(id)sender {

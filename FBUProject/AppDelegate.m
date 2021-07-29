@@ -31,6 +31,11 @@
     [Parse initializeWithConfiguration:config];
     [SQIPInAppPaymentsSDK setSquareApplicationID:[dict objectForKey:@"square_app_id"]];
     
+    // Request to notify user
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound)
+       completionHandler:^(BOOL granted, NSError * _Nullable error) {}];
+    
     return YES;
 }
 
