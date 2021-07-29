@@ -779,7 +779,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYs-f0-PkR">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYs-f0-PkR">
                                                     <rect key="frame" x="333" y="237" width="19" height="22"/>
                                                     <state key="normal" image="trash" catalog="system"/>
                                                     <connections>
@@ -822,12 +822,19 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6h-4B-eck">
-                                                    <rect key="frame" x="226" y="191" width="77.000000000000028" height="22"/>
+                                                    <rect key="frame" x="226" y="191" width="77" height="22"/>
                                                     <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                                     <state key="normal" title="Search" image="magnifyingglass" catalog="system">
                                                         <color key="titleColor" systemColor="opaqueSeparatorColor"/>
                                                     </state>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1r-Gq-xGe">
+                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="267"/>
+                                                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="B6h-4B-eck" secondAttribute="bottom" constant="57" id="0Z1-SU-QUf"/>
@@ -839,6 +846,7 @@
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zFT-Om-8aI" secondAttribute="bottom" constant="11" id="9gJ-ig-okc"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uZ4-so-gkk" secondAttribute="trailing" constant="10" id="AKh-5X-abr"/>
                                                 <constraint firstAttribute="trailing" secondItem="B6h-4B-eck" secondAttribute="trailing" constant="87" id="ALv-GK-Gff"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="e1r-Gq-xGe" secondAttribute="trailing" constant="366" id="Bcb-wW-9u8"/>
                                                 <constraint firstItem="B6h-4B-eck" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bfp-4n-M0I" secondAttribute="trailing" constant="10" id="Cuw-n1-9dy"/>
                                                 <constraint firstAttribute="trailing" secondItem="fYs-f0-PkR" secondAttribute="trailing" constant="38" id="DJo-5t-NeB"/>
                                                 <constraint firstItem="MtU-1u-gbY" firstAttribute="top" secondItem="bL7-en-FB4" secondAttribute="top" constant="11" id="FG4-9R-Mde"/>
@@ -853,11 +861,14 @@
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fYs-f0-PkR" secondAttribute="bottom" constant="11" id="V0n-u1-bQe"/>
                                                 <constraint firstItem="US1-2V-Tim" firstAttribute="top" secondItem="bL7-en-FB4" secondAttribute="top" constant="11" id="VbV-QE-Pls"/>
                                                 <constraint firstItem="Ei4-gu-Zpc" firstAttribute="leading" secondItem="L4I-6z-6r5" secondAttribute="trailing" constant="15.67" id="VcW-qh-XJK"/>
+                                                <constraint firstItem="e1r-Gq-xGe" firstAttribute="top" secondItem="bL7-en-FB4" secondAttribute="topMargin" constant="-11" id="YXf-YO-sOs"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YEL-hx-7SL" secondAttribute="trailing" constant="10" id="bR2-uj-loD"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ARR-wv-sSo" secondAttribute="trailing" constant="10" id="bwd-wP-rEr"/>
+                                                <constraint firstItem="e1r-Gq-xGe" firstAttribute="leading" secondItem="bL7-en-FB4" secondAttribute="leadingMargin" constant="-20" id="ccQ-6F-n0T"/>
                                                 <constraint firstItem="YEL-hx-7SL" firstAttribute="leading" secondItem="bL7-en-FB4" secondAttribute="leading" constant="61" id="gYm-Y6-d7z"/>
                                                 <constraint firstItem="2XD-G7-NxA" firstAttribute="leading" secondItem="MtU-1u-gbY" secondAttribute="leading" id="ksh-6U-mHZ"/>
                                                 <constraint firstAttribute="bottom" secondItem="US1-2V-Tim" secondAttribute="bottom" constant="237" id="lhc-h3-IFx"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="e1r-Gq-xGe" secondAttribute="bottom" constant="-8" id="pJH-1V-6I9"/>
                                                 <constraint firstItem="L4I-6z-6r5" firstAttribute="top" secondItem="2XD-G7-NxA" secondAttribute="bottom" constant="41" id="smW-XV-puM"/>
                                                 <constraint firstItem="fYs-f0-PkR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zFT-Om-8aI" secondAttribute="trailing" constant="10" id="tES-5R-7Te"/>
                                                 <constraint firstItem="ARR-wv-sSo" firstAttribute="leading" secondItem="2XD-G7-NxA" secondAttribute="trailing" constant="8" id="tyk-nl-IoQ"/>
@@ -870,6 +881,7 @@
                                         <connections>
                                             <outlet property="amountLabel" destination="YEL-hx-7SL" id="IsK-1L-ffZ"/>
                                             <outlet property="cartButton" destination="zFT-Om-8aI" id="HvR-RR-Ons"/>
+                                            <outlet property="deleteAnimationLabel" destination="e1r-Gq-xGe" id="xLW-KB-rOO"/>
                                             <outlet property="deleteButton" destination="fYs-f0-PkR" id="b31-2y-tmd"/>
                                             <outlet property="dosageLabel" destination="uZ4-so-gkk" id="BWk-oq-Iq1"/>
                                             <outlet property="infoButton" destination="US1-2V-Tim" id="OOK-EK-X9c"/>
@@ -1284,7 +1296,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="staroflife.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2ic-L9-aYY">
-                                <rect key="frame" x="336.33333333333331" y="242.66666666666666" width="17.333333333333314" height="18.666666666666714"/>
+                                <rect key="frame" x="336.33333333333331" y="243" width="17.333333333333314" height="17.666666666666657"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="En1-z7-4y4">
@@ -1310,11 +1322,11 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="staroflife.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kmb-kW-qM1">
-                                <rect key="frame" x="336" y="495.66666666666669" width="18" height="18.666666666666686"/>
+                                <rect key="frame" x="336" y="496.33333333333331" width="18" height="17.666666666666629"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="staroflife.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="j0l-zy-pYl">
-                                <rect key="frame" x="336" y="548.66666666666663" width="18" height="18.666666666666742"/>
+                                <rect key="frame" x="336" y="549.33333333333337" width="18" height="17.666666666666629"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                             </imageView>
                         </subviews>

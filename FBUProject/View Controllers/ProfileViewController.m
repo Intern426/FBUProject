@@ -40,20 +40,23 @@
 -(void) loadFavorites{
     self.prescriptions =  [[NSMutableArray alloc] init];
     [self queryPrescriptions];
+    [self checkEmpty];
+    [self.tableView reloadData];
+}
+
+-(void) checkEmpty{
     if (self.prescriptions != nil && self.prescriptions.count != 0) {
         self.emptyLabel.hidden = YES;
     } else {
         self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // Make sure no lines show up
         self.emptyLabel.hidden = NO;
     }
-    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     // When switching tabs, will update favorites as needed
     [self loadFavorites];
 }
-
 
 -(void) queryPrescriptions {
     NSArray *array = self.currentUser[@"savedDrugs"];
@@ -80,7 +83,6 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.prescriptions[indexPath.row];
-    [cell setSwipeGesture];
     cell.profileDelegate = self;
     return cell;
 }
@@ -89,8 +91,27 @@
     return self.prescriptions.count;
 }
 
-- (void)updateFavorites{
+- (void)updateFavorites:(Prescription*) prescription{
     [self loadFavorites];
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Prescription* prescription = self.prescriptions[indexPath.row];
+        [self.prescriptions removeObjectAtIndex:indexPath.row];
+        [self.currentUser removeObject:prescription.prescriptionPointer forKey:@"savedDrugs"];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation: UITableViewRowAnimationFade];
+    }
+    [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        } else{
+            NSLog(@"Success");
+        }
+    }];
+    [self.tableView reloadData];
+    [self checkEmpty];
+}
+
 
 @end

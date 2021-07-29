@@ -32,6 +32,11 @@
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
     self.searchBar.delegate = self;
+    
+    [self checkInternetConnection];
+}
+
+-(void) checkInternetConnection {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -116,9 +121,6 @@
     [self.tableView reloadData];
 }
 
-
-
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -148,5 +150,6 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.searchedPrescriptions.count;
 }
+
 
 @end

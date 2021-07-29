@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol PrescriptionCellProfileDelegate <NSObject>
 
--(void) updateFavorites;
+-(void) updateFavorites:(Prescription*) prescription;
 
 @end
 
@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *quantityControl;
+@property (weak, nonatomic) IBOutlet UILabel *deleteAnimationLabel;
 
 @property (weak, nonatomic) id<PrescriptionCellProfileDelegate> profileDelegate;
 @property (weak, nonatomic) id<PrescriptionCellDetailDelegate> detailDelegate;
@@ -46,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setPrescription:(Prescription *) prescription;
 
 @property (strong, nonatomic) Prescription *prescription;
--(void) setSwipeGesture;
 
 @end
 

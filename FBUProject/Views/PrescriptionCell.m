@@ -21,19 +21,6 @@
 
 }
 
--(void) didSwipeDelete:(UISwipeGestureRecognizer*)swipeRecognizer{
-    if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        [self didTapDelete:self];
-    }
-}
-
--(void) setSwipeGesture{
-    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDelete:)];
-    [self.contentView addGestureRecognizer:swipeGesture];
-    [self.contentView setUserInteractionEnabled:YES];
-}
-
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
@@ -57,7 +44,6 @@
     if (currentUser[@"savedDrugs"]) {
         [self checkForSavedFavorites:currentUser[@"savedDrugs"]];
     }
-    NSLog(@"%@", currentUser[@"buyingDrugs"]);
     if (currentUser[@"buyingDrugs"]) {
         [self checkForBoughtDrugs:currentUser[@"buyingDrugs"]];
     }
@@ -102,13 +88,14 @@
 }
 
 - (IBAction)didTapDelete:(id)sender {
+    [self setEditing:YES];
     PFUser *currentUser = [PFUser currentUser];
     [currentUser removeObject:self.prescription.prescriptionPointer forKey:@"savedDrugs"];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // The PFUser has been saved.
             NSLog(@"Drug was removed");
-            [self.profileDelegate updateFavorites];
+            [self.profileDelegate updateFavorites:self.prescription];
         } else {
             // There was a problem, check error.description
             NSLog(@"boo.....%@", error.localizedDescription);
@@ -131,11 +118,6 @@
     [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d", self.quantityControl.selectedSegmentIndex]}];
     [self updateUserAtKey:@"buyingDrugs" withObject:prescriptionInfo updateButton:self.cartButton];
 }
-
-- (void)swipeToDeleteCell{
-    [self didTapDelete:self.deleteButton];
-}
-
 
 -(void) updateUserAtKey: (NSString*) key withObject: (NSObject*) object updateButton:(UIButton*) button {
     PFUser *currentUser = [PFUser currentUser];
