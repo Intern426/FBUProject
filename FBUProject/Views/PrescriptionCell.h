@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Prescription.h"
+#import "ProfileViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setPrescription:(Prescription *) prescription;
 
 @property (strong, nonatomic) Prescription *prescription;
+-(void) setSwipeGesture;
 
 @end
 

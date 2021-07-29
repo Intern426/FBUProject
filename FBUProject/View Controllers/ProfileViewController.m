@@ -26,6 +26,7 @@
     self.tableView.dataSource = self;
     self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser.username];
     
+   
     // Do any additional setup after loading the view.
     self.currentUser = [PFUser currentUser];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -34,6 +35,7 @@
     [self.loadingIndicatorView startAnimating];
     [self loadFavorites];
 }
+
 
 -(void) loadFavorites{
     self.prescriptions =  [[NSMutableArray alloc] init];
@@ -78,6 +80,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.prescriptions[indexPath.row];
+    [cell setSwipeGesture];
     cell.profileDelegate = self;
     return cell;
 }

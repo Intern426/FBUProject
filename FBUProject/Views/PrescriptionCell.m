@@ -9,7 +9,7 @@
 #import "Parse/Parse.h"
 #import "ProfileViewController.h"
 
-@implementation PrescriptionCell 
+@implementation PrescriptionCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -18,7 +18,21 @@
     [self.likeButton setImage:[UIImage systemImageNamed:@"star"] forState:UIControlStateNormal];
     [self.cartButton setImage:[UIImage systemImageNamed:@"cart.fill"] forState:UIControlStateSelected];
     [self.cartButton setImage:[UIImage systemImageNamed:@"cart"] forState:UIControlStateNormal];
+
 }
+
+-(void) didSwipeDelete:(UISwipeGestureRecognizer*)swipeRecognizer{
+    if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self didTapDelete:self];
+    }
+}
+
+-(void) setSwipeGesture{
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDelete:)];
+    [self.contentView addGestureRecognizer:swipeGesture];
+    [self.contentView setUserInteractionEnabled:YES];
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -43,6 +57,7 @@
     if (currentUser[@"savedDrugs"]) {
         [self checkForSavedFavorites:currentUser[@"savedDrugs"]];
     }
+    NSLog(@"%@", currentUser[@"buyingDrugs"]);
     if (currentUser[@"buyingDrugs"]) {
         [self checkForBoughtDrugs:currentUser[@"buyingDrugs"]];
     }
@@ -115,6 +130,10 @@
     [prescriptionInfo addEntriesFromDictionary:@{@"quantity": @"1"}];
     [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d", self.quantityControl.selectedSegmentIndex]}];
     [self updateUserAtKey:@"buyingDrugs" withObject:prescriptionInfo updateButton:self.cartButton];
+}
+
+- (void)swipeToDeleteCell{
+    [self didTapDelete:self.deleteButton];
 }
 
 
