@@ -51,13 +51,18 @@
     int i;
     for (i = 0; i < information.count && isDrugName; i++) {
         NSString *result =  information[i];
-        unichar firstCharacter = [result characterAtIndex:0];
-        NSCharacterSet *numericSet = [NSCharacterSet decimalDigitCharacterSet];
-        if ([numericSet characterIsMember:firstCharacter]) { // Starts with a number so not the drug name
+        if (result.length > 0) {
+            unichar firstCharacter = [result characterAtIndex:0];
+            NSCharacterSet *numericSet = [NSCharacterSet decimalDigitCharacterSet];
+            if ([numericSet characterIsMember:firstCharacter]) { // Starts with a number so not the drug name
+                isDrugName = NO;
+                i--;
+            } else {
+                [drugName appendString: [NSString stringWithFormat:@"%@ ", result]];
+            }
+        } else {
             isDrugName = NO;
             i--;
-        } else {
-            [drugName appendString: [NSString stringWithFormat:@"%@ ", result]];
         }
     }
     self.displayName = drugName;

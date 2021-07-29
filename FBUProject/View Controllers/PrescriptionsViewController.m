@@ -13,14 +13,19 @@
 #import "APIManager.h"
 #import "DetailViewController.h"
 #import "Reachability.h"
+#import "InfiniteScrollActivityView.h"
 
-@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate>
+@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
 @property (strong, nonatomic) NSMutableArray *searchedPrescriptions;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicatorView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
+@property (assign, nonatomic) BOOL isMoreDataLoading;
+@property (strong, nonatomic) InfiniteScrollActivityView* loadingMoreView;
+
 
 @end
 
@@ -32,6 +37,16 @@
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
     self.searchBar.delegate = self;
+    
+    // Set up Infinite Scroll loading indicator
+    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    self.loadingMoreView.hidden = true;
+    [self.tableView addSubview:self.loadingMoreView];
+    
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.tableView.contentInset = insets;
     
     [self checkInternetConnection];
 }
@@ -151,5 +166,52 @@
     return self.searchedPrescriptions.count;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row + 1 == [self.prescriptions count]){
+        [self loadMoreData:[self.prescriptions count] + 20];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if(!self.isMoreDataLoading){
+        self.isMoreDataLoading = true;
+        // Calculate the position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            self.isMoreDataLoading = true;
+            
+            // Update position of loadingMoreView, and start loading indicator
+            CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+            self.loadingMoreView.frame = frame;
+            [self.loadingMoreView startAnimating];
+            
+            [self loadMoreData:[self.prescriptions count] + 20];
+            
+        }
+    }
+}
+
+-(void)loadMoreData:(int) newData{
+    PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
+    [query orderByDescending:@"drugName"];
+    query.skip = newData;
+    
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *prescriptions, NSError *error) {
+        if (prescriptions != nil) {
+            self.isMoreDataLoading = false;
+            // do something with the array of object returned by the call
+            [self.prescriptions addObjectsFromArray:[Prescription prescriptionsDataInArray:prescriptions]];
+            self.searchedPrescriptions = [NSMutableArray arrayWithArray:self.prescriptions];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        [self.loadingMoreView stopAnimating];
+    }];
+}
 
 @end
