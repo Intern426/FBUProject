@@ -23,8 +23,6 @@
     self.keepLooking = YES;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString* searchingDrugName = self.prescription.displayName;
-    // TODO: Fix this. In some cases, you can get away with just searching the display name but in cases like Zmax ER (where ER = extended release)
-    // TODO: it just confuses query so just take the first string
     NSArray* splitDrugName = [searchingDrugName componentsSeparatedByString:@" "];
     if (splitDrugName.count > 1) {
         searchingDrugName = splitDrugName[0];
@@ -104,7 +102,7 @@
         } else {
             if (information[@"results"]) {
                 NSArray *result = information[@"results"];
-                self.drugInformation = result[0]; // for now, just grab the data from the first manufacturer company
+                self.drugInformation = result[0];
                 [self displayInformation];
             } else {
                 if (self.keepLooking)

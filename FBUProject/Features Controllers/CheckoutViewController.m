@@ -122,8 +122,8 @@
         [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d", prescription.selectedDays]}];
         [self.currentUser addObject:prescriptionInfo forKey:@"buyingDrugs"];
     }
+    [self.arrayLock unlock];
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self.arrayLock unlock];
         if (succeeded) {
             // The PFUser has been updated.
             [self loadBoughtPrescriptions];
@@ -152,8 +152,8 @@
         NSDictionary *object = cart[i];
         [self.currentUser removeObject:object forKey:@"buyingDrugs"];
     }
+    [self.arrayLock unlock];
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self.arrayLock unlock];
         if (succeeded) {
             // The PFUser has been saved.
             NSLog(@"Drug was removed");

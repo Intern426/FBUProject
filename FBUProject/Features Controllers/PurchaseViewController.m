@@ -40,7 +40,6 @@
     [newOrder buyPrescriptions:self.prescriptions];
     
     [self.purchaseDetails addEntriesFromDictionary:@{@"idempotency_key": newOrder.object_id}];
-
     
     NSMutableDictionary *order = [[NSMutableDictionary alloc] init];
     [order addEntriesFromDictionary:newOrder.line_items];
@@ -56,28 +55,28 @@
     
     // Convert geocode back to user-friendly address
     if (buyer[@"address"]) {
-    PFGeoPoint *address = buyer[@"address"];
-    CLLocation* location = [[CLLocation alloc] initWithLatitude:address.latitude longitude:address.longitude];
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"%@", error.localizedDescription);
-        } else {
-            CLPlacemark* placemark = placemarks.firstObject;
-            NSLog(@"%@", placemark.postalAddress);
-            
-            CNPostalAddress *addressConverter = placemark.postalAddress;
-            CNPostalAddressFormatter *formatter = [[CNPostalAddressFormatter alloc] init];
-            NSString *sample = [formatter stringFromPostalAddress:addressConverter];
-            
-            self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
-        }
-    }];
+        PFGeoPoint *address = buyer[@"address"];
+        CLLocation* location = [[CLLocation alloc] initWithLatitude:address.latitude longitude:address.longitude];
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        
+        [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+            if (error != nil) {
+                NSLog(@"%@", error.localizedDescription);
+            } else {
+                CLPlacemark* placemark = placemarks.firstObject;
+                NSLog(@"%@", placemark.postalAddress);
+                
+                CNPostalAddress *addressConverter = placemark.postalAddress;
+                CNPostalAddressFormatter *formatter = [[CNPostalAddressFormatter alloc] init];
+                NSString *sample = [formatter stringFromPostalAddress:addressConverter];
+                
+                self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
+            }
+        }];
     } else
         self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@", buyer[@"name"]];
     self.costLabel.text = [NSString stringWithFormat:@"$%.2f", self.cost];
-
+    
 }
 
 

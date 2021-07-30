@@ -30,16 +30,18 @@
 @property (strong, nonatomic) InfiniteScrollActivityView* loadingMoreView;
 @property (strong, nonatomic) Prescription* collapsePrescription;
 
+@property (strong, nonatomic) NSLock * arrayLock;
 
 @end
 
 @implementation PrescriptionsViewController
 
-const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 2; // Since there are roughly 3,000 prescriptions and query only returns 1000 prescriptions at a time,
+const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 1; // Since there are roughly 3,000 prescriptions and query only returns 1000 prescriptions at a time,
                                                // iterate through query 2 times. 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.arrayLock = [[NSLock alloc] init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
@@ -87,8 +89,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 2; // Since there are roughly 3,000 
 }
 
 -(void) retrieveAllPrescriptions{
-    NSLock* lock = [[NSLock alloc] init];
-    [lock lock];
+    [self.arrayLock lock];
     self.allPrescriptions = [[NSMutableArray alloc] init];
     PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
     query.limit = 1000;
@@ -96,21 +97,18 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 2; // Since there are roughly 3,000 
         query.skip = 1000 * i;
         [self.allPrescriptions addObjectsFromArray:[Prescription prescriptionsDataInArray:[query findObjects]]];
     }
-    [lock unlock];
+    [self.arrayLock unlock];
 }
 
 
 - (void) loadPrescriptions {
-    NSLock *lock = [[NSLock alloc] init];
-    [lock lock];
     PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
     query.limit = 20;
     
     [query orderByDescending:@"drugName"];
-    
+
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *prescriptions, NSError *error) {
-        [lock unlock];
         if (prescriptions != nil) {
             // do something with the array of object returned by the call
             self.prescriptions = [Prescription prescriptionsDataInArray:prescriptions];
