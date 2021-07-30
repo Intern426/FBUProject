@@ -25,18 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int quantity;
 @property (nonatomic) int selectedDays; // 30 days or 90 days - corresponds to segmented control: 0 = 30 days, 1 = 90 days.
 
-
-// Additional/Detail info
- // Active Ingredient
- // Inactive Ingredient
- // Purpose (i.e. Pain reliver)
- // Side Effects and Warnings
- // Generic and Brand name
- // Manufacturer who provided info
-
-
 + (NSMutableArray *)prescriptionsDataInArray:(NSArray *)data;
-
 - (instancetype)initWithParseData:(PFObject *)prescription;
 
 - (NSNumber*) retrievePrice30;

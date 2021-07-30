@@ -21,8 +21,7 @@
 
 - (instancetype)initWithParseData:(PFObject *)prescription {
     self = [super init];
-    NSArray *information = [[prescription[@"drugName"] capitalizedString] componentsSeparatedByString:@" "];
-    [self parseDrugName:information]; // initializes drug name and dosage amount
+    [self parseDrugName:[prescription[@"drugName"] capitalizedString]]; // breaks apart drug name to get name and dosage amount
     self.amount30 = prescription[@"day30amount"];
     self.amount90 = prescription[@"day90amount"];
     self.price30 = prescription[@"day30price"];
@@ -45,31 +44,29 @@
     return result;
 }
 
-- (void) parseDrugName:(NSArray*)information {
+- (void) parseDrugName:(NSString*)drugInformation {
+    NSArray* drugInformationArray = [drugInformation componentsSeparatedByString:@" "];
     NSMutableString *drugName = [[NSMutableString alloc]init];
     BOOL isDrugName = YES;
     int i;
-    for (i = 0; i < information.count && isDrugName; i++) {
-        NSString *result =  information[i];
+    for (i = 0; i < drugInformationArray.count && isDrugName; i++) {
+        NSString *result =  drugInformationArray[i];
         if (result.length > 0) {
             unichar firstCharacter = [result characterAtIndex:0];
             NSCharacterSet *numericSet = [NSCharacterSet decimalDigitCharacterSet];
-            if ([numericSet characterIsMember:firstCharacter]) { // Starts with a number so not the drug name
+            if ([numericSet characterIsMember:firstCharacter]) { // Starts with a number so not the drug name (dosage)
                 isDrugName = NO;
-                i--;
             } else {
                 [drugName appendString: [NSString stringWithFormat:@"%@ ", result]];
             }
         } else {
             isDrugName = NO;
-            i--;
         }
     }
     self.displayName = drugName;
-    NSMutableString *dosageInformation = [[NSMutableString alloc] init];
-    for (int j = i; j < information.count; j++)
-        [dosageInformation appendString:[NSString stringWithFormat:@"%@ ", information[j]]];
-    self.dosageAmount = dosageInformation;
+    if (i != drugInformationArray.count) { // means that the whole string wasn't used for the name
+        self.dosageAmount = [drugInformation componentsSeparatedByString:self.displayName][1];
+    }
 }
 
 - (BOOL)isEqual:(id)other

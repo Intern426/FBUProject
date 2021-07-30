@@ -7,6 +7,7 @@
 
 #import "Order.h"
 #import "Prescription.h"
+#import "Constants.h"
 
 @implementation Order
 
@@ -67,7 +68,7 @@
     
     [arrayForShipping addObject:dictionaryEntry];
     
-    [self.fullfillment addEntriesFromDictionary:@{@"fulfillments": arrayForShipping}]; //TODO: add constants file
+    [self.fullfillment addEntriesFromDictionary:@{@"fulfillments": arrayForShipping}];
 }
 
 @end
