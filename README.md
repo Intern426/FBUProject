@@ -12,19 +12,18 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-An app that helps you manage your prescriptions by allowing you to see a list of prescriptions offered by the GoodRX API, lets you favorite/save the ones you're interested in and can help you locate nearby pharmacies. 
+An app that helps you manage your prescriptions by allowing you to see a list of prescriptions offered at Walgreens with their prices, lets you favorite/save the ones you're interested in, locate nearby Walgreens, and purchase the drugs.
 
 ### App Evaluation
 - **Category:** Health
-- **Mobile:** Can show you the location of nearby pharmacies you and it also has a reminder feature that lets you know when to take your next medication
+- **Mobile:** Can show you the location of nearby pharmacies and reminds you when to take your medications
 - **Story:** Make it easier for the user to keep track of their prescription information/reminders in one app
-- **Market:** People who want more information on their prescriptions and find pharmacies
+- **Market:** People who want help managing their prescriptions and buying them. 
 - **Habit:** Depending on their health, heavy interaction will probably only happen monthly but if they decide to use the reminders, then they'll use the app daily just to remember to take their medication
 - **Scope:** 
     * Getting the location of Pharmacies - one generic way could be utilizing a Map API like Google and just having the user insert their location than return nearby pharacies that way. 
-        * While I'm not sure if there's a way to get this information currently (asides from having to actually call), it would be nice to implement a feature that tells you if the medication is actually in stock
     * Reminders and Alarms will be setup on your phone 
-    * Integrating multiple Drug APIs... initialy I find the GoodRX because I thought it would be useful for the user to get prescriptions and find a reasonable cost -- however, GoodRX doesn't supply any information about the drug (beyond name, manufacturer, price and pharmacy) so I'm hoping to utilize another API like RxNorm API to retreive information about the ingredients in the drug and other information that the user might be interested in
+    * Integrates the openFDA API and uses RxNorm API to get more detailed information on a drug
 
 ## Demos
 
@@ -149,4 +148,4 @@ List of network requests by screen
     * (Read/GET - openFDA) Collect data on drugs
 
 * Pharamcy Map Screen
-    * (Read/GET - Map SDK) Find location of pharamacy based of home address (or whatever location you put down in profile) or ask for current location
+    * (Read/GET - Map SDK) Find location of pharamacy based on current location 
