@@ -56,7 +56,7 @@
     UNNotificationRequest* request = [UNNotificationRequest
                                       requestWithIdentifier:self.alarmIdentifier content:content trigger:trigger];
     
-    // Call it!
+    // Set alarm - if new.
     [self setAlarm:request];
 }
 
@@ -97,5 +97,22 @@
     date.minute = [minute intValue];
     return date;
 }
+
+- (IBAction)didTapDelete:(id)sender {
+    // Retrieve the object by id
+    PFQuery *query = [PFQuery queryWithClassName:@"Reminder"];
+    NSString *objectID = self.reminder[@"objectID"];
+    
+    PFObject* reminder =[query getObjectWithId:objectID];
+    [reminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [self.delegate updateReminders];
+        } else {
+            [self.delegate displayError:error.localizedDescription];
+        }
+    }];
+}
+
+
 
 @end

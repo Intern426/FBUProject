@@ -58,6 +58,7 @@
     self.quantityLeft = reminder[@"quantityLeft"];
     self.prescriptionName = reminder[@"prescriptionName"];
     self.alarmIdentifier = reminder[@"alarmIdentifier"];
+    self.objectID = reminder.objectId;
     return self;
 }
 

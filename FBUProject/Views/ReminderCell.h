@@ -10,6 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ReminderCellDelegate <NSObject>
+
+-(void) updateReminders;
+-(void) displayError:(NSString*) error;
+
+@end
+
 @interface ReminderCell : UITableViewCell
 
 @property (strong, nonatomic) Reminder* reminder;
@@ -20,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *alarmActiveButton;
 @property (strong, nonatomic) NSString* alarmIdentifier;
 
+@property (weak, nonatomic) id<ReminderCellDelegate> delegate;
 
 @end
 

@@ -11,10 +11,11 @@
 #import "Parse/Parse.h"
 @import UserNotifications;
 
-@interface RemindersViewController () <UITableViewDelegate, UITableViewDataSource, NewReminderViewControllerDelegate, UNUserNotificationCenterDelegate>
+@interface RemindersViewController () <UITableViewDelegate, UITableViewDataSource, NewReminderViewControllerDelegate, UNUserNotificationCenterDelegate, ReminderCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray* reminders;
 @property (strong, nonatomic) UNUserNotificationCenter* center;
+@property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 
 @end
 
@@ -24,7 +25,9 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
 
     self.center = [UNUserNotificationCenter currentNotificationCenter];
     self.center.delegate = self;
@@ -45,8 +48,17 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable reminders, NSError * _Nullable error) {
         self.reminders = [Reminder initWithArray:reminders];
         [self.tableView reloadData];
+        [self checkEmpty];
     }];
 
+}
+
+-(void) checkEmpty{
+    if (self.reminders != nil && self.reminders.count != 0) {
+        self.emptyLabel.hidden = YES;
+    } else {
+        self.emptyLabel.hidden = NO;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -69,8 +81,23 @@
 }
 */
 
+
 - (void)updateReminder {
-    [self.tableView reloadData];
+    [self fetchReminders];
 }
+
+-(void) displayError:(NSString*) error{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:error
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+        [self.navigationController popViewControllerAnimated:true];
+    }];
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 @end

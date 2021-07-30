@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int quantityLeft;
 @property (strong, nonatomic) PFUser *author;
 
+@property (strong, nonatomic) NSString* objectID;
+
 
 -(instancetype) initWithPrescription:(Prescription*) prescription name:(NSString*) name time: (NSDate*) date instructions: (NSString*) instruction quantity: (int) quantity;
 -(instancetype) initWithParseData:(PFObject*) reminder;
