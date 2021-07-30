@@ -133,7 +133,7 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
     NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:jsonItem completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error != nil) { // Something wrong with the authentication/url session
+        if (error != nil) {
             NSLog(@"%@", error.localizedDescription);
             completion(nil, error);
         }

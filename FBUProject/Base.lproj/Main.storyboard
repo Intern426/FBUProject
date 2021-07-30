@@ -197,10 +197,19 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" id="oyc-4n-c6M">
-                        <barButtonItem key="rightBarButtonItem" image="plus.circle" catalog="system" id="IfB-4H-8fI">
-                            <connections>
-                                <segue destination="jQ3-KL-3So" kind="presentation" modalPresentationStyle="fullScreen" id="Wyu-P7-2Bh"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="9Rw-m4-PnH">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dar-nb-zkG">
+                                <rect key="frame" x="246" y="0.0" width="128" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title=" Add" image="plus.circle" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="jQ3-KL-3So" kind="presentation" modalPresentationStyle="fullScreen" id="qIy-rs-spg"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -318,7 +327,7 @@
             <objects>
                 <viewController id="8Ti-Hi-WuD" customClass="PrescriptionsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vEz-fv-9r1">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="756"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YYr-w3-KR9">
@@ -493,25 +502,32 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="3a0-qo-sNt">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Zpm-Ww-cBw">
-                            <connections>
-                                <action selector="didTapLogout:" destination="8Ti-Hi-WuD" id="HiI-S7-Qvb"/>
-                            </connections>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="KvE-Ko-Ub3">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GU0-hV-dJm">
+                                <rect key="frame" x="16" y="7.6666666666666679" width="149.66666666666666" height="29.000000000000004"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleShadowColor" name="AccentColor"/>
+                                </state>
+                            </button>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Ngm-D8-jc6">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pj9-Fu-RbE">
-                                <rect key="frame" x="232.33333333333337" y="11" width="141.66666666666663" height="22"/>
+                                <rect key="frame" x="224.33333333333337" y="11" width="149.66666666666663" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="tintColor" name="AccentColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title=" Nearby Walgreens" image="magnifyingglass" catalog="system">
-                                    <color key="titleColor" name="AccentColor"/>
                                     <color key="titleShadowColor" name="AccentColor"/>
                                 </state>
                                 <connections>
                                     <segue destination="Bff-8b-hjE" kind="presentation" modalPresentationStyle="fullScreen" id="Rqk-2s-ABe"/>
                                 </connections>
                             </button>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -531,52 +547,52 @@
             <objects>
                 <viewController id="rXB-2Y-GGU" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iMY-XO-bCC">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="756"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manufacturer:  ViiV Healthcare Company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVm-UU-uxe">
-                                <rect key="frame" x="16" y="137" width="309.66666666666669" height="20.333333333333343"/>
+                                <rect key="frame" x="16" y="49" width="309.66666666666669" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inactive Ingredients:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoK-yI-A7V">
-                                <rect key="frame" x="16" y="351" width="153.33333333333334" height="20.333333333333314"/>
+                                <rect key="frame" x="16" y="263" width="153.33333333333334" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand: Ziagran" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ckn-mz-Tkv">
-                                <rect key="frame" x="16" y="254" width="113" height="21"/>
+                                <rect key="frame" x="16" y="166" width="113" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active Ingredient: Abacavir Sulfate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lbd-Fl-WV8">
-                                <rect key="frame" x="16" y="194" width="261" height="21"/>
+                                <rect key="frame" x="16" y="106" width="261" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uya-Ff-GeK">
-                                <rect key="frame" x="353.66666666666669" y="138" width="20" height="19.999999999999986"/>
+                                <rect key="frame" x="353.66666666666669" y="50" width="20" height="20"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" backgroundImage="info.circle" catalog="system"/>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purpose:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPd-El-RHZ">
-                                <rect key="frame" x="16" y="426" width="68" height="21"/>
+                                <rect key="frame" x="16" y="338" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dosage:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3H-hY-4jw">
-                                <rect key="frame" x="16" y="514" width="63" height="21"/>
+                                <rect key="frame" x="16" y="426" width="63" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cem-L8-8DU">
-                                <rect key="frame" x="132" y="670" width="145" height="18.333333333333371"/>
+                                <rect key="frame" x="132" y="582" width="145" height="18.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Search for Walgreens!" image="magnifyingglass" catalog="system">
                                     <color key="titleColor" name="AccentColor"/>
@@ -586,45 +602,45 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V07-aO-5Bv">
-                                <rect key="frame" x="318" y="668" width="23" height="22"/>
+                                <rect key="frame" x="318" y="580" width="23" height="22"/>
                                 <state key="normal" image="cart" catalog="system"/>
                                 <connections>
                                     <action selector="didTapBuy:" destination="rXB-2Y-GGU" eventType="touchUpInside" id="eVF-xr-5Jq"/>
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vb-oc-Xtd">
-                                <rect key="frame" x="16" y="621" width="44" height="21"/>
+                                <rect key="frame" x="16" y="533" width="44" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEC-i3-jg4">
-                                <rect key="frame" x="16" y="573" width="70" height="21"/>
+                                <rect key="frame" x="16" y="485" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route: Oral" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Sr-zE-MJo">
-                                <rect key="frame" x="16" y="304" width="85" height="21"/>
+                                <rect key="frame" x="16" y="216" width="85" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X 30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icZ-on-gcr">
-                                <rect key="frame" x="241" y="573" width="36" height="21"/>
+                                <rect key="frame" x="241" y="485" width="36" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwj-p7-y6M">
-                                <rect key="frame" x="64" y="670" width="22" height="22"/>
+                                <rect key="frame" x="64" y="582" width="22" height="22"/>
                                 <state key="normal" image="star" catalog="system"/>
                                 <connections>
                                     <action selector="didTapFavorite:" destination="rXB-2Y-GGU" eventType="touchUpInside" id="Cde-JK-mgJ"/>
                                 </connections>
                             </button>
                             <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="658-nb-epW">
-                                <rect key="frame" x="94" y="568" width="137" height="32"/>
+                                <rect key="frame" x="94" y="480" width="137" height="32"/>
                                 <segments>
                                     <segment title="30 days"/>
                                     <segment title="90 days"/>
@@ -634,7 +650,7 @@
                                 </connections>
                             </segmentedControl>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6j-iX-sjN">
-                                <rect key="frame" x="94" y="621" width="42" height="21"/>
+                                <rect key="frame" x="94" y="533" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -686,7 +702,11 @@
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" secondItem="icZ-on-gcr" secondAttribute="trailing" constant="113" id="yrm-HB-GYA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Abacavir" id="QmL-22-bex"/>
+                    <navigationItem key="navigationItem" title="Abacavir" leftItemsSupplementBackButton="YES" id="QmL-22-bex">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="dcX-d9-tI3">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activeIngredientLabel" destination="Lbd-Fl-WV8" id="Uxd-tP-inX"/>
                         <outlet property="amountLabel" destination="icZ-on-gcr" id="82N-bu-qd0"/>
@@ -1207,10 +1227,15 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ypi-vZ-EEU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Prescriptions" image="doc.text.magnifyingglass" catalog="system" id="Qw9-rV-Mwh"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xKV-CA-u2r">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="xKV-CA-u2r">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <color key="barTintColor" red="0.38109090081145164" green="0.5284125002511959" blue="0.83157472082020079" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1230,6 +1255,14 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ru7-J3-gDW">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.38109090080000002" green="0.52841250029999998" blue="0.83157472079999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1249,6 +1282,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6In-2t-O3F">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.38109090080000002" green="0.52841250029999998" blue="0.83157472079999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

@@ -36,8 +36,7 @@
 
 @implementation PrescriptionsViewController
 
-const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 1; // Since there are roughly 3,000 prescriptions and query only returns 1000 prescriptions at a time,
-                                               // iterate through query 2 times. 
+const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Parse Usage plan, set to 0.
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,7 +56,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 1; // Since there are roughly 3,000 
     self.tableView.contentInset = insets;
     
     [self checkInternetConnection];
-    [self retrieveAllPrescriptions];
+  //  [self retrieveAllPrescriptions];
 }
 
 -(void) checkInternetConnection {
@@ -141,7 +140,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 1; // Since there are roughly 3,000 
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Prescription *evaluatedObject, NSDictionary *bindings) {
             return [evaluatedObject.displayName containsString:searchText];
         }];
-        self.searchedPrescriptions = (NSMutableArray*)[self.allPrescriptions filteredArrayUsingPredicate:predicate];
+        self.searchedPrescriptions = (NSMutableArray*)[self.prescriptions filteredArrayUsingPredicate:predicate];
     } else {
         self.searchBar.showsCancelButton = false;
         self.searchedPrescriptions = self.prescriptions;

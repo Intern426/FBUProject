@@ -24,6 +24,8 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
+
     self.center = [UNUserNotificationCenter currentNotificationCenter];
     self.center.delegate = self;
     [self fetchReminders];

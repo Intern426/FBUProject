@@ -16,6 +16,7 @@
 @dynamic prescription;
 @dynamic prescriptionName;
 @dynamic quantityLeft;
+@dynamic alarmIdentifier;
 
 -(instancetype) initWithPrescription:(Prescription*) prescription name:(NSString*) name time: (NSDate*) date instructions: (NSString*) instruction quantity: (int) quantity{
     self = [super init];
@@ -25,6 +26,8 @@
     self.instruction = instruction;
     self.quantityLeft = quantity;
     self.author = [PFUser currentUser];
+    self.alarmIdentifier = [[[NSProcessInfo processInfo] globallyUniqueString] substringWithRange:NSMakeRange(0, 10)];
+    self.alarmIdentifier = [self.alarmIdentifier stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
     return self;
 }
 
@@ -54,6 +57,7 @@
     self.prescription =  [findPrescription getObjectWithId:prescriptionObject.objectId];
     self.quantityLeft = reminder[@"quantityLeft"];
     self.prescriptionName = reminder[@"prescriptionName"];
+    self.alarmIdentifier = reminder[@"alarmIdentifier"];
     return self;
 }
 

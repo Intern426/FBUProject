@@ -31,8 +31,7 @@
     self.prescriptionNameLabel.text = [NSString stringWithFormat:@"Prescription: %@", self.reminder[@"prescriptionName"]];
     self.instructionLabel.text = [NSString stringWithFormat:@"Instructions: %@", self.reminder[@"instruction"]];
     // self.quantityLabel.text = [NSString stringWithFormat:@"Quantity: %@ %@ left", quantity, @"tablets"];
-    self.alarmIdentifier = [[[NSProcessInfo processInfo] globallyUniqueString] substringWithRange:NSMakeRange(0, 10)];
-    self.alarmIdentifier = [self.alarmIdentifier stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+    self.alarmIdentifier = self.reminder[@"alarmIdentifier"];
     [self setAlarm];
 }
 
@@ -58,13 +57,24 @@
                                       requestWithIdentifier:self.alarmIdentifier content:content trigger:trigger];
     
     // Call it!
+    [self setAlarm:request];
+}
+
+- (void) setAlarm:(UNNotificationRequest*) requestSaved {
     UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"%@", error.localizedDescription);
+    [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+        for (UNNotificationRequest *request in requests) {
+            if ([request.identifier isEqual:requestSaved.identifier])
+                return;
         }
+        [center addNotificationRequest:requestSaved withCompletionHandler:^(NSError * _Nullable error) {
+            if (error != nil) {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
     }];
 }
+
 
 - (NSDateComponents*) getAlarmTime{
     NSDate *time = self.reminder[@"alarm"];
