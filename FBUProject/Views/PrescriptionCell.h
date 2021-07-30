@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol PrescriptionCellProfileDelegate <NSObject>
 
 -(void) updateFavorites:(Prescription*) prescription;
-
+-(void) collapseCell:(Prescription*) prescription;
 @end
 
 @protocol PrescriptionCellDetailDelegate <NSObject>
@@ -35,10 +35,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *cartButton;
 
-
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *quantityControl;
 @property (weak, nonatomic) IBOutlet UILabel *deleteAnimationLabel;
+
+//For display purposes
+@property (weak, nonatomic) IBOutlet UILabel *quantityHolderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceHolderLabel;
+@property (weak, nonatomic) IBOutlet UIView *labelsContainerView;
+
 
 @property (weak, nonatomic) id<PrescriptionCellProfileDelegate> profileDelegate;
 @property (weak, nonatomic) id<PrescriptionCellDetailDelegate> detailDelegate;

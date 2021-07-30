@@ -72,4 +72,16 @@
     self.dosageAmount = dosageInformation;
 }
 
+- (BOOL)isEqual:(id)other
+{
+    if (other == self) {
+        return YES;
+    } else {
+        if (![other isKindOfClass:[Prescription class]])
+            return NO;
+        Prescription *comparePrescription = (Prescription*) other;
+        return [self.displayName isEqual:comparePrescription.displayName] && [self.dosageAmount isEqual:comparePrescription.dosageAmount];
+    }
+}
+
 @end

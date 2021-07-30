@@ -32,7 +32,10 @@
     self.likeButton.selected = NO;
     self.cartButton.selected = NO;
     self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
-    self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
+    if ([self.prescription.dosageAmount isEqual:@""])
+        self.dosageLabel.hidden = YES;
+    else
+        self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
         self.priceLabel.text = self.prescription.price30;
@@ -54,7 +57,7 @@
         PFObject *object = savedDrugs[i];
         PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object.objectId]];
-        if ([prescription.displayName isEqual:self.prescription.displayName] && [prescription.dosageAmount isEqual:self.prescription.dosageAmount])
+        if ([self.prescription isEqual:prescription])
             self.likeButton.selected = YES;
     }
 }
@@ -64,7 +67,7 @@
         NSDictionary *object = boughtDrugs[i];
         PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
-        if ([prescription.displayName isEqual:self.prescription.displayName] && [prescription.dosageAmount isEqual:self.prescription.dosageAmount])
+        if ([self.prescription isEqual:prescription])
             self.cartButton.selected = YES;
     }
 }
@@ -148,5 +151,35 @@
             button.selected = YES;
     }
 }
+
+- (IBAction)didTapExpand:(id)sender {
+    [UIView animateWithDuration:0.5 animations:^{
+        CGRect dosageFrame = self.dosageLabel.frame;
+        dosageFrame.origin.y  -= 10;
+        self.dosageLabel.frame = dosageFrame;
+        
+        CGRect quantityHolderFrame = self.quantityHolderLabel.frame;
+        quantityHolderFrame.origin.y  -= 20;
+        self.quantityHolderLabel.frame = quantityHolderFrame;
+        
+        CGRect quantityControlFrame = self.quantityControl.frame;
+        quantityControlFrame.origin.y  -= 20;
+        self.quantityControl.frame = quantityControlFrame;
+        
+        CGRect amountFrame = self.amountLabel.frame;
+        amountFrame.origin.y  -= 30;
+        self.amountLabel.frame = amountFrame;
+        
+
+        CGRect labelsFrame = self.labelsContainerView.frame;
+        labelsFrame.origin.y -= 10;
+        self.labelsContainerView.frame = labelsFrame;
+        
+        self.labelsContainerView.alpha = 0; // When 1, view is fully visible. When 0, view fades away
+        [self.profileDelegate collapseCell:self.prescription];
+ 
+    }];
+}
+
 
 @end

@@ -28,11 +28,15 @@
 
 @property (assign, nonatomic) BOOL isMoreDataLoading;
 @property (strong, nonatomic) InfiniteScrollActivityView* loadingMoreView;
+@property (strong, nonatomic) Prescription* collapsePrescription;
 
 
 @end
 
 @implementation PrescriptionsViewController
+
+const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 2; // Since there are roughly 3,000 prescriptions and query only returns 1000 prescriptions at a time,
+                                               // iterate through query 2 times. 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,13 +50,12 @@
     self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
     self.loadingMoreView.hidden = true;
     [self.tableView addSubview:self.loadingMoreView];
-    
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
-    [self retrieveAllPrescriptions];
-    [self checkInternetConnection];
     
+    [self checkInternetConnection];
+    [self retrieveAllPrescriptions];
 }
 
 -(void) checkInternetConnection {
@@ -84,19 +87,22 @@
 }
 
 -(void) retrieveAllPrescriptions{
+    NSLock* lock = [[NSLock alloc] init];
+    [lock lock];
+    self.allPrescriptions = [[NSMutableArray alloc] init];
     PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
     query.limit = 1000;
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable prescriptions, NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"%@", error.localizedDescription);
-        } else {
-            self.allPrescriptions = [Prescription prescriptionsDataInArray:prescriptions];
-        }
-    }];
+    for (int i = 0; i < TOTAL_PRESCRIPTION_IN_THOUSANDS; i++) {
+        query.skip = 1000 * i;
+        [self.allPrescriptions addObjectsFromArray:[Prescription prescriptionsDataInArray:[query findObjects]]];
+    }
+    [lock unlock];
 }
 
 
 - (void) loadPrescriptions {
+    NSLock *lock = [[NSLock alloc] init];
+    [lock lock];
     PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
     query.limit = 20;
     
@@ -104,6 +110,7 @@
     
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *prescriptions, NSError *error) {
+        [lock unlock];
         if (prescriptions != nil) {
             // do something with the array of object returned by the call
             self.prescriptions = [Prescription prescriptionsDataInArray:prescriptions];
@@ -226,7 +233,17 @@
             NSLog(@"%@", error.localizedDescription);
         }
         [self.loadingMoreView stopAnimating];
+        
     }];
+}
+
+-(void) collapseCell:(Prescription*) prescription{
+    self.collapsePrescription = prescription;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return self.tableView.rowHeight;
 }
 
 @end
