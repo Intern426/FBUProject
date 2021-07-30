@@ -118,9 +118,7 @@ Digital Wireframe: https://ninjamock.com/s/GST5TJx
 | generic_name| String | generic name of the prescription
 | dosage | Number | number containing the quantity of the prescription |
 | price | Number | price of the prescription 
-| price_pharamcy | String | name of the pharmacy that holds the prescription at the specified price |
 | ** active_ingredient| String | main ingredient in the drug
-| ** warning| String | a string that discusses the side effects as a result of the main ingredient| 
 | ** inactive_ingredients | Array of Strings? | stores the other inactive ingredients that make up the prescription (optional)|
 
 ** Part of the optionals
