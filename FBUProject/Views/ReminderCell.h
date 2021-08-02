@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *quantityLabel;
 @property (weak, nonatomic) IBOutlet UIButton *alarmActiveButton;
 @property (strong, nonatomic) NSString* alarmIdentifier;
+@property (weak, nonatomic) IBOutlet UISwitch *alarmSwitch;
 
 @property (weak, nonatomic) id<ReminderCellDelegate> delegate;
 

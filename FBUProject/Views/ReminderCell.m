@@ -113,6 +113,15 @@
     }];
 }
 
+- (IBAction)toggleAlarm:(id)sender {
+    if (!(self.alarmSwitch.on)) {
+        UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+        NSArray* array = [[NSArray alloc] initWithObjects:self.alarmIdentifier, nil];
+        [center removePendingNotificationRequestsWithIdentifiers:array];
+    } else {
+        [self setAlarm];
+    }
+}
 
 
 @end

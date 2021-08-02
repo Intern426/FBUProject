@@ -138,6 +138,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V8f-1w-6gH">
                                                     <rect key="frame" x="11" y="14.666666666666664" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="toggleAlarm:" destination="bx5-jr-CZG" eventType="valueChanged" id="Xjd-BR-o2E"/>
+                                                    </connections>
                                                 </switch>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cac-zm-WdS">
                                                     <rect key="frame" x="325" y="130" width="19" height="22"/>
@@ -195,6 +198,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="alarmActiveButton" destination="yCg-c5-qRO" id="hSH-U8-5BG"/>
+                                            <outlet property="alarmSwitch" destination="V8f-1w-6gH" id="eCt-6Q-tEI"/>
                                             <outlet property="instructionLabel" destination="plT-xn-NpH" id="tNr-aH-JpJ"/>
                                             <outlet property="prescriptionNameLabel" destination="80m-UO-y6d" id="3rb-Qr-QEb"/>
                                             <outlet property="quantityLabel" destination="Bwm-og-YuX" id="rKc-6d-q1N"/>

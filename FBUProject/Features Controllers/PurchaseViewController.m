@@ -21,7 +21,6 @@
 @property (strong, nonatomic) NSMutableDictionary *purchaseDetails;
 @property (strong, nonatomic) NSMutableDictionary *paymentDetails;
 
-
 @end
 
 @implementation PurchaseViewController
@@ -95,7 +94,7 @@
 
 - (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didCompleteWithStatus:(SQIPCardEntryCompletionStatus)status{
     if (status == SQIPCardEntryCompletionStatusSuccess) {
-        NSMutableDictionary *amount = [[NSMutableDictionary alloc] init]; // TODO: NSLock - thread safety!!!!! (1)
+        NSMutableDictionary *amount = [[NSMutableDictionary alloc] init];
         [amount addEntriesFromDictionary:@{@"amount": [NSNumber numberWithFloat:self.cost*100]}];
         [amount addEntriesFromDictionary:@{@"currency": @"USD"}];
         

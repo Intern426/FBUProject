@@ -14,7 +14,6 @@
 		DE0798A726B0F1D30055C955 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0798A626B0F1D30055C955 /* Reachability.m */; };
 		DE4B96AB26A235EA006099A8 /* NewReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4B96AA26A235EA006099A8 /* NewReminderViewController.m */; };
 		DE5E753326B272DB0096A20B /* InfiniteScrollActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5E753226B272DB0096A20B /* InfiniteScrollActivityView.m */; };
-		DE6009D2269F766300CE21EA /* ReminderNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */; };
 		DE6009D5269F778000CE21EA /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D4269F778000CE21EA /* Reminder.m */; };
 		DE6009D8269F7B3900CE21EA /* ReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6009D7269F7B3900CE21EA /* ReminderCell.m */; };
 		DE725A6B26AF491B00AB1B70 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE725A6A26AF491B00AB1B70 /* DetailViewController.m */; };
@@ -77,8 +76,6 @@
 		DE4B96AA26A235EA006099A8 /* NewReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewReminderViewController.m; sourceTree = "<group>"; };
 		DE5E753126B272DB0096A20B /* InfiniteScrollActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfiniteScrollActivityView.h; sourceTree = "<group>"; };
 		DE5E753226B272DB0096A20B /* InfiniteScrollActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfiniteScrollActivityView.m; sourceTree = "<group>"; };
-		DE6009D0269F766200CE21EA /* ReminderNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderNotificationManager.h; sourceTree = "<group>"; };
-		DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderNotificationManager.m; sourceTree = "<group>"; };
 		DE6009D3269F778000CE21EA /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
 		DE6009D4269F778000CE21EA /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
 		DE6009D6269F7B3900CE21EA /* ReminderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderCell.h; sourceTree = "<group>"; };
@@ -288,8 +285,6 @@
 				DEFE0956269C9E6D00EAF59E /* AppDelegate.m */,
 				DEFE0958269C9E6D00EAF59E /* SceneDelegate.h */,
 				DEFE0959269C9E6D00EAF59E /* SceneDelegate.m */,
-				DE6009D0269F766200CE21EA /* ReminderNotificationManager.h */,
-				DE6009D1269F766300CE21EA /* ReminderNotificationManager.m */,
 				DEFE095E269C9E6D00EAF59E /* Main.storyboard */,
 				DEFE0961269C9E6E00EAF59E /* Assets.xcassets */,
 				DEFE0963269C9E6E00EAF59E /* LaunchScreen.storyboard */,
@@ -566,7 +561,6 @@
 				DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */,
 				DEEF3C1026A9F0C50021FC0C /* Order.m in Sources */,
 				DEEAD42626B4901C000529CF /* Constants.m in Sources */,
-				DE6009D2269F766300CE21EA /* ReminderNotificationManager.m in Sources */,
 				DEFAFA65269CF30000BEC4BF /* Prescription.m in Sources */,
 				DE7FE023269F973F00B83F0F /* MapViewController.m in Sources */,
 				DEDA790B26A5EEA400A4F72B /* ShoppingCell.m in Sources */,
