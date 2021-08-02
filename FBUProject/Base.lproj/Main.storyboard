@@ -827,7 +827,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cem-L8-8DU">
-                                <rect key="frame" x="132" y="719" width="145" height="18.333333333333371"/>
+                                <rect key="frame" x="132" y="670" width="145" height="18.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Search for Walgreens!" image="magnifyingglass" catalog="system">
                                     <color key="titleColor" name="AccentColor"/>
@@ -837,7 +837,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V07-aO-5Bv">
-                                <rect key="frame" x="318" y="717" width="23" height="22"/>
+                                <rect key="frame" x="318" y="668" width="23" height="22"/>
                                 <state key="normal" image="cart" catalog="system"/>
                                 <connections>
                                     <action selector="didTapBuy:" destination="rXB-2Y-GGU" eventType="touchUpInside" id="eVF-xr-5Jq"/>
@@ -868,7 +868,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwj-p7-y6M">
-                                <rect key="frame" x="64" y="719" width="22" height="22"/>
+                                <rect key="frame" x="64" y="670" width="22" height="22"/>
                                 <state key="normal" image="star" catalog="system"/>
                                 <connections>
                                     <action selector="didTapFavorite:" destination="rXB-2Y-GGU" eventType="touchUpInside" id="Cde-JK-mgJ"/>
@@ -1224,11 +1224,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Ypi-vZ-EEU" kind="relationship" relationship="viewControllers" id="Yqi-nQ-lny"/>
+                        <segue destination="zLL-qv-b6M" kind="relationship" relationship="viewControllers" id="rHt-cG-VQ0"/>
                         <segue destination="5yz-Fr-OTR" kind="relationship" relationship="viewControllers" id="gzz-GV-1sh"/>
                         <segue destination="buo-3d-d6u" kind="relationship" relationship="viewControllers" id="W1k-Fw-nO7"/>
                         <segue destination="5X1-md-usf" kind="relationship" relationship="viewControllers" id="Yqx-vr-GFO"/>
-                        <segue destination="zLL-qv-b6M" kind="relationship" relationship="viewControllers" id="rHt-cG-VQ0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVE-Rj-Y2T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1753,11 +1752,11 @@
             </objects>
             <point key="canvasLocation" x="-1497" y="2122"/>
         </scene>
-        <!--List2-->
+        <!--Prescriptions-->
         <scene sceneID="eZS-kU-YTm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zLL-qv-b6M" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List2" selectedImage="doc.text.magnifyingglass" catalog="system" id="quA-jk-jJ5"/>
+                    <tabBarItem key="tabBarItem" title="Prescriptions" image="doc.text.magnifyingglass" catalog="system" selectedImage="doc.text.magnifyingglass" id="quA-jk-jJ5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YXq-ZR-YXn">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
@@ -1781,7 +1780,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="jPn-G4-V5L"/>
         <segue reference="Mjv-xd-4VK"/>
-        <segue reference="lXb-J8-Czd"/>
+        <segue reference="u1L-Vv-fIl"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>

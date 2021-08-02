@@ -79,6 +79,8 @@
         NSDictionary *object = boughtDrugs[i];
         PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
+        self.prescription.quantity = [object[@"quantity"] intValue];
+        self.prescription.selectedDays = [object[@"number_of_days"] intValue];
         if ([self.prescription isEqual:prescription])
             self.cartButton.selected = YES;
     }
@@ -129,8 +131,8 @@
     }
     NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
     [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
-    [prescriptionInfo addEntriesFromDictionary:@{@"quantity": @"1"}];
-    [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d", self.quantityControl.selectedSegmentIndex]}];
+    [prescriptionInfo addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d",  self.prescription.quantity]}];
+    [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d",  self.prescription.selectedDays]}];
     [self updateUserAtKey:@"buyingDrugs" withObject:prescriptionInfo updateButton:self.cartButton];
 }
 
