@@ -10,8 +10,11 @@
 
 @implementation Order
 
-
 // Keys needed to process order
+NSString* const NAME_KEY = @"name";
+NSString* const TYPE_KEY = @"type";
+NSString* const STATE_KEY = @"state";
+
 NSString* const FULFILLMENT_KEY = @"fulfillments";
 NSString* const QUANTITY_KEY = @"quantity";
 NSString* const AMOUNT_KEY = @"amount";
@@ -19,10 +22,10 @@ NSString* const CURRENCY_KEY = @"currency";
 NSString* const RECIPIENT_KEY = @"recipient";
 
 NSString* const SHIPMENT_DETAILS_KEY= @"shipment_details";
-NSString* const SHIPMENT_KEY= @"SHIPMENT";
-NSString* const PICKUP_KEY= @"PICKUP";
-NSString* const SHIPMENT_STATE_KEY= @"PROPOSED";
-
+// shipments values
+NSString* const SHIPMENT_VALUE= @"SHIPMENT";
+NSString* const PICKUP_VALUE= @"PICKUP";
+NSString* const SHIPMENT_STATE_VALUE= @"PROPOSED";
 
 NSString* const LINE_ITEMS_KEY = @"line_items";
 NSString* const BASE_PRICE_MONEY_KEY = @"base_price_money";
@@ -58,7 +61,7 @@ NSString* const DISPLAY_NAME_KEY = @"display_name";
         
         [dictionaryEntry addEntriesFromDictionary:@{BASE_PRICE_MONEY_KEY: amount}];
         [dictionaryEntry addEntriesFromDictionary:@{ITEM_TYPE_KEY: @"ITEM"}];
-        [dictionaryEntry addEntriesFromDictionary:@{@"name": prescription.displayName}];
+        [dictionaryEntry addEntriesFromDictionary:@{NAME_KEY: prescription.displayName}];
         
         [arrayOfPrescriptions addObject:dictionaryEntry];
     }
@@ -70,8 +73,8 @@ NSString* const DISPLAY_NAME_KEY = @"display_name";
     NSMutableArray *arrayForShipping = [[NSMutableArray alloc] init];
     
     NSMutableDictionary *dictionaryEntry = [[NSMutableDictionary alloc]init];
-    [dictionaryEntry addEntriesFromDictionary:@{@"type": SHIPMENT_KEY}];
-    [dictionaryEntry addEntriesFromDictionary:@{@"state": SHIPMENT_STATE_KEY}];
+    [dictionaryEntry addEntriesFromDictionary:@{TYPE_KEY: SHIPMENT_VALUE}];
+    [dictionaryEntry addEntriesFromDictionary:@{STATE_KEY: SHIPMENT_STATE_VALUE}];
     
     // Deals with shipment details
     NSMutableDictionary *shipmentDetails = [[NSMutableDictionary alloc] init];

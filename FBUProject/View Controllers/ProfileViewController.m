@@ -93,6 +93,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.prescriptions[indexPath.row];
+    [cell setupForProfile];
     cell.profileDelegate = self;
     cell.detailDelegate = self;
     return cell;

@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)setPrescription:(Prescription *) prescription;
 - (IBAction)didTapExpand:(id)sender;
+-(void) setupForProfile;
 
 @property (strong, nonatomic) Prescription *prescription;
 @property (weak, nonatomic) IBOutlet UIButton *expandedButton;

@@ -28,6 +28,15 @@
 }
 
 
+-(void) setupForProfile{
+    self.nameLabel.text = self.prescription.displayName;
+    if ([self.prescription.dosageAmount isEqual:@""] || self.prescription.dosageAmount == nil)
+        self.dosageLabel.hidden = YES;
+    else {
+        self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
+    }
+}
+
 -(void)setPrescription: (Prescription*) prescription{
     _prescription = prescription;
     self.likeButton.selected = NO;
