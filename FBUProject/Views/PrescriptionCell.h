@@ -14,12 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol PrescriptionCellProfileDelegate <NSObject>
 
 -(void) updateFavorites:(Prescription*) prescription;
--(void) collapseCell;
 @end
 
 @protocol PrescriptionCellDetailDelegate <NSObject>
 
 -(void) sendDetailInformation:(Prescription*) prescription;
+
+@end
+
+@protocol StackViewCollapseDelegate <NSObject>
+
+-(void) collapseCell;
 
 @end
 
@@ -39,14 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *deleteAnimationLabel;
 
 //For display purposes
-@property (weak, nonatomic) IBOutlet UILabel *quantityHolderLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceHolderLabel;
 @property (weak, nonatomic) IBOutlet UIView *labelsContainerView;
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 
 
 @property (weak, nonatomic) id<PrescriptionCellProfileDelegate> profileDelegate;
 @property (weak, nonatomic) id<PrescriptionCellDetailDelegate> detailDelegate;
+@property (weak, nonatomic) id<StackViewCollapseDelegate> stackDelegate;
+
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutHeightConstraint;
 

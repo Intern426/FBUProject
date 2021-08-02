@@ -15,7 +15,7 @@
 #import "Reachability.h"
 #import "InfiniteScrollActivityView.h"
 
-@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate, UIScrollViewDelegate, PrescriptionCellProfileDelegate>
+@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate, UIScrollViewDelegate, StackViewCollapseDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *prescriptions;
@@ -178,7 +178,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.searchedPrescriptions[indexPath.row];
     cell.detailDelegate = self;
-    cell.profileDelegate = self;
+    cell.stackDelegate = self;
     return cell;
 }
 

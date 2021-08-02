@@ -482,10 +482,8 @@
                                             <outlet property="layoutHeightConstraint" destination="cUU-Xc-4Q6" id="YFX-F8-JkG"/>
                                             <outlet property="likeButton" destination="bJe-ve-qMU" id="bTt-cl-cXm"/>
                                             <outlet property="nameLabel" destination="sbG-KY-s5h" id="qUC-PJ-scH"/>
-                                            <outlet property="priceHolderLabel" destination="mwy-l8-vZW" id="Bp2-Ol-ad5"/>
                                             <outlet property="priceLabel" destination="p0k-r6-YPg" id="mlm-6w-BLO"/>
                                             <outlet property="quantityControl" destination="VbX-VH-JiB" id="yiD-Et-dKl"/>
-                                            <outlet property="quantityHolderLabel" destination="Cl5-Ub-jiS" id="QoB-fl-rcu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -696,7 +694,6 @@
                                             <outlet property="nameLabel" destination="UzT-yC-9Tp" id="SNX-6t-DvK"/>
                                             <outlet property="priceLabel" destination="xGo-cp-Uol" id="wDv-OU-muf"/>
                                             <outlet property="quantityControl" destination="ZeJ-UY-Pbj" id="EgS-Td-QiV"/>
-                                            <outlet property="quantityHolderLabel" destination="AGX-z9-p2L" id="jQ6-uU-5zC"/>
                                             <outlet property="stackView" destination="bf2-vl-5Lk" id="TXs-fW-rCm"/>
                                         </connections>
                                     </tableViewCell>
@@ -896,7 +893,6 @@
                         <outlet property="qualityHolderLabel" destination="XEC-i3-jg4" id="7MU-Dl-1Wx"/>
                         <outlet property="quantityControl" destination="658-nb-epW" id="mGk-Oj-Wux"/>
                         <outlet property="routeLabel" destination="3Sr-zE-MJo" id="qSa-s1-kw1"/>
-                        <outlet property="searchButton" destination="cem-L8-8DU" id="1Ni-1c-PpI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yUw-H8-arR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1094,7 +1090,6 @@
                                             <outlet property="nameLabel" destination="MtU-1u-gbY" id="UfM-EK-bzi"/>
                                             <outlet property="priceLabel" destination="Ei4-gu-Zpc" id="OFg-sm-Byk"/>
                                             <outlet property="quantityControl" destination="ARR-wv-sSo" id="SH1-tx-Myw"/>
-                                            <outlet property="searchButton" destination="B6h-4B-eck" id="jh2-Dn-HpS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

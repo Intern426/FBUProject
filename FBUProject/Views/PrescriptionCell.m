@@ -162,7 +162,7 @@
         self.stackView.arrangedSubviews.lastObject.hidden = NO;
         self.expandedButton.selected = YES;
     }
-    [self.profileDelegate collapseCell];
+    [self.stackDelegate collapseCell];
 }
 
 
