@@ -46,6 +46,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
     self.searchBar.delegate = self;
     
+    
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
     self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
@@ -56,7 +57,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     self.tableView.contentInset = insets;
     
     [self checkInternetConnection];
-  //  [self retrieveAllPrescriptions];
+    //  [self retrieveAllPrescriptions];
 }
 
 -(void) checkInternetConnection {
@@ -105,7 +106,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     query.limit = 20;
     
     [query orderByDescending:@"drugName"];
-
+    
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *prescriptions, NSError *error) {
         if (prescriptions != nil) {
@@ -188,7 +189,17 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row + 1 == [self.prescriptions count]){
+    PrescriptionCell *modifiedCell = (PrescriptionCell*) cell;
+    UIColor *navigationColor = self.navigationController.navigationBar.barTintColor;
+    if (modifiedCell.nameView) {
+        if (indexPath.row % 2 == 0) {
+            modifiedCell.nameView.backgroundColor = navigationColor;
+        } else {
+            modifiedCell.nameView.backgroundColor = [UIColor blueColor];
+        }
+        cell = modifiedCell;
+    }
+    if (indexPath.row + 1 == [self.prescriptions count]){
         [self loadMoreData:[self.prescriptions count] + 20];
     }
 }
@@ -239,5 +250,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
 }
+
+
 
 @end

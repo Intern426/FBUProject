@@ -43,8 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *deleteAnimationLabel;
 
 //For display purposes
-@property (weak, nonatomic) IBOutlet UIView *labelsContainerView;
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
+@property (weak, nonatomic) IBOutlet UIView *nameView;
 
 
 @property (weak, nonatomic) id<PrescriptionCellProfileDelegate> profileDelegate;
