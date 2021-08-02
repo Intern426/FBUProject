@@ -149,7 +149,7 @@ const int EXPAND = 2;
         self.searchBar.showsCancelButton = false;
         self.searchedPrescriptions = self.prescriptions;
     }
-    [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView reloadData];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {

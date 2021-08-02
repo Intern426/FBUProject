@@ -9,12 +9,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ToggleStackCellProtocol <NSObject>
-
--(void) expandCell:(BOOL) expand;
-
-@end
-
 @interface PrescriptionsViewController : UIViewController
 
 @end

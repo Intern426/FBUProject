@@ -7,7 +7,6 @@
 
 #import "PrescriptionCell.h"
 #import "Parse/Parse.h"
-#import "ProfileViewController.h"
 
 @implementation PrescriptionCell
 
@@ -166,13 +165,5 @@
     }
     [self.stackDelegate collapseCell];
 }
-
-- (void)expandCell:(BOOL)expand{
-    
-}
-
-
-
-
 
 @end

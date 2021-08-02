@@ -359,7 +359,7 @@
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrescriptionCell" rowHeight="245" id="Kts-iY-hom" customClass="PrescriptionCell">
-                                        <rect key="frame" x="0.0" y="80.333333969116211" width="390" height="245"/>
+                                        <rect key="frame" x="0.0" y="75.333333969116211" width="390" height="245"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kts-iY-hom" id="26Y-Db-tRU">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="245"/>
@@ -611,7 +611,7 @@
                                                             <rect key="frame" x="0.0" y="51" width="390" height="162"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGX-z9-p2L">
-                                                                    <rect key="frame" x="27" y="18" width="69.333333333333329" height="20.333333333333332"/>
+                                                                    <rect key="frame" x="27.333333333333336" y="18" width="69.333333333333314" height="20.333333333333329"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -650,13 +650,13 @@
                                                                     </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X 30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKO-hm-ZxX">
-                                                                    <rect key="frame" x="102" y="61" width="36" height="20.333333333333329"/>
+                                                                    <rect key="frame" x="102" y="61.000000000000007" width="36" height="20.333333333333336"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZeJ-UY-Pbj">
-                                                                    <rect key="frame" x="102" y="12" width="137" height="32"/>
+                                                                    <rect key="frame" x="102.33333333333331" y="12" width="137" height="32"/>
                                                                     <segments>
                                                                         <segment title="30 days"/>
                                                                         <segment title="90 days"/>
@@ -768,6 +768,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="loadingIndicatorView" destination="jLf-Qa-jOM" id="ylA-ao-Ayi"/>
+                        <outlet property="searchBar" destination="WBF-z5-Nye" id="DMx-vP-A0y"/>
                         <outlet property="tableView" destination="3ZQ-OD-5yw" id="hHJ-ZV-lJB"/>
                     </connections>
                 </viewController>
