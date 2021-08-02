@@ -27,6 +27,7 @@
     self.price30 = prescription[@"day30price"];
     self.price90 = [prescription[@"day90price"] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     self.prescriptionPointer = prescription;
+    self.expanded = FALSE;
     return self;
 }
 

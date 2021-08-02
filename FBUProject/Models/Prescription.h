@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int quantity;
 @property (nonatomic) int selectedDays; // 30 days or 90 days - corresponds to segmented control: 0 = 30 days, 1 = 90 days.
 
+@property (nonatomic) BOOL expanded; // For display purposes, expand/contract the TableCell
+
 + (NSMutableArray *)prescriptionsDataInArray:(NSArray *)data;
 - (instancetype)initWithParseData:(PFObject *)prescription;
 

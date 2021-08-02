@@ -21,8 +21,6 @@
 		DE7FE023269F973F00B83F0F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7FE022269F973F00B83F0F /* MapViewController.m */; };
 		DE82EF6D26A208AA00587096 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE82EF6C26A208AA00587096 /* SignUpViewController.m */; };
 		DE9EEF9726A932F500A257B8 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9EEF9626A932F500A257B8 /* PurchaseViewController.m */; };
-		DEA316E226B383F1002ECEC5 /* CollapseView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA316E126B383F1002ECEC5 /* CollapseView.m */; };
-		DEA316E526B38559002ECEC5 /* CollapsibleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA316E426B38559002ECEC5 /* CollapsibleCell.m */; };
 		DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */; };
 		DEDA790826A5EB9200A4F72B /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */; };
 		DEDA790B26A5EEA400A4F72B /* ShoppingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */; };
@@ -93,10 +91,6 @@
 		DE82EF6C26A208AA00587096 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		DE9EEF9526A932F500A257B8 /* PurchaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
 		DE9EEF9626A932F500A257B8 /* PurchaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PurchaseViewController.m; sourceTree = "<group>"; };
-		DEA316E026B383F1002ECEC5 /* CollapseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollapseView.h; sourceTree = "<group>"; };
-		DEA316E126B383F1002ECEC5 /* CollapseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollapseView.m; sourceTree = "<group>"; };
-		DEA316E326B38559002ECEC5 /* CollapsibleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollapsibleCell.h; sourceTree = "<group>"; };
-		DEA316E426B38559002ECEC5 /* CollapsibleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollapsibleCell.m; sourceTree = "<group>"; };
 		DECCBF97269F4DEC00C20B68 /* RemindersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindersViewController.h; sourceTree = "<group>"; };
 		DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindersViewController.m; sourceTree = "<group>"; };
 		DEDA790626A5EB9200A4F72B /* CheckoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
@@ -241,8 +235,6 @@
 				DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */,
 				DE5E753126B272DB0096A20B /* InfiniteScrollActivityView.h */,
 				DE5E753226B272DB0096A20B /* InfiniteScrollActivityView.m */,
-				DEA316E326B38559002ECEC5 /* CollapsibleCell.h */,
-				DEA316E426B38559002ECEC5 /* CollapsibleCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -256,8 +248,6 @@
 				DE6009D4269F778000CE21EA /* Reminder.m */,
 				DEEF3C0E26A9F0C50021FC0C /* Order.h */,
 				DEEF3C0F26A9F0C50021FC0C /* Order.m */,
-				DEA316E026B383F1002ECEC5 /* CollapseView.h */,
-				DEA316E126B383F1002ECEC5 /* CollapseView.m */,
 				DEEAD42426B4901B000529CF /* Constants.h */,
 				DEEAD42526B4901C000529CF /* Constants.m */,
 			);
@@ -584,8 +574,6 @@
 				DEFAFA5B269CDA1600BEC4BF /* LoginViewController.m in Sources */,
 				DEFE0968269C9E6E00EAF59E /* main.m in Sources */,
 				DE0798A726B0F1D30055C955 /* Reachability.m in Sources */,
-				DEA316E226B383F1002ECEC5 /* CollapseView.m in Sources */,
-				DEA316E526B38559002ECEC5 /* CollapsibleCell.m in Sources */,
 				DE5E753326B272DB0096A20B /* InfiniteScrollActivityView.m in Sources */,
 				DEFE095A269C9E6D00EAF59E /* SceneDelegate.m in Sources */,
 				DE9EEF9726A932F500A257B8 /* PurchaseViewController.m in Sources */,

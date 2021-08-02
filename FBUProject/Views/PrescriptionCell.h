@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol PrescriptionCellProfileDelegate <NSObject>
 
 -(void) updateFavorites:(Prescription*) prescription;
--(void) collapseCell:(Prescription*) prescription;
+-(void) collapseCell;
 @end
 
 @protocol PrescriptionCellDetailDelegate <NSObject>
@@ -31,7 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
-@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *cartButton;
 
@@ -43,15 +42,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *quantityHolderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceHolderLabel;
 @property (weak, nonatomic) IBOutlet UIView *labelsContainerView;
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
 
 
 @property (weak, nonatomic) id<PrescriptionCellProfileDelegate> profileDelegate;
 @property (weak, nonatomic) id<PrescriptionCellDetailDelegate> detailDelegate;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutHeightConstraint;
+
 
 -(void)setPrescription:(Prescription *) prescription;
 
 @property (strong, nonatomic) Prescription *prescription;
+@property (weak, nonatomic) IBOutlet UIButton *expandedButton;
 
 @end
 

@@ -18,12 +18,14 @@
     [self.likeButton setImage:[UIImage systemImageNamed:@"star"] forState:UIControlStateNormal];
     [self.cartButton setImage:[UIImage systemImageNamed:@"cart.fill"] forState:UIControlStateSelected];
     [self.cartButton setImage:[UIImage systemImageNamed:@"cart"] forState:UIControlStateNormal];
-
+    [self.expandedButton setImage:[UIImage systemImageNamed:@"plus.circle"] forState:UIControlStateNormal];
+    [self.expandedButton setImage:[UIImage systemImageNamed:@"minus.circle"] forState:UIControlStateSelected];
+    self.expandedButton.tintColor = [UIColor whiteColor];
+    self.stackView.arrangedSubviews.lastObject.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
 }
 
 
@@ -31,8 +33,8 @@
     _prescription = prescription;
     self.likeButton.selected = NO;
     self.cartButton.selected = NO;
-    self.nameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
-    if ([self.prescription.dosageAmount isEqual:@""])
+    self.nameLabel.text = self.prescription.displayName;
+    if ([self.prescription.dosageAmount isEqual:@""] || self.prescription.dosageAmount == nil)
         self.dosageLabel.hidden = YES;
     else
         self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
@@ -153,33 +155,16 @@
 }
 
 - (IBAction)didTapExpand:(id)sender {
-    [UIView animateWithDuration:0.5 animations:^{
-        CGRect dosageFrame = self.dosageLabel.frame;
-        dosageFrame.origin.y  -= 10;
-        self.dosageLabel.frame = dosageFrame;
-        
-        CGRect quantityHolderFrame = self.quantityHolderLabel.frame;
-        quantityHolderFrame.origin.y  -= 20;
-        self.quantityHolderLabel.frame = quantityHolderFrame;
-        
-        CGRect quantityControlFrame = self.quantityControl.frame;
-        quantityControlFrame.origin.y  -= 20;
-        self.quantityControl.frame = quantityControlFrame;
-        
-        CGRect amountFrame = self.amountLabel.frame;
-        amountFrame.origin.y  -= 30;
-        self.amountLabel.frame = amountFrame;
-        
-
-        CGRect labelsFrame = self.labelsContainerView.frame;
-        labelsFrame.origin.y -= 10;
-        self.labelsContainerView.frame = labelsFrame;
-        
-        self.labelsContainerView.alpha = 0; // When 1, view is fully visible. When 0, view fades away
-        [self.profileDelegate collapseCell:self.prescription];
- 
-    }];
+    if (self.expandedButton.selected) {
+        self.stackView.arrangedSubviews.lastObject.hidden = YES;
+        self.expandedButton.selected = NO;
+    } else {
+        self.stackView.arrangedSubviews.lastObject.hidden = NO;
+        self.expandedButton.selected = YES;
+    }
+    [self.profileDelegate collapseCell];
 }
+
 
 
 @end

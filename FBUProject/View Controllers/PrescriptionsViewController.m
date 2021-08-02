@@ -15,7 +15,7 @@
 #import "Reachability.h"
 #import "InfiniteScrollActivityView.h"
 
-@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate, UIScrollViewDelegate>
+@interface PrescriptionsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, PrescriptionCellDetailDelegate, UIScrollViewDelegate, PrescriptionCellProfileDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *prescriptions;
@@ -186,6 +186,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     return self.searchedPrescriptions.count;
 }
 
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row + 1 == [self.prescriptions count]){
         [self loadMoreData:[self.prescriptions count] + 20];
@@ -234,13 +235,9 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     }];
 }
 
--(void) collapseCell:(Prescription*) prescription{
-    self.collapsePrescription = prescription;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return self.tableView.rowHeight;
+- (void)collapseCell{
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 @end
