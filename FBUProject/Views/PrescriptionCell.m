@@ -131,7 +131,10 @@
     }
     NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
     [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
-    [prescriptionInfo addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d",  self.prescription.quantity]}];
+    if (self.prescription.quantity != 0)
+        [prescriptionInfo addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d",  self.prescription.quantity]}];
+    else
+        [prescriptionInfo addEntriesFromDictionary:@{@"quantity": @"1"}];
     [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d",  self.prescription.selectedDays]}];
     [self updateUserAtKey:@"buyingDrugs" withObject:prescriptionInfo updateButton:self.cartButton];
 }
