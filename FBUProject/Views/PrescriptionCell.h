@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "Prescription.h"
 #import "ProfileViewController.h"
+#import "PrescriptionsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface PrescriptionCell : UITableViewCell
+@interface PrescriptionCell : UITableViewCell <ToggleStackCellProtocol>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dosageLabel;
@@ -45,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 //For display purposes
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UIView *nameView;
+@property (nonatomic) BOOL expand;
 
 
 @property (weak, nonatomic) id<PrescriptionCellProfileDelegate> profileDelegate;

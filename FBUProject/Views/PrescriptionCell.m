@@ -36,8 +36,10 @@
     self.nameLabel.text = self.prescription.displayName;
     if ([self.prescription.dosageAmount isEqual:@""] || self.prescription.dosageAmount == nil)
         self.dosageLabel.hidden = YES;
-    else
+    else {
+        self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", self.prescription.displayName, self.prescription.dosageAmount];
         self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
+    }
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
         self.priceLabel.text = self.prescription.price30;
@@ -164,6 +166,12 @@
     }
     [self.stackDelegate collapseCell];
 }
+
+- (void)expandCell:(BOOL)expand{
+    
+}
+
+
 
 
 

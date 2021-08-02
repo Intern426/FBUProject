@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     [self setupTransaction];
     self.purchaseDetails = [[NSMutableDictionary alloc] init];
@@ -62,12 +63,9 @@
                 NSLog(@"%@", error.localizedDescription);
             } else {
                 CLPlacemark* placemark = placemarks.firstObject;
-                NSLog(@"%@", placemark.postalAddress);
-                
                 CNPostalAddress *addressConverter = placemark.postalAddress;
                 CNPostalAddressFormatter *formatter = [[CNPostalAddressFormatter alloc] init];
                 NSString *sample = [formatter stringFromPostalAddress:addressConverter];
-                
                 self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
             }
         }];
@@ -103,13 +101,11 @@
                 NSLog(@"Error! %@", error.localizedDescription);
             } else {
                 NSLog(@"Successfully uploaded payment to Square!"); //Can do TODO: Change currency
-                
-                // Display banner saying orders have been proccessed
                 [self.delegate clearCart:YES];
             }
         }];
     } else {
-        NSLog(@"Something went wrong...");
+        NSLog(@"Something went wrong..."); // Should check SQIPCardEntryCompletionStatus
     }
     [self dismissViewControllerAnimated:YES completion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];

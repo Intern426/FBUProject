@@ -31,12 +31,15 @@
 @property (strong, nonatomic) Prescription* collapsePrescription;
 
 @property (strong, nonatomic) NSLock * arrayLock;
+@property (nonatomic) int toggleStack; // 0 - do nothing, 1 - collapse, 2 - expand
 
 @end
 
 @implementation PrescriptionsViewController
 
-const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Parse Usage plan, set to 0.
+const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 2;
+const int COLLAPSE = 1;
+const int EXPAND = 2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,6 +48,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
     self.searchBar.delegate = self;
+    self.toggleStack = 0;
     
     
     // Set up Infinite Scroll loading indicator
@@ -104,7 +108,6 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
 - (void) loadPrescriptions {
     PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
     query.limit = 20;
-    
     [query orderByDescending:@"drugName"];
     
     // fetch data asynchronously
@@ -146,7 +149,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
         self.searchBar.showsCancelButton = false;
         self.searchedPrescriptions = self.prescriptions;
     }
-    [self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -180,6 +183,15 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
     cell.prescription = self.searchedPrescriptions[indexPath.row];
     cell.detailDelegate = self;
     cell.stackDelegate = self;
+    if (self.toggleStack == COLLAPSE) {
+        cell.stackView.arrangedSubviews.lastObject.hidden = YES;
+        cell.expandedButton.selected = NO;
+        [self collapseCell];
+    } else if (self.toggleStack == EXPAND) {
+        cell.stackView.arrangedSubviews.lastObject.hidden = NO;
+        cell.expandedButton.selected = YES;
+        [self collapseCell];
+    }
     return cell;
 }
 
@@ -242,14 +254,32 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
             NSLog(@"%@", error.localizedDescription);
         }
         [self.loadingMoreView stopAnimating];
-        
     }];
 }
 
-- (void)collapseCell{
+- (void) collapseCell{
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
 }
+
+
+- (IBAction)didTapExpandAll:(id)sender {
+    self.toggleStack = EXPAND;
+    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.toggleStack = 0;
+    });
+}
+
+
+- (IBAction)didTapCollapseAll:(id)sender {
+    self.toggleStack = COLLAPSE;
+    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.toggleStack = 0;
+    });
+}
+
 
 
 
