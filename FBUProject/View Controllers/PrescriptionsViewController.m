@@ -190,7 +190,7 @@ const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 0; // TODO: So not to surpass the Pa
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     PrescriptionCell *modifiedCell = (PrescriptionCell*) cell;
-    UIColor *navigationColor = self.navigationController.navigationBar.barTintColor;
+    UIColor *navigationColor = self.navigationController.navigationBar.barTintColor; // to get the custom color
     if (modifiedCell.nameView) {
         if (indexPath.row % 2 == 0) {
             modifiedCell.nameView.backgroundColor = navigationColor;

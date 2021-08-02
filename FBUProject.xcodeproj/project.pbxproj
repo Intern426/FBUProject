@@ -23,7 +23,6 @@
 		DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECCBF98269F4DEC00C20B68 /* RemindersViewController.m */; };
 		DEDA790826A5EB9200A4F72B /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */; };
 		DEDA790B26A5EEA400A4F72B /* ShoppingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */; };
-		DEEAD42626B4901C000529CF /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEAD42526B4901C000529CF /* Constants.m */; };
 		DEEF3C1026A9F0C50021FC0C /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEF3C0F26A9F0C50021FC0C /* Order.m */; };
 		DEFAFA55269CD7A900BEC4BF /* PrescriptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA54269CD7A900BEC4BF /* PrescriptionsViewController.m */; };
 		DEFAFA58269CD7BD00BEC4BF /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFAFA57269CD7BD00BEC4BF /* ProfileViewController.m */; };
@@ -94,8 +93,6 @@
 		DEDA790726A5EB9200A4F72B /* CheckoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
 		DEDA790926A5EEA400A4F72B /* ShoppingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingCell.h; sourceTree = "<group>"; };
 		DEDA790A26A5EEA400A4F72B /* ShoppingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoppingCell.m; sourceTree = "<group>"; };
-		DEEAD42426B4901B000529CF /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		DEEAD42526B4901C000529CF /* Constants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		DEEF3C0E26A9F0C50021FC0C /* Order.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		DEEF3C0F26A9F0C50021FC0C /* Order.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		DEFAFA53269CD7A900BEC4BF /* PrescriptionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrescriptionsViewController.h; sourceTree = "<group>"; };
@@ -245,8 +242,6 @@
 				DE6009D4269F778000CE21EA /* Reminder.m */,
 				DEEF3C0E26A9F0C50021FC0C /* Order.h */,
 				DEEF3C0F26A9F0C50021FC0C /* Order.m */,
-				DEEAD42426B4901B000529CF /* Constants.h */,
-				DEEAD42526B4901C000529CF /* Constants.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -560,7 +555,6 @@
 				DEFE0957269C9E6D00EAF59E /* AppDelegate.m in Sources */,
 				DECCBF99269F4DEC00C20B68 /* RemindersViewController.m in Sources */,
 				DEEF3C1026A9F0C50021FC0C /* Order.m in Sources */,
-				DEEAD42626B4901C000529CF /* Constants.m in Sources */,
 				DEFAFA65269CF30000BEC4BF /* Prescription.m in Sources */,
 				DE7FE023269F973F00B83F0F /* MapViewController.m in Sources */,
 				DEDA790B26A5EEA400A4F72B /* ShoppingCell.m in Sources */,
