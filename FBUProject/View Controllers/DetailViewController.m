@@ -35,6 +35,7 @@
     [self.cartButton setImage:[UIImage systemImageNamed:@"cart"] forState:UIControlStateNormal];
     
     [self.navigationItem setTitle:self.prescription.displayName];
+    
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     // Flow of the API Calls
     // 1. Make a call to openFDA using search = BRAND_NAME

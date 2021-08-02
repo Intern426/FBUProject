@@ -8,8 +8,9 @@
 #import "ProfileViewController.h"
 #import "PrescriptionCell.h"
 #import "Parse/Parse.h"
+#import "DetailViewController.h"
 
-@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, PrescriptionCellProfileDelegate>
+@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, PrescriptionCellProfileDelegate, PrescriptionCellDetailDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
@@ -59,6 +60,7 @@
     [self loadFavorites];
 }
 
+
 -(void) queryPrescriptions {
     NSArray *array = self.currentUser[@"savedDrugs"];
     for (int i = 0; i < array.count; i++) {
@@ -71,20 +73,28 @@
     [self.loadingIndicatorView stopAnimating];
     [self.refreshControl endRefreshing];
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqual:@"detailSegue"]) {
+        DetailViewController *detailController = [segue destinationViewController];
+        detailController.prescription = sender;
+    }
 }
-*/
+
+- (void)sendDetailInformation:(Prescription *)prescription{
+    [self performSegueWithIdentifier:@"detailSegue" sender:prescription];
+}
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.prescriptions[indexPath.row];
     cell.profileDelegate = self;
+    cell.detailDelegate = self;
     return cell;
 }
 

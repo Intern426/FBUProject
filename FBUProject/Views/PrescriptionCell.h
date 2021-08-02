@@ -39,7 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *cartButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *infoButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *quantityControl;
 @property (weak, nonatomic) IBOutlet UILabel *deleteAnimationLabel;
 
