@@ -135,30 +135,19 @@
 }
 
 -(void) emptyCartSynchronously{
-    NSArray *cart = self.currentUser[@"buyingDrugs"];
     [self.arrayLock lock];
-    for (int i = 0; i < cart.count; i++) {
-        NSDictionary *object = cart[i];
-        [self.currentUser removeObject:object forKey:@"buyingDrugs"];
-    }
+    self.currentUser[@"buyingDrugs"] = [[NSMutableArray alloc] init];
     [self.currentUser save];
     [self.arrayLock unlock];
 }
 
 -(void) clearCart:(BOOL) updateList{
-    [self.arrayLock lock];
-    NSArray *cart = self.currentUser[@"buyingDrugs"];  //TODO: Better way to do this??
-    for (int i = 0; i < cart.count; i++) {
-        NSDictionary *object = cart[i];
-        [self.currentUser removeObject:object forKey:@"buyingDrugs"];
-    }
-    [self.arrayLock unlock];
+    self.currentUser[@"buyingDrugs"] = [[NSMutableArray alloc] init];
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // The PFUser has been saved.
             NSLog(@"Drug was removed");
-            if (updateList)
-                [self loadBoughtPrescriptions];
+            [self loadBoughtPrescriptions];
         } else {
             // There was a problem, check error.description
             NSLog(@"boo.....%@", error.localizedDescription);

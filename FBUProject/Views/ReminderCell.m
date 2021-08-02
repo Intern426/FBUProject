@@ -17,7 +17,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
     // Configure the view for the selected state
 }
 
@@ -102,7 +101,6 @@
     // Retrieve the object by id
     PFQuery *query = [PFQuery queryWithClassName:@"Reminder"];
     NSString *objectID = self.reminder[@"objectID"];
-    
     PFObject* reminder =[query getObjectWithId:objectID];
     [reminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
@@ -114,12 +112,12 @@
 }
 
 - (IBAction)toggleAlarm:(id)sender {
-    if (!(self.alarmSwitch.on)) {
+    if (self.alarmSwitch.on) {
+        [self setAlarm];
+    } else {
         UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
         NSArray* array = [[NSArray alloc] initWithObjects:self.alarmIdentifier, nil];
         [center removePendingNotificationRequestsWithIdentifiers:array];
-    } else {
-        [self setAlarm];
     }
 }
 

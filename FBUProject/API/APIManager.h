@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getDrugInformationRxNorm:(NSString *)drugName completion:(void (^)(NSDictionary * information, NSError * error))completion;
 - (void) getDrugInformationOpenFdaUsingRxcui:(NSString *)rxcui completion:(void (^)(NSDictionary * _Nonnull, NSError * _Nonnull))completion;
+- (void) getNearbyWalgreens: (NSMutableDictionary*) parameters completion:  (void (^)(NSDictionary * stores, NSError * error))completion;
 
 @end
 

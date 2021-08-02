@@ -6,13 +6,15 @@
 //
 
 #import "MapViewController.h"
+#import "APIManager.h"
 @import MapKit;
 @import CoreLocation;
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+
 @end
 
 @implementation MapViewController
@@ -21,9 +23,6 @@
     [super viewDidLoad];
     self.mapView.delegate = self;
     [self getUserLocation];
-    
-    // Do any additional setup after loading the view.
-    
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation{
@@ -64,6 +63,7 @@
         MKCoordinateRegion region = MKCoordinateRegionMake(locations.firstObject.coordinate, span);
         [self.mapView setRegion:region];
         [self searchForNearbyPharamacies];
+      //  [self searchForWalgreens];
     }
 }
 
@@ -78,6 +78,25 @@
 - (IBAction)didTapBack:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void) searchForWalgreens {
+    NSMutableDictionary* locationInformation = [[NSMutableDictionary alloc] init];
+    CLLocationDegrees latitude = self.mapView.userLocation.coordinate.latitude;
+    CLLocationDegrees longitude = self.mapView.userLocation.coordinate.longitude;
+    NSNumber *savedLatitude = [NSNumber numberWithDouble:latitude];
+    NSNumber *savedLongitude = [NSNumber numberWithDouble:longitude];
+    
+    [locationInformation addEntriesFromDictionary:@{@"lat":savedLatitude}];
+    [locationInformation addEntriesFromDictionary:@{@"lng": savedLongitude}];
+    [locationInformation addEntriesFromDictionary:@{@"r": @10}];
+    [locationInformation addEntriesFromDictionary:@{@"s": @5}];
+    
+    [[APIManager shared] getNearbyWalgreens:locationInformation completion:^(NSDictionary * _Nonnull stores, NSError * _Nonnull error) {
+        
+    }];
+    
+}
+
 
 -(void) searchForNearbyPharamacies{
     // Create and initialize a search request object.

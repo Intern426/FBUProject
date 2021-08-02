@@ -11,7 +11,6 @@
 #import "APIManager.h"
 #import "Order.h"
 
-@import MapKit;
 @import CoreLocation;
 
 @interface PurchaseViewController () <SQIPCardEntryViewControllerDelegate>
