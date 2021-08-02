@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 //For display purposes
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UIView *nameView;
-@property (nonatomic) BOOL expand;
+@property (nonatomic) BOOL collapse;
 
 
 @property (weak, nonatomic) id<PrescriptionCellProfileDelegate> profileDelegate;
@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 -(void)setPrescription:(Prescription *) prescription;
+- (IBAction)didTapExpand:(id)sender;
 
 @property (strong, nonatomic) Prescription *prescription;
 @property (weak, nonatomic) IBOutlet UIButton *expandedButton;

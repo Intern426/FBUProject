@@ -156,12 +156,14 @@
 }
 
 - (IBAction)didTapExpand:(id)sender {
-    if (self.expandedButton.selected) {
+    if (self.collapse) {
         self.stackView.arrangedSubviews.lastObject.hidden = YES;
         self.expandedButton.selected = NO;
+        self.collapse = NO;
     } else {
         self.stackView.arrangedSubviews.lastObject.hidden = NO;
         self.expandedButton.selected = YES;
+        self.collapse = YES;
     }
     [self.stackDelegate collapseCell];
 }

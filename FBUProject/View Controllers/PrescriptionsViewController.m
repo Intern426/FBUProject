@@ -184,13 +184,11 @@ const int EXPAND = 2;
     cell.detailDelegate = self;
     cell.stackDelegate = self;
     if (self.toggleStack == COLLAPSE) {
-        cell.stackView.arrangedSubviews.lastObject.hidden = YES;
-        cell.expandedButton.selected = NO;
-        [self collapseCell];
+        cell.collapse = YES;
+        [cell didTapExpand:self];
     } else if (self.toggleStack == EXPAND) {
-        cell.stackView.arrangedSubviews.lastObject.hidden = NO;
-        cell.expandedButton.selected = YES;
-        [self collapseCell];
+        cell.collapse = NO;
+        [cell didTapExpand:self];
     }
     return cell;
 }
@@ -231,7 +229,6 @@ const int EXPAND = 2;
             CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
             self.loadingMoreView.frame = frame;
             [self.loadingMoreView startAnimating];
-            
             [self loadMoreData:[self.prescriptions count] + 20];
         }
     }
@@ -267,20 +264,15 @@ const int EXPAND = 2;
     self.toggleStack = EXPAND;
     [self.tableView reloadData];
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.toggleStack = 0;
+        self.toggleStack = 0; //reset the toggle so the cell doesn't suddenly expand/collapse when its off-screen
     });
 }
-
 
 - (IBAction)didTapCollapseAll:(id)sender {
     self.toggleStack = COLLAPSE;
     [self.tableView reloadData];
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.toggleStack = 0;
+        self.toggleStack = 0; //reset the toggle so the cell doesn't suddenly expand/collapse when its off-screen
     });
 }
-
-
-
-
 @end
