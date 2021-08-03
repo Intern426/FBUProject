@@ -36,10 +36,6 @@
 
 
 - (void)setAlarm {
-    /* Setup notifications
-     * Link: (https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/SchedulingandHandlingLocalNotifications.html)
-     */
-    
     UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
     content.title = [NSString localizedUserNotificationStringForKey:@"Prescription Reminder" arguments:nil];
     content.body = [NSString localizedUserNotificationStringForKey:[NSString stringWithFormat:@"Time to take %@", self.prescriptionNameLabel.text]
@@ -91,6 +87,7 @@
         hours = 0;
     }
     
+    // Set up the date with the hour and minute
     NSDateComponents *date = [[NSDateComponents alloc] init];
     date.hour = hours;
     date.minute = [minute intValue];
