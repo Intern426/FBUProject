@@ -10,13 +10,15 @@
 #import "Parse/Parse.h"
 #import "DetailViewController.h"
 
-@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, PrescriptionCellProfileDelegate, PrescriptionCellDetailDelegate>
+@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, PrescriptionCellProfileDelegate, PrescriptionCellDetailDelegate, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 @property (strong, nonatomic) NSMutableArray *prescriptions;
+@property (strong, nonatomic) NSMutableArray *searchedPrescriptions;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicatorView;
 @property (strong, nonatomic) PFUser *currentUser;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @end
 
 @implementation ProfileViewController
@@ -26,6 +28,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.searchBar.delegate = self;
     self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser.username];
     
    
@@ -70,6 +73,7 @@
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:objectId]];
         [self.prescriptions addObject:prescription];
     }
+    self.searchedPrescriptions = [NSMutableArray arrayWithArray:self.prescriptions];
     [self.loadingIndicatorView stopAnimating];
     [self.refreshControl endRefreshing];
 }
@@ -99,7 +103,7 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.prescriptions.count;
+    return self.searchedPrescriptions.count;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -121,7 +125,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Prescription* prescription = self.prescriptions[indexPath.row];
+        Prescription* prescription = self.searchedPrescriptions[indexPath.row];
         [self.prescriptions removeObjectAtIndex:indexPath.row];
         [self.currentUser removeObject:prescription.prescriptionPointer forKey:@"savedDrugs"];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation: UITableViewRowAnimationFade];
@@ -136,6 +140,30 @@
     [self.tableView reloadData];
     [self checkEmpty];
 }
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    if (searchText.length != 0) {
+        self.searchBar.showsCancelButton = true;
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Prescription *evaluatedObject, NSDictionary *bindings) {
+            return [evaluatedObject.displayName containsString:searchText];
+        }];
+        self.searchedPrescriptions = (NSMutableArray*)[self.prescriptions filteredArrayUsingPredicate:predicate];
+    } else {
+        self.searchBar.showsCancelButton = false;
+        self.searchedPrescriptions = self.prescriptions;
+    }
+    [self.tableView reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    self.searchedPrescriptions = self.prescriptions;
+    [self.tableView reloadData];
+}
+
+
 
 
 @end

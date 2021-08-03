@@ -37,7 +37,7 @@
 
 @implementation PrescriptionsViewController
 
-const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 2;
+const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 2; // About 2 thousand prescriptions and you can only get max 1000 at a time...
 const int COLLAPSE = 1;
 const int EXPAND = 2;
 
@@ -50,7 +50,6 @@ const int EXPAND = 2;
     self.searchBar.delegate = self;
     self.toggleStack = 0;
     
-    
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
     self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
@@ -59,6 +58,7 @@ const int EXPAND = 2;
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
+    //  [self retrieveAllPrescriptions];
 }
 
 -(void) checkInternetConnection {
@@ -87,8 +87,6 @@ const int EXPAND = 2;
 - (void)viewDidAppear:(BOOL)animated{
     // When switching tabs, will update favorites as needed
     [self checkInternetConnection];
-    //  [self retrieveAllPrescriptions];
-    
 }
 
 -(void) retrieveAllPrescriptions{
@@ -169,7 +167,6 @@ const int EXPAND = 2;
         DetailViewController *detailController = [segue destinationViewController];
         detailController.prescription = sender;
     }
-    
 }
 
 - (void)sendDetailInformation:(Prescription *)prescription{
