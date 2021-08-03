@@ -104,6 +104,9 @@
     PFObject* reminder =[query getObjectWithId:objectID];
     [reminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
+            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+            NSArray* array = [[NSArray alloc] initWithObjects:self.alarmIdentifier, nil];
+            [center removePendingNotificationRequestsWithIdentifiers:array];
             [self.delegate updateReminders];
         } else {
             [self.delegate displayError:error.localizedDescription];

@@ -59,9 +59,6 @@ const int EXPAND = 2;
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
-    
-    [self checkInternetConnection];
-    //  [self retrieveAllPrescriptions];
 }
 
 -(void) checkInternetConnection {
@@ -89,7 +86,9 @@ const int EXPAND = 2;
 
 - (void)viewDidAppear:(BOOL)animated{
     // When switching tabs, will update favorites as needed
-    [self loadPrescriptions];
+    [self checkInternetConnection];
+    //  [self retrieveAllPrescriptions];
+    
 }
 
 -(void) retrieveAllPrescriptions{
@@ -107,7 +106,7 @@ const int EXPAND = 2;
 
 - (void) loadPrescriptions {
     PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
-    query.limit = 20;
+    query.limit = 50;
     [query orderByDescending:@"drugName"];
     
     // fetch data asynchronously
