@@ -27,26 +27,14 @@
     [super setSelected:selected animated:animated];
 }
 
-
--(void) setupForProfile{
-    self.nameLabel.text = self.prescription.displayName;
-    if ([self.prescription.dosageAmount isEqual:@""] || self.prescription.dosageAmount == nil)
-        self.dosageLabel.hidden = YES;
-    else {
-        self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
-    }
-}
-
 -(void)setPrescription: (Prescription*) prescription{
     _prescription = prescription;
     self.likeButton.selected = NO;
     self.cartButton.selected = NO;
     self.nameLabel.text = self.prescription.displayName;
-    if ([self.prescription.dosageAmount isEqual:@""] || self.prescription.dosageAmount == nil)
-        self.dosageLabel.hidden = YES;
-    else {
+    if ([self.prescription.dosageAmount isEqual:@""] || self.prescription.dosageAmount == nil){
+    } else {
         self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", self.prescription.displayName, self.prescription.dosageAmount];
-        self.dosageLabel.text = [NSString stringWithFormat:@"Dosage: %@", self.prescription.dosageAmount];
     }
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];

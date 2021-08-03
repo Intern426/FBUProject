@@ -166,16 +166,16 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     
     NSURL* url = [NSURL URLWithString:@"https://services-qa.walgreens.com/api/stores/search/v2"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-
-    request.HTTPMethod = @"POST";
     
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
     [locationInfo addEntriesFromDictionary:@{@"apiKey": [dict objectForKey:@"walgreens_api_key"]}];
     [locationInfo addEntriesFromDictionary:@{@"affId": [dict objectForKey:@"store_finder_affiliate"]}];
-    
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"data": locationInfo}];
-    
-    NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingSortedKeys error:nil];
+    [locationInfo addEntriesFromDictionary:@{@"requestType": @"locator"}];
+        
+    NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:locationInfo options:NSJSONWritingSortedKeys error:nil];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
     NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:jsonItem completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -185,7 +185,7 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
         }
         NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         completion(dataDictionary, nil);
-    }];
+    }]; 
     [task resume];
 }
 

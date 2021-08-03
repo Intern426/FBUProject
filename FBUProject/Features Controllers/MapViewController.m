@@ -86,12 +86,13 @@
     NSNumber *savedLatitude = [NSNumber numberWithDouble:latitude];
     NSNumber *savedLongitude = [NSNumber numberWithDouble:longitude];
     
-    [locationInformation addEntriesFromDictionary:@{@"lat":savedLatitude}];
-    [locationInformation addEntriesFromDictionary:@{@"lng": savedLongitude}];
+    [locationInformation addEntriesFromDictionary:@{@"lat":@40}];
+    [locationInformation addEntriesFromDictionary:@{@"lng": @40}];
     [locationInformation addEntriesFromDictionary:@{@"r": @10}];
     [locationInformation addEntriesFromDictionary:@{@"s": @5}];
     
     [[APIManager shared] getNearbyWalgreens:locationInformation completion:^(NSDictionary * _Nonnull stores, NSError * _Nonnull error) {
+        NSLog(@"%@", stores);
         
     }];
     

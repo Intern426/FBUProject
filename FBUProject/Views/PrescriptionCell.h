@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PrescriptionCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dosageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
@@ -57,7 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)setPrescription:(Prescription *) prescription;
 - (IBAction)didTapExpand:(id)sender;
--(void) setupForProfile;
 
 @property (strong, nonatomic) Prescription *prescription;
 @property (weak, nonatomic) IBOutlet UIButton *expandedButton;

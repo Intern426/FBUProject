@@ -93,7 +93,6 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PrescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PrescriptionCell"];
     cell.prescription = self.prescriptions[indexPath.row];
-    [cell setupForProfile];
     cell.profileDelegate = self;
     cell.detailDelegate = self;
     return cell;
@@ -101,6 +100,19 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.prescriptions.count;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    PrescriptionCell *modifiedCell = (PrescriptionCell*) cell;
+    UIColor *navigationColor = self.navigationController.navigationBar.barTintColor; // to get the custom color
+    if (modifiedCell.nameView) {
+        if (indexPath.row % 2 == 0) {
+            modifiedCell.nameView.backgroundColor = navigationColor;
+        } else {
+            modifiedCell.nameView.backgroundColor = [UIColor blueColor];
+        }
+        cell = modifiedCell;
+    }
 }
 
 - (void)updateFavorites:(Prescription*) prescription{

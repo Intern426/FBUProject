@@ -8,12 +8,34 @@
 #import "DetailViewController.h"
 #import "APIManager.h"
 #import "MBProgressHUD.h"
+@import NaturalLanguage;
 
 @interface DetailViewController ()
 
 @property (nonatomic, strong) NSDictionary *drugInformation;
 @property (nonatomic, strong) NSDictionary *rxNormDrugInformation;
 @property (nonatomic) BOOL keepLooking;
+
+@property (weak, nonatomic) IBOutlet UILabel *manufacturerLabel; // the company that provided this information on openFDA!
+@property (weak, nonatomic) IBOutlet UILabel *activeIngredientLabel; //AKA the generic name
+@property (weak, nonatomic) IBOutlet UILabel *brandLabel; // brand name(s), brands that sell this drug
+@property (weak, nonatomic) IBOutlet UILabel *inactiveIngredientLabel;// may or may not be visible depending on whether or not I can get this information
+@property (weak, nonatomic) IBOutlet UILabel *purposeLabel; // may be known as purpose or indications/usage in openFDA
+@property (weak, nonatomic) IBOutlet UILabel *routeLabel; //oral, subcutaneous, etc.
+
+// Fields already known from Prescription database
+@property (weak, nonatomic) IBOutlet UILabel *dosageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *quantityControl;
+@property (weak, nonatomic) IBOutlet UILabel *amountLabel;
+
+// Fields that are created just to hide/show while waiting for the load.
+@property (weak, nonatomic) IBOutlet UILabel *dosageHolderLabel;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (weak, nonatomic) IBOutlet UIButton *cartButton;
+@property (weak, nonatomic) IBOutlet UILabel *qualityHolderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceHolderLabel;
 
 @end
 
@@ -206,8 +228,8 @@
     if (self.drugInformation[@"inactive_ingredients"]) {
         NSArray *inactiveIngredientInfo = self.drugInformation[@"inactive_ingredients"];
         self.inactiveIngredientLabel.text = inactiveIngredientInfo[0];
-    } else {
-        self.inactiveIngredientLabel.hidden = YES;
+    } else if ([openFdaData[@"description"] containsString:@"inactive ingredient"]){
+        [self findInactiveIngredients:openFdaData[@"description"]];
     }
     if (self.drugInformation[@"purpose"]) {
         NSArray *purposeInfo = self.drugInformation[@"purpose"];
@@ -223,16 +245,13 @@
 // TODO: Improve method or possibly take it out.
 // Refer to this StackOverflow Post: https://stackoverflow.com/questions/32168581/split-paragraphs-into-sentences
 -(void) findInactiveIngredients:(NSString*) description{
-    NSArray* descriptionSentences = [description componentsSeparatedByString:@"."];
-    BOOL noFoundIngredients = YES;
-    for (int i = 0; i < descriptionSentences.count && noFoundIngredients; i++) {
-        NSString *sentence = descriptionSentences[i];
-        if ([sentence containsString:@"inactive ingredient"]) {
-            NSArray* words = [sentence componentsSeparatedByString:@"inactive ingredient"];
-            self.inactiveIngredientLabel.text = words[1];
-        }
-    }
-    self.inactiveIngredientLabel.text = @"It's there.";
+    NSRange range = NSRangeFromString(description);
+    NLTokenizer* tokenizer = [[NLTokenizer alloc] initWithUnit:NLTokenUnitSentence];
+    tokenizer.string = description;
+    [tokenizer enumerateTokensInRange:range usingBlock:^(NSRange tokenRange, NLTokenizerAttributes flags, BOOL * _Nonnull stop) {
+        NSLog(@"%@", [description substringWithRange:tokenRange]);
+    }];
+    
 }
 
 -(void)displayBuyingInformation{
