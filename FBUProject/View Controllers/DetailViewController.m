@@ -37,12 +37,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *qualityHolderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceHolderLabel;
 
+@property (nonatomic) BOOL grabNextSentence;
+
 @end
 
 @implementation DetailViewController
 
 - (void)viewDidLoad {
     self.keepLooking = YES;
+    self.grabNextSentence = NO;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString* searchingDrugName = self.prescription.displayName;
     NSArray* splitDrugName = [searchingDrugName componentsSeparatedByString:@" "];
@@ -228,8 +231,13 @@
     if (self.drugInformation[@"inactive_ingredients"]) {
         NSArray *inactiveIngredientInfo = self.drugInformation[@"inactive_ingredients"];
         self.inactiveIngredientLabel.text = inactiveIngredientInfo[0];
-    } else if ([openFdaData[@"description"] containsString:@"inactive ingredient"]){
-        [self findInactiveIngredients:openFdaData[@"description"]];
+    } else {
+        NSArray *descriptionInformation = self.drugInformation[@"description"];
+        NSString *description = descriptionInformation[0];
+        if ([description containsString:@"inactive ingredient"])
+            [self findInactiveIngredients:description];
+        else
+            self.inactiveIngredientLabel.hidden = YES;
     }
     if (self.drugInformation[@"purpose"]) {
         NSArray *purposeInfo = self.drugInformation[@"purpose"];
@@ -243,15 +251,37 @@
 
 
 // TODO: Improve method or possibly take it out.
-// Refer to this StackOverflow Post: https://stackoverflow.com/questions/32168581/split-paragraphs-into-sentences
 -(void) findInactiveIngredients:(NSString*) description{
-    NSRange range = NSRangeFromString(description);
+    NSRange range = NSMakeRange(0, description.length);
     NLTokenizer* tokenizer = [[NLTokenizer alloc] initWithUnit:NLTokenUnitSentence];
     tokenizer.string = description;
+    NSMutableString* inactiveIngredient = [[NSMutableString alloc] init];
     [tokenizer enumerateTokensInRange:range usingBlock:^(NSRange tokenRange, NLTokenizerAttributes flags, BOOL * _Nonnull stop) {
-        NSLog(@"%@", [description substringWithRange:tokenRange]);
+        NSString *sentence = [description substringWithRange:tokenRange];
+        if (self.grabNextSentence) {
+            [inactiveIngredient appendString:sentence];
+            self.grabNextSentence = NO;
+        } else {
+        if ([[description substringWithRange:tokenRange] containsString:@"inactive ingredient"]) {
+                NSArray* array = [sentence componentsSeparatedByString:@"inactive ingredients"];
+                if (array == 0)
+                    array = [sentence componentsSeparatedByString:@"inactive ingredient"];
+                if (array.count > 1) {
+                    if ([sentence hasSuffix:@"No. "]) {
+                        [inactiveIngredient appendString:array[1]];
+                        self.grabNextSentence = YES;
+                    }
+                }
+            }
+        }
     }];
-    
+    if (inactiveIngredient.length != 0) {
+    if ([inactiveIngredient containsString:@":"])
+        self.inactiveIngredientLabel.text = [NSString stringWithFormat:@"Inactive Ingredient%@", inactiveIngredient];
+    else
+        self.inactiveIngredientLabel.text = [NSString stringWithFormat:@"Inactive Ingredient:%@", inactiveIngredient];
+    self.inactiveIngredientLabel.hidden = false;
+    }
 }
 
 -(void)displayBuyingInformation{
@@ -356,3 +386,4 @@
  */
 
 @end
+
