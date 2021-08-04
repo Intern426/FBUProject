@@ -11,6 +11,7 @@
 
 #import "Parse/Parse.h"
 @import SquareInAppPaymentsSDK;
+@import MetricKit;
 
 @implementation APIManager
 
@@ -46,7 +47,6 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
 -(void) getDrugInformationOpenFDABrandName:(NSString*) drugName completion: (void (^)(NSDictionary * information, NSError * error))completion{
     drugName = [drugName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *urlString = [NSString stringWithFormat:@"https://api.fda.gov/drug/label.json?search=openfda.brand_name.exact:%@", [drugName uppercaseString]];
-    NSLog(@"%@", urlString);
     NSURL *url = [NSURL URLWithString:urlString]; // openFDA search queries are case sensitive
     
     NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -66,7 +66,6 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
 -(void) getDrugInformationOpenFDAGenericName:(NSString*) drugName completion: (void (^)(NSDictionary * information, NSError * error))completion{
     drugName = [drugName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *urlString = [NSString stringWithFormat:@"https://api.fda.gov/drug/label.json?search=openfda.generic_name.exact:%@", [drugName uppercaseString]];
-    NSLog(@"%@", urlString);
     NSURL *url = [NSURL URLWithString:urlString]; // openFDA search queries are case sensitive
     
     NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -129,7 +128,6 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingSortedKeys error:nil];
     NSMutableURLRequest *request = [self setupURLRequestSquare:@"v2/orders"];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    
     NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:jsonItem completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"%@", error.localizedDescription);
@@ -165,7 +163,7 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Key" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     
-    NSURL* url = [NSURL URLWithString:@"https://services-qa.walgreens.com/api/stores/search/v2"];
+    NSURL* url = [NSURL URLWithString:@"https://services.walgreens.com/api/stores/search/v2"];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
@@ -174,18 +172,53 @@ static NSString * const baseURLString = @"https://connect.squareupsandbox.com";
     [locationInfo addEntriesFromDictionary:@{@"apiKey": [dict objectForKey:@"walgreens_api_key"]}];
     [locationInfo addEntriesFromDictionary:@{@"affId": [dict objectForKey:@"store_finder_affiliate"]}];
     [locationInfo addEntriesFromDictionary:@{@"requestType": @"locator"}];
-        
-    NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:locationInfo options:NSJSONWritingSortedKeys error:nil];
+    
+    NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:locationInfo options:NSJSONWritingPrettyPrinted error:nil];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
-    NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:jsonItem completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [request setHTTPBody:jsonItem];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", error.localizedDescription);
             completion(nil, error);
         }
         NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         completion(dataDictionary, nil);
-    }]; 
+        
+    }];
+    [task resume];
+}
+
+- (void) getWalgreenDetails: (NSString*) storeNumber completion:  (void (^)(NSDictionary * details, NSError * error))completion{
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Key" ofType: @"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    
+    NSURL* url = [NSURL URLWithString:@"https://services.walgreens.com/api/stores/search/v2"];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+    NSDictionary* storeDetails = @{
+        @"apiKey": [dict objectForKey:@"walgreens_api_key"],
+        @"affId": [dict objectForKey:@"store_finder_affiliate"],
+                                   @"storeNo": storeNumber
+    };
+    NSData *jsonItem = [NSJSONSerialization dataWithJSONObject:storeDetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    [request setHTTPBody:jsonItem];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+            completion(nil, error);
+        }
+        NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        completion(dataDictionary, nil);
+        
+    }];
     [task resume];
 }
 

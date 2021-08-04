@@ -19,9 +19,13 @@
 
 @implementation MapViewController
 
+const int STORE_COUNT = 5;
+const int MAX_MILES = 10;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.mapView.delegate = self;
+    self.locationManager.delegate = self;
     [self getUserLocation];
 }
 
@@ -29,20 +33,29 @@
     // If no pin view already exists, create a new one.
     if (annotation == self.mapView.userLocation) {
         self.mapView.showsUserLocation = YES;
-        return nil;
+        return nil; // default - blue, pulsing dot
     } else {
         MKPinAnnotationView *customPinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
         if (customPinView == nil) {
             customPinView = [[MKPinAnnotationView alloc]
                              initWithAnnotation:annotation reuseIdentifier:@"Pin"];
-            customPinView.pinTintColor = UIColor.purpleColor;
+            customPinView.pinTintColor = UIColor.redColor;
             customPinView.animatesDrop = YES;
             customPinView.canShowCallout = YES;
         }
+        UILabel *subTitlelbl = [[UILabel alloc]init];
+        subTitlelbl.text = annotation.subtitle;
+        subTitlelbl.textColor = UIColor.grayColor;
         
-        // Because this is an iOS app, add the detail disclosure button to display details about the annotation in another view.
-        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        customPinView.rightCalloutAccessoryView = rightButton;
+        customPinView.detailCalloutAccessoryView = subTitlelbl;
+        
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:subTitlelbl attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200];
+        
+        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:subTitlelbl attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+        [subTitlelbl setNumberOfLines:0];
+        [subTitlelbl addConstraint:width];
+        [subTitlelbl addConstraint:height];
+        
         
         // Add a custom image to the left side of the callout.
         UIImageView *myCustomImage = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"star"]];
@@ -62,8 +75,10 @@
         MKCoordinateSpan span = MKCoordinateSpanMake(0.01, 0.01);
         MKCoordinateRegion region = MKCoordinateRegionMake(locations.firstObject.coordinate, span);
         [self.mapView setRegion:region];
-        [self searchForNearbyPharamacies];
-      //  [self searchForWalgreens];
+        CLLocation* userLocation = locations.firstObject;
+        
+        // [self searchForNearbyPharamacies];
+        [self searchForWalgreens:userLocation];
     }
 }
 
@@ -79,25 +94,44 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void) searchForWalgreens {
+- (void) searchForWalgreens:(CLLocation*) userLocation {
     NSMutableDictionary* locationInformation = [[NSMutableDictionary alloc] init];
-    CLLocationDegrees latitude = self.mapView.userLocation.coordinate.latitude;
-    CLLocationDegrees longitude = self.mapView.userLocation.coordinate.longitude;
-    NSNumber *savedLatitude = [NSNumber numberWithDouble:latitude];
-    NSNumber *savedLongitude = [NSNumber numberWithDouble:longitude];
+    float latitudeFloat = (float) userLocation.coordinate.latitude;
+    float longitudeFloat = (float) userLocation.coordinate.longitude;
     
-    [locationInformation addEntriesFromDictionary:@{@"lat":@40}];
-    [locationInformation addEntriesFromDictionary:@{@"lng": @40}];
-    [locationInformation addEntriesFromDictionary:@{@"r": @10}];
-    [locationInformation addEntriesFromDictionary:@{@"s": @5}];
+    [locationInformation addEntriesFromDictionary:@{@"lat": [NSNumber numberWithFloat: latitudeFloat]}];
+    [locationInformation addEntriesFromDictionary:@{@"lng": [NSNumber numberWithFloat: longitudeFloat]}];
+    [locationInformation addEntriesFromDictionary:@{@"r": [NSNumber numberWithInt:MAX_MILES]}];
+    [locationInformation addEntriesFromDictionary:@{@"s": [NSNumber numberWithInt:STORE_COUNT]}];
     
-    [[APIManager shared] getNearbyWalgreens:locationInformation completion:^(NSDictionary * _Nonnull stores, NSError * _Nonnull error) {
-        NSLog(@"%@", stores);
-        
+    [[APIManager shared] getNearbyWalgreens:locationInformation completion:^(NSDictionary * _Nonnull results, NSError * _Nonnull error) {
+        NSDictionary* storeResults = results[@"results"];
+        NSMutableArray *placemarks = [NSMutableArray array];
+        for (NSDictionary *store in storeResults) {
+            CLLocationDegrees latitude = [store[@"latitude"] doubleValue];
+            CLLocationDegrees longitude = [store[@"longitude"] doubleValue];
+            
+            NSDictionary *storeInformation = store[@"store"];
+            NSDictionary *phoneInformation = storeInformation[@"phone"];
+            NSDictionary *addressInformation = storeInformation[@"address"];
+            
+            NSString *phoneNumber = [NSString stringWithFormat:@"%@-%@-%@", phoneInformation[@"areaCode"] , [phoneInformation[@"number"] substringToIndex:3], [phoneInformation[@"number"] substringFromIndex:3]];
+            NSString* address = [NSString stringWithFormat:@"%@\n%@\n%@, %@", addressInformation[@"street"], addressInformation[@"city"], addressInformation[@"state"], addressInformation[@"zip"]];
+            
+            NSString* title = storeInformation[@"name"];
+            NSString* subtitle = [NSString stringWithFormat:@"%@\n%@\nHours:%@-%@",
+                                  [address capitalizedString],
+                                  phoneNumber,
+                                  storeInformation[@"pharmacyOpenTime"],
+                                  storeInformation[@"pharmacyCloseTime"]];
+            
+            CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc] initWithCoordinate:location title:title subtitle:subtitle];
+            [placemarks addObject:annotation];
+        }
+        [self.mapView showAnnotations:placemarks animated:YES];
     }];
-    
 }
-
 
 -(void) searchForNearbyPharamacies{
     // Create and initialize a search request object.
