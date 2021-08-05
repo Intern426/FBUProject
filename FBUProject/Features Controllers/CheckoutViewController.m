@@ -155,6 +155,19 @@
     }];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    ShoppingCell *modifiedCell = (ShoppingCell*) cell;
+    UIColor *navigationColor = self.navigationController.navigationBar.barTintColor; // to get the custom color
+    if (modifiedCell.nameView) {
+        if (indexPath.row % 2 == 0) {
+            modifiedCell.nameView.backgroundColor = navigationColor;
+        } else {
+            modifiedCell.nameView.backgroundColor = [UIColor blueColor];
+        }
+        cell = modifiedCell;
+    }
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

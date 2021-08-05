@@ -23,7 +23,7 @@
 -(void)setPrescription:(Prescription *)prescription{
     _prescription = prescription;
     self.quantityControl.selectedSegmentIndex = self.prescription.selectedDays;
-    self.drugNameLabel.text = [NSString stringWithFormat:@"Name: %@", self.prescription.displayName];
+    self.drugNameLabel.text = [NSString stringWithFormat:@"%@", self.prescription.displayName];
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.quantityLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
         self.priceLabel.text = self.prescription.price30;
