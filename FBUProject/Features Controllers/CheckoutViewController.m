@@ -31,6 +31,7 @@
     self.arrayLock = [[NSLock alloc] init];
     self.currentUser = [PFUser currentUser];
     self.prescriptions = [[NSMutableArray alloc] init];
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // Make sure no lines show up
 }
 
 // In-App Payment only supports portrait orientation on landscape so we'll limit this view controller to portrait mode
@@ -52,7 +53,6 @@
     if (self.prescriptions != nil && self.prescriptions.count != 0) {
         self.emptyLabel.hidden = YES;
     } else {
-        self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // Make sure no lines show up
         self.emptyLabel.hidden = NO;
     }
     [self.tableView reloadData];

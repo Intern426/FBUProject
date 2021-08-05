@@ -16,6 +16,8 @@
 @property (strong, nonatomic) NSMutableArray* reminders;
 @property (strong, nonatomic) UNUserNotificationCenter* center;
 @property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -27,10 +29,16 @@
     self.tableView.delegate = self;
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-
-
+    
+    
     self.center = [UNUserNotificationCenter currentNotificationCenter];
     self.center.delegate = self;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchReminders) forControlEvents:UIControlEventValueChanged]; //Deprecated and only used for older objects
+    [self.tableView insertSubview:self.refreshControl atIndex:0]; // controls where you put it in the view hierarchy
+    [self.loadingIndicator startAnimating];
+    
     [self fetchReminders];
 }
 
@@ -46,11 +54,18 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Reminder"];
     [query whereKey:@"author" equalTo:[PFUser currentUser]];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable reminders, NSError * _Nullable error) {
-        self.reminders = [Reminder initWithArray:reminders];
-        [self.tableView reloadData];
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+        } else {
+            self.reminders = [Reminder initWithArray:reminders];
+            [self.tableView reloadData];
+            
+        }
+        [self.refreshControl endRefreshing];
+        [self.loadingIndicator stopAnimating];
         [self checkEmpty];
     }];
-
+    
 }
 
 -(void) checkEmpty{
@@ -73,14 +88,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 - (void)updateReminders {

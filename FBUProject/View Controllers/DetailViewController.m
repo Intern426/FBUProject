@@ -89,10 +89,9 @@
 
 -(void) checkForSavedFavorites:(NSArray*) savedDrugs{
     for (int i = 0; i < savedDrugs.count; i++) {
-        PFObject *object = savedDrugs[i];
-        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
-        Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object.objectId]];
-        if ([self.prescription isEqual:prescription])
+        NSDictionary *object = savedDrugs[i];
+        NSString *name = object[@"name"];
+        if ([[NSString stringWithFormat:@"%@ %@", self.prescription.displayName, self.prescription.dosageAmount] isEqual:name])
             self.likeButton.selected = YES;
     }
 }
@@ -100,9 +99,8 @@
 -(void) checkForBoughtDrugs:(NSArray*) boughtDrugs{
     for (int i = 0; i < boughtDrugs.count; i++) {
         NSDictionary *object = boughtDrugs[i];
-        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
-        Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
-        if ([self.prescription isEqual:prescription])
+        NSString *name = object[@"name"];
+        if ([[NSString stringWithFormat:@"%@ %@", self.prescription.displayName, self.prescription.dosageAmount] isEqual:name])
             self.cartButton.selected = YES;
     }
 }
