@@ -56,10 +56,6 @@ const int MAX_MILES = 10;
         [subTitlelbl addConstraint:width];
         [subTitlelbl addConstraint:height];
         
-        
-        // Add a custom image to the left side of the callout.
-        UIImageView *myCustomImage = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"star"]];
-        customPinView.leftCalloutAccessoryView = myCustomImage;
         return customPinView;
     }
 }
