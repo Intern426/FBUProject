@@ -636,6 +636,9 @@
                                 <rect key="frame" x="353.66666666666669" y="138" width="20" height="19.999999999999986"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" backgroundImage="info.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="didTapInfo:" destination="rXB-2Y-GGU" eventType="touchUpInside" id="niL-zB-EaP"/>
+                                </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dosage:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3H-hY-4jw">
                                 <rect key="frame" x="16" y="514" width="63" height="21"/>
@@ -707,6 +710,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of manufacturer or company that makes this drug product." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tct-IQ-Yx4">
+                                <rect key="frame" x="51" y="141" width="335" height="12"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inactive Ingredients:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoK-yI-A7V">
                                 <rect key="frame" x="16" y="339" width="153.33333333333334" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -721,11 +732,13 @@
                             <constraint firstItem="658-nb-epW" firstAttribute="leading" secondItem="XEC-i3-jg4" secondAttribute="trailing" constant="8" id="38k-IX-Keg"/>
                             <constraint firstItem="z3H-hY-4jw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aoK-yI-A7V" secondAttribute="bottom" constant="10" id="3Jf-pd-1J5"/>
                             <constraint firstItem="XEC-i3-jg4" firstAttribute="top" secondItem="z3H-hY-4jw" secondAttribute="bottom" constant="38" id="3gj-qN-KTI"/>
+                            <constraint firstItem="Tct-IQ-Yx4" firstAttribute="leading" secondItem="SvM-gZ-S5e" secondAttribute="leading" constant="51" id="4X3-KN-RO2"/>
                             <constraint firstItem="BVm-UU-uxe" firstAttribute="top" secondItem="SvM-gZ-S5e" secondAttribute="top" constant="49" id="5Cg-FP-eTR"/>
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="bottom" secondItem="V07-aO-5Bv" secondAttribute="bottom" constant="22" id="6JF-ei-Klj"/>
                             <constraint firstItem="r6j-iX-sjN" firstAttribute="top" secondItem="658-nb-epW" secondAttribute="bottom" constant="22" id="72e-gl-Y5v"/>
                             <constraint firstItem="Uya-Ff-GeK" firstAttribute="top" secondItem="SvM-gZ-S5e" secondAttribute="top" constant="49" id="7r8-EE-UEB"/>
                             <constraint firstItem="aoK-yI-A7V" firstAttribute="leading" secondItem="3Sr-zE-MJo" secondAttribute="leading" id="DU9-na-ZUq"/>
+                            <constraint firstItem="Tct-IQ-Yx4" firstAttribute="top" secondItem="SvM-gZ-S5e" secondAttribute="top" constant="53" id="HOm-AT-xlw"/>
                             <constraint firstItem="3Sr-zE-MJo" firstAttribute="leading" secondItem="BVm-UU-uxe" secondAttribute="leading" id="IZs-Pz-lq0"/>
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Lbd-Fl-WV8" secondAttribute="trailing" constant="10" id="Jw5-JY-IbB"/>
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ckn-mz-Tkv" secondAttribute="trailing" constant="10" id="KZT-3e-0mz"/>
@@ -736,6 +749,8 @@
                             <constraint firstItem="cem-L8-8DU" firstAttribute="top" secondItem="icZ-on-gcr" secondAttribute="bottom" constant="76" id="RSt-OH-l8C"/>
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3Sr-zE-MJo" secondAttribute="trailing" constant="10" id="TiO-TM-URQ"/>
                             <constraint firstItem="Lbd-Fl-WV8" firstAttribute="leading" secondItem="BVm-UU-uxe" secondAttribute="leading" id="UMJ-dO-jMc"/>
+                            <constraint firstItem="Lbd-Fl-WV8" firstAttribute="top" secondItem="Tct-IQ-Yx4" secondAttribute="bottom" constant="41" id="Wy2-CT-rB2"/>
+                            <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" secondItem="Tct-IQ-Yx4" secondAttribute="trailing" constant="4" id="gFP-nH-7w9"/>
                             <constraint firstItem="aoK-yI-A7V" firstAttribute="top" secondItem="3Sr-zE-MJo" secondAttribute="bottom" constant="14" id="gHO-n7-xKW"/>
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" secondItem="Uya-Ff-GeK" secondAttribute="trailing" constant="16.329999999999998" id="geJ-re-W90"/>
                             <constraint firstItem="Ckn-mz-Tkv" firstAttribute="top" secondItem="Lbd-Fl-WV8" secondAttribute="bottom" constant="39" id="gxF-Qm-iTX"/>
@@ -767,6 +782,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activeIngredientLabel" destination="Lbd-Fl-WV8" id="Uxd-tP-inX"/>
+                        <outlet property="additionalInfoButton" destination="Uya-Ff-GeK" id="Ilv-r4-gLs"/>
                         <outlet property="amountLabel" destination="icZ-on-gcr" id="82N-bu-qd0"/>
                         <outlet property="brandLabel" destination="Ckn-mz-Tkv" id="9ls-Ge-Kpu"/>
                         <outlet property="cartButton" destination="V07-aO-5Bv" id="Yrj-Zt-xLY"/>
@@ -774,6 +790,7 @@
                         <outlet property="dosageLabel" destination="z3H-hY-4jw" id="Wvd-yF-ZLI"/>
                         <outlet property="inactiveIngredientLabel" destination="aoK-yI-A7V" id="yJb-37-YBV"/>
                         <outlet property="likeButton" destination="lwj-p7-y6M" id="6Kk-eu-dwW"/>
+                        <outlet property="manufacturerInfoLabel" destination="Tct-IQ-Yx4" id="PS9-1L-qMl"/>
                         <outlet property="manufacturerLabel" destination="BVm-UU-uxe" id="Neh-9W-JIx"/>
                         <outlet property="priceHolderLabel" destination="2vb-oc-Xtd" id="YVr-sd-bG6"/>
                         <outlet property="priceLabel" destination="r6j-iX-sjN" id="ip9-U1-JUr"/>
@@ -785,7 +802,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yUw-H8-arR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1062" y="1459"/>
+            <point key="canvasLocation" x="1061.5384615384614" y="1458.7677725118483"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="lBv-9M-Bdu">
@@ -1609,7 +1626,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2wJ-No-Qon"/>
+        <segue reference="nZW-uJ-Cvh"/>
         <segue reference="STZ-e6-wFt"/>
         <segue reference="u1L-Vv-fIl"/>
     </inferredMetricsTieBreakers>
@@ -1635,6 +1652,9 @@
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

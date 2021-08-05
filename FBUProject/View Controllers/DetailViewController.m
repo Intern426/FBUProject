@@ -36,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *cartButton;
 @property (weak, nonatomic) IBOutlet UILabel *qualityHolderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceHolderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *manufacturerInfoLabel;
+@property (weak, nonatomic) IBOutlet UIButton *additionalInfoButton;
 
 @property (nonatomic) BOOL grabNextSentence;
 
@@ -46,6 +48,7 @@
 - (void)viewDidLoad {
     self.keepLooking = YES;
     self.grabNextSentence = NO;
+    self.manufacturerInfoLabel.layer.cornerRadius = 10;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString* searchingDrugName = self.prescription.displayName;
     NSArray* splitDrugName = [searchingDrugName componentsSeparatedByString:@" "];
@@ -323,7 +326,17 @@
     self.searchButton.hidden = false;
     self.qualityHolderLabel.hidden = false;
     self.priceHolderLabel.hidden = false;
+    self.additionalInfoButton.hidden = false;
 }
+
+- (IBAction)didTapInfo:(id)sender {
+    self.manufacturerInfoLabel.hidden = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.manufacturerInfoLabel.hidden = YES;
+    });
+}
+
+
 
 - (IBAction)didTapFavorite:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
