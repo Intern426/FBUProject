@@ -720,12 +720,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of manufacturer or company that makes this drug product." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tct-IQ-Yx4">
-                                <rect key="frame" x="226" y="117" width="147" height="48"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of manufacturer or company that makes this drug product and provided information" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tct-IQ-Yx4">
+                                <rect key="frame" x="226" y="117" width="147" height="69"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" systemColor="opaqueSeparatorColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -753,7 +752,7 @@
                             <constraint firstItem="cem-L8-8DU" firstAttribute="top" secondItem="icZ-on-gcr" secondAttribute="bottom" constant="76" id="RSt-OH-l8C"/>
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3Sr-zE-MJo" secondAttribute="trailing" constant="10" id="TiO-TM-URQ"/>
                             <constraint firstItem="Lbd-Fl-WV8" firstAttribute="leading" secondItem="BVm-UU-uxe" secondAttribute="leading" id="UMJ-dO-jMc"/>
-                            <constraint firstItem="Lbd-Fl-WV8" firstAttribute="top" secondItem="Tct-IQ-Yx4" secondAttribute="bottom" constant="29" id="Wy2-CT-rB2"/>
+                            <constraint firstItem="Lbd-Fl-WV8" firstAttribute="top" secondItem="Tct-IQ-Yx4" secondAttribute="bottom" constant="8" id="Wy2-CT-rB2"/>
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" secondItem="Tct-IQ-Yx4" secondAttribute="trailing" constant="17" id="gFP-nH-7w9"/>
                             <constraint firstItem="aoK-yI-A7V" firstAttribute="top" secondItem="3Sr-zE-MJo" secondAttribute="bottom" constant="14" id="gHO-n7-xKW"/>
                             <constraint firstItem="SvM-gZ-S5e" firstAttribute="trailing" secondItem="Uya-Ff-GeK" secondAttribute="trailing" constant="16.329999999999998" id="geJ-re-W90"/>
@@ -1652,7 +1651,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="jPn-G4-V5L"/>
+        <segue reference="nZW-uJ-Cvh"/>
         <segue reference="Mjv-xd-4VK"/>
         <segue reference="lXb-J8-Czd"/>
     </inferredMetricsTieBreakers>

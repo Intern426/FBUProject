@@ -50,7 +50,7 @@
 }
 
 -(void) checkEmpty{
-    if (self.prescriptions != nil && self.prescriptions.count != 0) {
+    if (self.searchedPrescriptions != nil && self.searchedPrescriptions.count != 0) {
         self.emptyLabel.hidden = YES;
     } else {
         self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // Make sure no lines show up
@@ -126,13 +126,18 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Prescription* prescription = self.searchedPrescriptions[indexPath.row];
-        [self.prescriptions removeObjectAtIndex:indexPath.row];
-        [self.currentUser removeObject:prescription.prescriptionPointer forKey:@"savedDrugs"];
+        NSMutableDictionary* object = [[NSMutableDictionary alloc] init];
+        [object addEntriesFromDictionary:@{@"name": [NSString stringWithFormat:@"%@ %@", prescription.displayName, prescription.dosageAmount]}];
+        [object addEntriesFromDictionary:@{@"item": prescription.prescriptionPointer.objectId}];
+        [self.searchedPrescriptions removeObjectAtIndex:indexPath.row];
+        [self.currentUser removeObject:object forKey:@"savedDrugs"];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation: UITableViewRowAnimationFade];
     }
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
+            [self.tableView reloadData];
+            [self checkEmpty];
         } else{
             NSLog(@"Success");
         }
