@@ -44,20 +44,17 @@
         self.priceLabel.text =  self.prescription.price90;
     }
     PFUser *currentUser = [PFUser currentUser];
-    if (currentUser[@"savedDrugs"]) {
-        [self checkForSavedFavorites:currentUser[@"savedDrugs"]];
-    }
-    if (currentUser[@"buyingDrugs"]) {
+    if (currentUser[@"buyingDrugs"])
         [self checkForBoughtDrugs:currentUser[@"buyingDrugs"]];
-    }
+    if (currentUser[@"savedDrugs"])
+        [self checkForSavedFavorites:currentUser[@"savedDrugs"]];
 }
 
 -(void) checkForSavedFavorites:(NSArray*) savedDrugs{
     for (int i = 0; i < savedDrugs.count; i++) {
-        PFObject *object = savedDrugs[i];
-        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
-        Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object.objectId]];
-        if ([self.prescription isEqual:prescription])
+        NSDictionary *object = savedDrugs[i];
+        NSString *name = object[@"name"];
+        if ([self.nameLabel.text isEqual:name])
             self.likeButton.selected = YES;
     }
 }
@@ -65,11 +62,8 @@
 -(void) checkForBoughtDrugs:(NSArray*) boughtDrugs{
     for (int i = 0; i < boughtDrugs.count; i++) {
         NSDictionary *object = boughtDrugs[i];
-        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
-        Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:object[@"item"]]];
-        self.prescription.quantity = [object[@"quantity"] intValue];
-        self.prescription.selectedDays = [object[@"number_of_days"] intValue];
-        if ([self.prescription isEqual:prescription])
+        NSString *name = object[@"name"];
+        if ([self.nameLabel.text isEqual:name])
             self.cartButton.selected = YES;
     }
 }
@@ -89,7 +83,10 @@
     if (!currentUser[@"savedDrugs"]) {
         currentUser[@"savedDrugs"] = [[NSMutableArray alloc] init];
     }
-    [self updateUserAtKey:@"savedDrugs" withObject:self.prescription.prescriptionPointer updateButton:self.likeButton];
+    NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
+    [prescriptionInfo addEntriesFromDictionary:@{@"name": [NSString stringWithFormat:@"%@ %@", self.prescription.displayName, self.prescription.dosageAmount]}];
+    [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
+    [self updateUserAtKey:@"savedDrugs" withObject:prescriptionInfo updateButton:self.likeButton];
 }
 
 - (IBAction)didTapDelete:(id)sender {
@@ -118,6 +115,7 @@
         currentUser[@"buyingDrugs"] = [[NSMutableArray alloc] init];
     }
     NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
+    [prescriptionInfo addEntriesFromDictionary:@{@"name": [NSString stringWithFormat:@"%@ %@", self.prescription.displayName, self.prescription.dosageAmount]}];
     [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
     if (self.prescription.quantity != 0)
         [prescriptionInfo addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d",  self.prescription.quantity]}];

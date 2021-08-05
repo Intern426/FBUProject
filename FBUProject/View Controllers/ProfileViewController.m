@@ -65,11 +65,11 @@
 
 
 -(void) queryPrescriptions {
+    PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
     NSArray *array = self.currentUser[@"savedDrugs"];
     for (int i = 0; i < array.count; i++) {
-        PFObject *object = array[i];
-        NSString *objectId =  object.objectId;
-        PFQuery *query = [PFQuery queryWithClassName:@"Prescription"];
+        NSDictionary *savedInfo = array[i];
+        NSString *objectId =  savedInfo[@"item"];
         Prescription *prescription = [[Prescription alloc] initWithParseData:[query getObjectWithId:objectId]];
         [self.prescriptions addObject:prescription];
     }
