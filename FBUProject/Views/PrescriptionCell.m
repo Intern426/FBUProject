@@ -97,7 +97,7 @@
         if (succeeded) {
             // The PFUser has been saved.
             NSLog(@"Drug was removed");
-            [self.profileDelegate updateFavorites:self.prescription];
+            [self.profileDelegate updateFavorites];
         } else {
             // There was a problem, check error.description
             NSLog(@"boo.....%@", error.localizedDescription);

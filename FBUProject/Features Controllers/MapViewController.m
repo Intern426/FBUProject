@@ -55,7 +55,6 @@ const int MAX_MILES = 10;
         [subTitlelbl setNumberOfLines:0];
         [subTitlelbl addConstraint:width];
         [subTitlelbl addConstraint:height];
-        
         return customPinView;
     }
 }

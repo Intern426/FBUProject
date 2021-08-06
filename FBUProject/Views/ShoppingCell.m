@@ -73,6 +73,7 @@
     PFUser *currentUser = [PFUser currentUser];
     NSMutableDictionary *prescriptionInfo = [[NSMutableDictionary alloc] init];
     [prescriptionInfo addEntriesFromDictionary:@{@"item": self.prescription.prescriptionPointer.objectId}];
+    [prescriptionInfo addEntriesFromDictionary:@{@"name": [NSString stringWithFormat:@"%@ %@", self.prescription.displayName, self.prescription.dosageAmount]}];
     [prescriptionInfo addEntriesFromDictionary:@{@"quantity": [NSString stringWithFormat:@"%d", self.prescription.quantity]}];
     [prescriptionInfo addEntriesFromDictionary:@{@"number_of_days": [NSString stringWithFormat:@"%d", self.prescription.selectedDays]}];
     [currentUser removeObject:prescriptionInfo forKey:@"buyingDrugs"];

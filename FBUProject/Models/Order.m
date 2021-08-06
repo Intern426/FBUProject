@@ -7,6 +7,7 @@
 
 #import "Order.h"
 #import "Prescription.h"
+@import CoreLocation;
 
 @implementation Order
 
@@ -32,6 +33,8 @@ NSString* const BASE_PRICE_MONEY_KEY = @"base_price_money";
 NSString* const ITEM_TYPE_KEY = @"item_type";
 NSString* const DISPLAY_NAME_KEY = @"display_name";
 
+
+// F
 -(instancetype) init {
     self = [super init];
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Key" ofType: @"plist"];

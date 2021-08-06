@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol PrescriptionCellProfileDelegate <NSObject>
 
--(void) updateFavorites:(Prescription*) prescription;
+-(void) updateFavorites;
 @end
 
 @protocol PrescriptionCellDetailDelegate <NSObject>

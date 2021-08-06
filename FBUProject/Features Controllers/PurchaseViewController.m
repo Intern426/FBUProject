@@ -91,11 +91,6 @@
 
 - (void)cardEntryViewController:(SQIPCardEntryViewController *)cardEntryViewController didCompleteWithStatus:(SQIPCardEntryCompletionStatus)status{
     if (status == SQIPCardEntryCompletionStatusSuccess) {
-        NSMutableDictionary *amount = [[NSMutableDictionary alloc] init];
-        [amount addEntriesFromDictionary:@{@"amount": [NSNumber numberWithFloat:self.cost*100]}];
-        [amount addEntriesFromDictionary:@{@"currency": @"USD"}];
-        
-        [self.paymentDetails addEntriesFromDictionary:@{@"amount_money":amount}];
         [[APIManager shared] uploadPaymentWithCompletion:self.paymentDetails completion:^(NSDictionary * payment, NSError * error) {
             if (error != nil) {
                 NSLog(@"Error! %@", error.localizedDescription);
@@ -133,7 +128,14 @@
             NSLog(@"%@", error.localizedDescription); //TODO: Pop up - UIAlertControl that shows error!
         } else {
             NSDictionary *completedOrder = order[@"order"];
+            NSDictionary *totalMoney = completedOrder[@"total_money"];
+            
             [self.paymentDetails addEntriesFromDictionary:@{@"order_id": completedOrder[@"id"]}]; // Block it - Progress Bar?
+            NSMutableDictionary *amount = [[NSMutableDictionary alloc] init];
+            [amount addEntriesFromDictionary:@{@"amount": totalMoney[@"amount"]}];
+            [amount addEntriesFromDictionary:@{@"currency": totalMoney[@"currency"]}];
+            [self.paymentDetails addEntriesFromDictionary:@{@"amount_money":amount}];
+            
         }
     }];
 }

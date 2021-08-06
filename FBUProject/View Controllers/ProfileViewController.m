@@ -119,7 +119,7 @@
     }
 }
 
-- (void)updateFavorites:(Prescription*) prescription{
+- (void)updateFavorites{
     [self loadFavorites];
 }
 

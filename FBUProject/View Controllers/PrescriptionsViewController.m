@@ -58,10 +58,18 @@ const int EXPAND = 2;
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
-    //  [self retrieveAllPrescriptions];
+  //    [self retrieveAllPrescriptions];
 }
 
 -(void) checkInternetConnection {
+    // Network Link Conditioner may work - behaves well in poor network conditions
+    // Localization - add support for 1 language - like storing them a file and using them elsewhere?
+    //  Use Google Translate to check language and make request
+    // Accessiblity - font size, voice over, color (does the app look fine?)
+    // Details: property modifiers (strong vs weak, (nonatomic vs atomic!))
+    //      Atomic - locked - thread safe, nonatomic
+    //      Try it out with Timer
+    // Threading: main, callbacks
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -141,7 +149,7 @@ const int EXPAND = 2;
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Prescription *evaluatedObject, NSDictionary *bindings) {
             return [evaluatedObject.displayName containsString:searchText];
         }];
-        self.searchedPrescriptions = (NSMutableArray*)[self.prescriptions filteredArrayUsingPredicate:predicate];
+        self.searchedPrescriptions = (NSMutableArray*)[self.allPrescriptions filteredArrayUsingPredicate:predicate];
     } else {
         self.searchBar.showsCancelButton = false;
         self.searchedPrescriptions = self.prescriptions;
