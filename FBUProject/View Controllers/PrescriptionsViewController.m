@@ -62,14 +62,6 @@ const int EXPAND = 2;
 }
 
 -(void) checkInternetConnection {
-    // Network Link Conditioner may work - behaves well in poor network conditions
-    // Localization - add support for 1 language - like storing them a file and using them elsewhere?
-    //  Use Google Translate to check language and make request
-    // Accessiblity - font size, voice over, color (does the app look fine?)
-    // Details: property modifiers (strong vs weak, (nonatomic vs atomic!))
-    //      Atomic - locked - thread safe, nonatomic
-    //      Try it out with Timer
-    // Threading: main, callbacks
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     self.refreshControl = [[UIRefreshControl alloc] init];

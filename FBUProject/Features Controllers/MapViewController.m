@@ -116,12 +116,10 @@ const int MAX_MILES = 10;
             NSDictionary *addressInformation = storeInformation[@"address"];
             
             NSString *phoneNumber = [NSString stringWithFormat:@"%@-%@-%@", phoneInformation[@"areaCode"] , [phoneInformation[@"number"] substringToIndex:3], [phoneInformation[@"number"] substringFromIndex:3]];
-            NSString* city = addressInformation[@"city"];
             NSString* address = [NSString stringWithFormat:@"%@\n%@, %@, %@", [addressInformation[@"street"] capitalizedString], [addressInformation[@"city"] capitalizedString], addressInformation[@"state"], addressInformation[@"zip"]];
-            NSLog(@"%@", address);
             
             NSString* title =  [NSString stringWithFormat:@"%@", storeInformation[@"name"]];
-            NSString* subtitle = [NSString stringWithFormat:@"%@\n%@\nHours:%@-%@",
+            NSString* subtitle = [NSString stringWithFormat:@"%@\n%@\nHours: %@-%@",
                                   address,
                                   phoneNumber,
                                   storeInformation[@"pharmacyOpenTime"],
