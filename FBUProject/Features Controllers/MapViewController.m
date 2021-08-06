@@ -55,6 +55,11 @@ const int MAX_MILES = 10;
         [subTitlelbl setNumberOfLines:0];
         [subTitlelbl addConstraint:width];
         [subTitlelbl addConstraint:height];
+        
+        customPinView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 50.0, 50.0)];
+
+        UIImageView *imageView = (UIImageView*)customPinView.leftCalloutAccessoryView;
+        imageView.image= [UIImage imageNamed:@"walgreen_icon"];
         return customPinView;
     }
 }
