@@ -42,7 +42,7 @@
 
 -(UIMenu*) createAmountMenu{
     NSMutableArray *amountChoices = [[NSMutableArray alloc] init];
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 11; i++) { // 11 is an arbitrary choice
         NSString *value = [NSString stringWithFormat:@"%d", i];
         UIAction *testAction = [UIAction actionWithTitle:value image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
             [self.amountButton setTitle:value forState:UIControlStateNormal];

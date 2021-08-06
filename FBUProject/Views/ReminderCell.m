@@ -22,6 +22,7 @@
 
 -(void)setReminder:(Reminder *)reminder{
     _reminder = reminder;
+    [self checkAllNotifications];
     NSDate *time = self.reminder[@"alarm"];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateStyle = NSDateFormatterNoStyle;
@@ -121,5 +122,14 @@
     }
 }
 
+// For testing purposes... and to turn off the notifications!!
+- (void) checkAllNotifications{
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+        for (UNNotificationRequest *request in requests) {
+            NSLog(@"%@", request.content.body);
+        }
+    }];
+}
 
 @end

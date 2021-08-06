@@ -29,7 +29,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.searchBar.delegate = self;
-    self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser.username];
+    self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser[@"name"]];
     
    
     // Do any additional setup after loading the view.

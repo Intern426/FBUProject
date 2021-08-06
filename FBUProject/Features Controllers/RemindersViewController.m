@@ -78,6 +78,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ReminderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReminderCell"];
+    
     cell.reminder = self.reminders[indexPath.row];
     cell.delegate = self;
     return cell;
@@ -98,7 +99,7 @@
  */
 
 
-- (void)updateReminders {
+- (void)updateReminder {
     [self fetchReminders];
 }
 

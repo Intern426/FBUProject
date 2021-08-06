@@ -51,7 +51,7 @@ const int MAX_MILES = 10;
         
         NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:subTitlelbl attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200];
         
-        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:subTitlelbl attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
+        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:subTitlelbl attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:2 constant:0];
         [subTitlelbl setNumberOfLines:0];
         [subTitlelbl addConstraint:width];
         [subTitlelbl addConstraint:height];
@@ -111,11 +111,13 @@ const int MAX_MILES = 10;
             NSDictionary *addressInformation = storeInformation[@"address"];
             
             NSString *phoneNumber = [NSString stringWithFormat:@"%@-%@-%@", phoneInformation[@"areaCode"] , [phoneInformation[@"number"] substringToIndex:3], [phoneInformation[@"number"] substringFromIndex:3]];
-            NSString* address = [NSString stringWithFormat:@"%@\n%@\n%@, %@", addressInformation[@"street"], addressInformation[@"city"], addressInformation[@"state"], addressInformation[@"zip"]];
+            NSString* city = addressInformation[@"city"];
+            NSString* address = [NSString stringWithFormat:@"%@\n%@, %@, %@", [addressInformation[@"street"] capitalizedString], [addressInformation[@"city"] capitalizedString], addressInformation[@"state"], addressInformation[@"zip"]];
+            NSLog(@"%@", address);
             
-            NSString* title = storeInformation[@"name"];
+            NSString* title =  [NSString stringWithFormat:@"%@", storeInformation[@"name"]];
             NSString* subtitle = [NSString stringWithFormat:@"%@\n%@\nHours:%@-%@",
-                                  [address capitalizedString],
+                                  address,
                                   phoneNumber,
                                   storeInformation[@"pharmacyOpenTime"],
                                   storeInformation[@"pharmacyCloseTime"]];
