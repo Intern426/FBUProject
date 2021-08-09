@@ -271,4 +271,5 @@ const int EXPAND = 2;
         self.toggleStack = 0; //reset the toggle so the cell doesn't suddenly expand/collapse when its off-screen
     });
 }
+
 @end

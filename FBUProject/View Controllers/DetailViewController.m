@@ -251,8 +251,7 @@
 }
 
 
-// TODO: Improve method or possibly take it out.
--(void) findInactiveIngredients:(NSString*) description{
+- (void) findInactiveIngredients:(NSString*) description{
     NSRange range = NSMakeRange(0, description.length);
     NLTokenizer* tokenizer = [[NLTokenizer alloc] initWithUnit:NLTokenUnitSentence];
     tokenizer.string = description;

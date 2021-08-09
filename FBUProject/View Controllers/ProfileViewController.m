@@ -31,7 +31,6 @@
     self.searchBar.delegate = self;
     self.navigationItem.title = [NSString stringWithFormat:@"Hello %@", PFUser.currentUser[@"name"]];
     
-   
     // Do any additional setup after loading the view.
     self.currentUser = [PFUser currentUser];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -167,8 +166,5 @@
     self.searchedPrescriptions = self.prescriptions;
     [self.tableView reloadData];
 }
-
-
-
 
 @end
