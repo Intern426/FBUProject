@@ -1,7 +1,7 @@
 Original App Design Project - README Template
 ===
 
-# Prescription Helper
+# Rx Keeper
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -12,28 +12,25 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-An app that helps you manage your prescriptions by allowing you to see a list of prescriptions offered at Walgreens with their prices, lets you favorite/save the ones you're interested in, locate nearby Walgreens, and purchase the drugs.
+An app that helps you manage your prescriptions by allowing you to see a list of prescriptions offered at Walgreens with their prices (Link to PDF: https://www.walgreens.com/images/adaptive/pdf/Walgreens-Plus_Drug-List_20180321.pdf, Information used starts on Page 5), lets you favorite/save the ones you're interested in, locate nearby Walgreens, and purchase the drugs.
 
 ### App Evaluation
 - **Category:** Health
 - **Mobile:** Can show you the location of nearby pharmacies and reminds you when to take your medications
-- **Story:** Make it easier for the user to keep track of their prescription information/reminders in one app
-- **Market:** People who want help managing their prescriptions and buying them. 
-- **Habit:** Depending on their health, heavy interaction will probably only happen monthly but if they decide to use the reminders, then they'll use the app daily just to remember to take their medication
+- **Story:** Makes it easier for the user to keep track of their prescription information/reminders in one app
+- **Market:** People who want help managing their prescriptions and buying them at Walgreens. 
+- **Habit:** Depending on their health, interaction will probably only happen monthly but if they decide to use the reminders, then they'll use the app daily just to remember to take their medication
 - **Scope:** 
-    * Getting the location of Pharmacies - one generic way could be utilizing a Map API like Google and just having the user insert their location than return nearby pharacies that way. 
+    * Getting the location of Pharmacies - Utilize the Walgreens Store Locator API
     * Reminders and Alarms will be setup on your phone 
     * Integrates the openFDA API and uses RxNorm API to get more detailed information on a drug
 
 ## Demos
-
--Left: Using dummy data for the prescriptions
-
--Right: Gathered a list of drugs from openFDA and shows the user's location and limited to five pharamacies
-
-![](https://i.imgur.com/KToNJLn.gif)
-![](https://i.imgur.com/KIlqZEs.gif)
-
+![](https://i.imgur.com/1hwEWbM.gif)
+![](https://i.imgur.com/Z9XJJfc.gif)
+![](https://i.imgur.com/N7I43VN.gif)
+![](https://i.imgur.com/IimKZbl.gif)
+![](https://i.imgur.com/Btu36Yy.gif)
 
 
 
@@ -119,7 +116,7 @@ Digital Wireframe: https://ninjamock.com/s/GST5TJx
 | dosage | Number | number containing the quantity of the prescription |
 | price | Number | price of the prescription 
 | ** active_ingredient| String | main ingredient in the drug
-| ** inactive_ingredients | Array of Strings? | stores the other inactive ingredients that make up the prescription (optional)|
+| ** inactive_ingredients | String | stores the other inactive ingredients that make up the prescription (optional)|
 
 ** Part of the optionals
 
@@ -146,4 +143,4 @@ List of network requests by screen
     * (Read/GET - openFDA) Collect data on drugs
 
 * Pharamcy Map Screen
-    * (Read/GET - Map SDK) Find location of pharamacy based on current location 
+    * (Read/GET - MapKit and Walgreen Store Locator API) Find location of pharamacy based on current location 
