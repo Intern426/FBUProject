@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@import CoreLocation;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary *fullfillment; // contains the details of the order (Pickup or Shipping?)
 
+@property (nonatomic, strong) NSDictionary *address; // contains the details of the order (Pickup or Shipping?)
+
+
+-(void) setupShipping;
 -(void) buyPrescriptions:(NSMutableArray*) prescriptions;
+-(void) setPostalAddress:(CNPostalAddress*) address;
+
 
 @end
 

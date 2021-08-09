@@ -8,6 +8,7 @@
 #import "Order.h"
 #import "Prescription.h"
 @import CoreLocation;
+@import Contacts;
 
 @implementation Order
 
@@ -23,6 +24,7 @@ NSString* const CURRENCY_KEY = @"currency";
 NSString* const RECIPIENT_KEY = @"recipient";
 
 NSString* const SHIPMENT_DETAILS_KEY= @"shipment_details";
+
 // shipments values
 NSString* const SHIPMENT_VALUE= @"SHIPMENT";
 NSString* const PICKUP_VALUE= @"PICKUP";
@@ -33,6 +35,12 @@ NSString* const BASE_PRICE_MONEY_KEY = @"base_price_money";
 NSString* const ITEM_TYPE_KEY = @"item_type";
 NSString* const DISPLAY_NAME_KEY = @"display_name";
 
+//Address Keys
+NSString* const ADDRESS_LINE_1_KEY = @"address_line_1";
+NSString* const COUNTRY_KEY = @"country";
+NSString* const POSTAL_KEY = @"postal_code";
+NSString* const LOCALITY_KEY = @"locality";
+NSString* const ADMINISTRATIVE_KEY = @"administrative_district_level_1";
 
 // F
 -(instancetype) init {
@@ -45,7 +53,6 @@ NSString* const DISPLAY_NAME_KEY = @"display_name";
     self.line_items = [[NSMutableDictionary alloc] init];
     self.fullfillment = [[NSMutableDictionary alloc] init];
     
-    [self setupShipping];
     return self;
 }
 
@@ -86,6 +93,10 @@ NSString* const DISPLAY_NAME_KEY = @"display_name";
     NSMutableDictionary *recipientDetails = [[NSMutableDictionary alloc] init];
     [recipientDetails addEntriesFromDictionary:@{DISPLAY_NAME_KEY: buyer[@"name"]}]; // Bare minimum - can add address tho
     
+    if (self.address)
+        [recipientDetails addEntriesFromDictionary:self.address];
+    
+    
     [shipmentDetails addEntriesFromDictionary:@{RECIPIENT_KEY: recipientDetails}];
     [dictionaryEntry addEntriesFromDictionary:@{SHIPMENT_DETAILS_KEY:shipmentDetails}];
     [arrayForShipping addObject:dictionaryEntry];
@@ -93,4 +104,15 @@ NSString* const DISPLAY_NAME_KEY = @"display_name";
     [self.fullfillment addEntriesFromDictionary:@{FULFILLMENT_KEY: arrayForShipping}];
 }
 
+- (void) setPostalAddress:(CNPostalAddress*) postalAddress{
+    NSMutableDictionary* addressDict = [[NSMutableDictionary alloc] init];
+    [addressDict addEntriesFromDictionary:@{ADDRESS_LINE_1_KEY:postalAddress.street}];
+    [addressDict addEntriesFromDictionary:@{COUNTRY_KEY:@"US"}];
+    [addressDict addEntriesFromDictionary:@{POSTAL_KEY:postalAddress.postalCode}];
+    [addressDict addEntriesFromDictionary:@{LOCALITY_KEY:postalAddress.city}];
+    [addressDict addEntriesFromDictionary:@{ADMINISTRATIVE_KEY:postalAddress.state}];
+    self.address = @{@"address": addressDict};
+}
+
 @end
+

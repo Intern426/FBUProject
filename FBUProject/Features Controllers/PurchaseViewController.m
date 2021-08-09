@@ -19,6 +19,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *costLabel;
 @property (strong, nonatomic) NSMutableDictionary *purchaseDetails;
 @property (strong, nonatomic) NSMutableDictionary *paymentDetails;
+@property (strong, nonatomic) CNPostalAddress *buyerAddress;
+@property (weak, nonatomic) IBOutlet UIButton *payButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+
 
 @end
 
@@ -28,14 +32,21 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    [self.loadingIndicator startAnimating];
+    self.payButton.alpha = 0.5;
+    self.payButton.enabled = FALSE;
     [self setupTransaction];
     self.purchaseDetails = [[NSMutableDictionary alloc] init];
     self.paymentDetails = [[NSMutableDictionary alloc] init];
-    [self proccessOrders];
 }
 
 - (void) proccessOrders{
     Order *newOrder = [[Order alloc] init];
+    if (self.buyerAddress) {
+        [newOrder setPostalAddress:self.buyerAddress];
+    }
+    
+    [newOrder setupShipping];
     [newOrder buyPrescriptions:self.prescriptions];
     
     [self.purchaseDetails addEntriesFromDictionary:@{@"idempotency_key": newOrder.object_id}];
@@ -50,8 +61,9 @@
 
 
 - (void) setupTransaction{
+    self.costLabel.text = [NSString stringWithFormat:@"$%.2f", self.cost];
+
     PFUser *buyer = [PFUser currentUser];
-    
     // Convert geocode back to user-friendly address
     if (buyer[@"address"]) {
         PFGeoPoint *address = buyer[@"address"];
@@ -67,11 +79,22 @@
                 CNPostalAddressFormatter *formatter = [[CNPostalAddressFormatter alloc] init];
                 NSString *sample = [formatter stringFromPostalAddress:addressConverter];
                 self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@\n%@", buyer[@"name"], sample];
+                self.buyerAddress = addressConverter;
+                self.payButton.alpha = 1;
+                self.payButton.enabled = TRUE;
+                [self.loadingIndicator stopAnimating];
+                self.buyerInfoLabel.hidden = NO;
+                [self proccessOrders];
             }
         }];
-    } else
+    } else {
         self.buyerInfoLabel.text = [NSString stringWithFormat:@"%@", buyer[@"name"]];
-    self.costLabel.text = [NSString stringWithFormat:@"$%.2f", self.cost];
+        self.payButton.alpha = 1;
+        self.payButton.enabled = TRUE;
+        self.buyerInfoLabel.hidden = NO;
+        [self.loadingIndicator stopAnimating];
+        [self proccessOrders];
+    }
     
 }
 
