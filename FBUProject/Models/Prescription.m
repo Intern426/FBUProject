@@ -35,6 +35,7 @@
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *result = [formatter numberFromString:[self.price30 substringWithRange:NSMakeRange(1, self.price30.length - 1)]];
+    NSLog(@"%f", result.doubleValue);
     return result;
 }
 
