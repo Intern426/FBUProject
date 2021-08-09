@@ -19,6 +19,8 @@
 @property (strong, nonatomic) NSMutableArray *prescriptions;
 @property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) NSLock *arrayLock;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -32,6 +34,11 @@
     self.currentUser = [PFUser currentUser];
     self.prescriptions = [[NSMutableArray alloc] init];
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // Make sure no lines show up
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(loadBoughtPrescriptions) forControlEvents:UIControlEventValueChanged]; //Deprecated and only used for older objects
+    [self.tableView insertSubview:self.refreshControl atIndex:0]; // controls where you put it in the view hierarchy
+    [self.loadingIndicator startAnimating];
+    
 }
 
 // In-App Payment only supports portrait orientation on landscape so we'll limit this view controller to portrait mode
@@ -55,6 +62,8 @@
     } else {
         self.emptyLabel.hidden = NO;
     }
+    [self.refreshControl endRefreshing];
+    [self.loadingIndicator stopAnimating];
     [self.tableView reloadData];
 }
 

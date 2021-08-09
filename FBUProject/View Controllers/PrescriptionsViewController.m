@@ -26,8 +26,6 @@
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property (assign, nonatomic) BOOL isMoreDataLoading;
-@property (strong, nonatomic) InfiniteScrollActivityView* loadingMoreView;
 @property (strong, nonatomic) Prescription* collapsePrescription;
 
 @property (strong, nonatomic) NSLock * arrayLock;
@@ -37,6 +35,8 @@
 
 @implementation PrescriptionsViewController
 
+BOOL isMoreDataLoading = false;
+InfiniteScrollActivityView* loadingMoreView;
 const int TOTAL_PRESCRIPTION_IN_THOUSANDS = 2; // About 2 thousand prescriptions and you can only get max 1000 at a time...
 const int COLLAPSE = 1;
 const int EXPAND = 2;
@@ -46,29 +46,31 @@ const int EXPAND = 2;
     self.arrayLock = [[NSLock alloc] init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero]; // While the table view is empty (i.e. fetching tweets),
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     self.searchBar.delegate = self;
     self.toggleStack = 0;
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(loadPrescriptions) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0]; // controls where you put it in the view hierarchy
+    [self.loadingIndicatorView startAnimating];
+    
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-    self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
-    self.loadingMoreView.hidden = true;
-    [self.tableView addSubview:self.loadingMoreView];
+    loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    loadingMoreView.hidden = true;
+    [self.tableView addSubview:loadingMoreView];
+    
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
-  //    [self retrieveAllPrescriptions];
+    
+  //[self retrieveAllPrescriptions];
 }
 
 -(void) checkInternetConnection {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(loadPrescriptions) forControlEvents:UIControlEventValueChanged]; //Deprecated and only used for older objects
-    [self.tableView insertSubview:self.refreshControl atIndex:0]; // controls where you put it in the view hierarchy
-    [self.loadingIndicatorView startAnimating];
-    
     if (networkStatus == NotReachable) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot get prescriptions"
                                                                        message:@"There seems to be no internet connection"
@@ -206,25 +208,29 @@ const int EXPAND = 2;
         cell = modifiedCell;
     }
     if (indexPath.row + 1 == [self.prescriptions count]){
+        // Update position of loadingMoreView, and start loading indicator
+        CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+        loadingMoreView.frame = frame;
+        [loadingMoreView startAnimating];
         [self loadMoreData:[self.prescriptions count] + 20];
     }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if(!self.isMoreDataLoading){
-        self.isMoreDataLoading = true;
+    if(!isMoreDataLoading){
+        isMoreDataLoading = true;
         // Calculate the position of one screen length before the bottom of the results
         int scrollViewContentHeight = self.tableView.contentSize.height;
         int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
         
         // When the user has scrolled past the threshold, start requesting
         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
-            self.isMoreDataLoading = true;
+            isMoreDataLoading = true;
             
             // Update position of loadingMoreView, and start loading indicator
             CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-            self.loadingMoreView.frame = frame;
-            [self.loadingMoreView startAnimating];
+            loadingMoreView.frame = frame;
+            [loadingMoreView startAnimating];
             [self loadMoreData:[self.prescriptions count] + 20];
         }
     }
@@ -238,15 +244,14 @@ const int EXPAND = 2;
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *prescriptions, NSError *error) {
         if (prescriptions != nil) {
-            self.isMoreDataLoading = false;
-            // do something with the array of object returned by the call
+            isMoreDataLoading = false;
             [self.prescriptions addObjectsFromArray:[Prescription prescriptionsDataInArray:prescriptions]];
             self.searchedPrescriptions = [NSMutableArray arrayWithArray:self.prescriptions];
+            [loadingMoreView stopAnimating];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
-        [self.loadingMoreView stopAnimating];
     }];
 }
 
