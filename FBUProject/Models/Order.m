@@ -68,7 +68,6 @@ NSString* const ADMINISTRATIVE_KEY = @"administrative_district_level_1";
             [amount addEntriesFromDictionary:@{AMOUNT_KEY:[NSNumber numberWithInt:[prescription.retrievePrice30 floatValue] * 100]}];
         else
             [amount addEntriesFromDictionary:@{AMOUNT_KEY:[NSNumber numberWithInt:[prescription.retrievePrice90 floatValue] * 100]}];
-        NSLog(@"%d", [amount[@"amount"] intValue]);
         
         [amount addEntriesFromDictionary:@{CURRENCY_KEY: @"USD"}];
         [dictionaryEntry addEntriesFromDictionary:@{BASE_PRICE_MONEY_KEY: amount}];

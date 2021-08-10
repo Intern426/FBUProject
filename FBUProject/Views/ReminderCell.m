@@ -22,7 +22,6 @@
 
 -(void)setReminder:(Reminder *)reminder{
     _reminder = reminder;
-    [self checkAllNotifications];
     NSDate *time = self.reminder[@"alarm"];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateStyle = NSDateFormatterNoStyle;

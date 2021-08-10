@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<ReminderCellDelegate> delegate;
 
+- (void) checkAllNotifications;
+
 @end
 
 NS_ASSUME_NONNULL_END

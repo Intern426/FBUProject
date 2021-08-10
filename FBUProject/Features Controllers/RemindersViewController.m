@@ -30,7 +30,6 @@
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
-    
     self.center = [UNUserNotificationCenter currentNotificationCenter];
     self.center.delegate = self;
     
@@ -78,7 +77,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ReminderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReminderCell"];
-    
     cell.reminder = self.reminders[indexPath.row];
     cell.delegate = self;
     return cell;
@@ -99,7 +97,7 @@
  */
 
 
-- (void)updateReminder {
+- (void)updateReminders {
     [self fetchReminders];
 }
 
@@ -117,3 +115,5 @@
 }
 
 @end
+
+

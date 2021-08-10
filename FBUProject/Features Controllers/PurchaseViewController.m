@@ -123,6 +123,7 @@
             }
         }];
     } else {
+        [self displayError:@"Cannot process payment. Please try again."];
         NSLog(@"Something went wrong..."); // Should check SQIPCardEntryCompletionStatus
     }
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -148,8 +149,9 @@
     [self showCardEntryForm];
     [[APIManager shared] uploadOrderWithCompletion:self.purchaseDetails completion:^(NSDictionary * order, NSError * error) {
         if (error != nil) {
-            NSLog(@"%@", error.localizedDescription); //TODO: Pop up - UIAlertControl that shows error!
+            NSLog(@"%@", error.localizedDescription);
         } else {
+            if (order[@"order"]) {
             NSDictionary *completedOrder = order[@"order"];
             NSDictionary *totalMoney = completedOrder[@"total_money"];
             
@@ -158,9 +160,25 @@
             [amount addEntriesFromDictionary:@{@"amount": totalMoney[@"amount"]}];
             [amount addEntriesFromDictionary:@{@"currency": totalMoney[@"currency"]}];
             [self.paymentDetails addEntriesFromDictionary:@{@"amount_money":amount}];
-            
+            } else {
+                [self displayError:@"Cannot process order. Please try again."];
+            }
         }
     }];
 }
+
+-(void) displayError:(NSString*) message{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+        [self.navigationController popViewControllerAnimated:true];
+    }];
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 @end

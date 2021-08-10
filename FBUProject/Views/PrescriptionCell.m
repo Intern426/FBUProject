@@ -21,6 +21,11 @@
     [self.expandedButton setImage:[UIImage systemImageNamed:@"minus.circle"] forState:UIControlStateSelected];
     self.expandedButton.tintColor = [UIColor whiteColor];
     self.stackView.arrangedSubviews.lastObject.hidden = YES;
+    
+    self.nameLabel.isAccessibilityElement = true;
+    self.quantityControl.isAccessibilityElement = true;
+    self.priceLabel.isAccessibilityElement = true;
+    self.amountLabel.isAccessibilityElement = true;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -36,6 +41,7 @@
     } else {
         self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", self.prescription.displayName, self.prescription.dosageAmount];
     }
+    
     if (self.quantityControl.selectedSegmentIndex == 0) {
         self.amountLabel.text = [NSString stringWithFormat:@"X %@", self.prescription.amount30];
         self.priceLabel.text = self.prescription.price30;
